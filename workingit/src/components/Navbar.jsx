@@ -4,6 +4,7 @@ import React, {useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import styled from 'styled-components'
 import BurgerButton from './BurgerButton'
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 function Navbar() {
@@ -18,12 +19,18 @@ function Navbar() {
         <NavContainer>
             <h2>NavBar <span>Working It</span></h2>
             <div className={`links ${clicked ? 'active': ''}`}>
-                <a className="nav-link dropdown-toggle" href="#" id='navbarDropdown' role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Categorias
-                <div className='dropdown-menu' href='#'>
-                    <a className='dropdown-item' href='#'>HOLA</a>
-                </div>
-                </a>
+                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.2">
+                        Another action
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.4">
+                        Separated link
+                    </NavDropdown.Item>
+                </NavDropdown>
+                <a onClick={handleClick} href="#h">Categorias</a>
                 <a onClick={handleClick} href="#h">Solicita una asesoria</a>
                 <a onClick={handleClick} href="#h">Eres un especialista?</a>
                 <a onClick={handleClick} href="#h">Crea tu cuenta</a>
