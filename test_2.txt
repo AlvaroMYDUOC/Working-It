@@ -1,5 +1,0 @@
-Escriba un OK al lado de su nombre.
-
-1| Manuel   :OK1
-2| Walter   :OK1
-3| Alvaro   :OK1
