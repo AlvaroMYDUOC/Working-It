@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import Offcanvas from 'react-bootstrap/Offcanvas'
+import axios from 'axios';
+
 
 function Navbar2() {
+  const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  axios.get('http://149.50.130.111:8000/specialties/')
+    .then((response) => {
+      setCategories(response.data.results);
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error('Error al obtener las categorías:', error);
+    });
+}, []);
+
   return (
     <>
       {['lg'].map((expand) => (
@@ -34,18 +49,17 @@ function Navbar2() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
+                {/* Esta sección es el dropdown que traerá las categorías de los profesionistas */}
                 <NavDropdown
-                    title="Categorías"
-                    id={`offcanvasNavbarDropdown-expand-${expand}`}>
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
+                  title="Categorías"
+                  id={`offcanvasNavbarDropdown-expand-${expand}`}
+                >
+                  {categories.map((category) => (
+                    <NavDropdown.Item key={category.id} href={`#${category.id}`}>
+                      {category.name}
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  ))}
+                </NavDropdown>
                   <Nav.Link href="#action1">Solicita una asesoría</Nav.Link>
                   <Nav.Link href="#action1">¿Eres un especialista?</Nav.Link>
                   <Nav.Link href="#action2">Crea tu cuenta</Nav.Link>
