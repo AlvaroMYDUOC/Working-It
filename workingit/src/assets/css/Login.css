@@ -1,0 +1,10 @@
+.custom-input input {
+    /* Ajusta el ancho del campo de entrada */
+    width: 80%; /* Puedes ajustar el valor según tus necesidades */
+    
+    /* Ajusta el tamaño de fuente del texto en el campo de entrada */
+    font-size: 14px; /* Puedes ajustar el valor según tus necesidades */
+    
+    /* Añade más estilos de acuerdo a tus preferencias */
+  }
+  

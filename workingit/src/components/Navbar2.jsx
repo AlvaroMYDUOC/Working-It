@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import axios from 'axios';
+import logo from '../assets/img/icon.png'
 
 
 function Navbar2() {
@@ -29,7 +30,7 @@ useEffect(() => {
             <Navbar.Brand href="#home">
                 <img
                 alt=""
-                src="./assets/img/icon.png"
+                src={logo}
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
