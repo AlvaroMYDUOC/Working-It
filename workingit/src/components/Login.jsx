@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   MDBContainer,
+  MDBRow,
   MDBTabsContent,
   MDBTabsPane,
   MDBBtn,
@@ -63,18 +64,19 @@ function Login() {
   return (
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 
-      
-      <MDBTabsContent>
+      <MDBRow className='col-sm-12 col-md-8 col-lg8'>
 
-        <MDBTabsPane show={justifyActive === 'tab1'}>
+        <MDBTabsContent>
 
-          <div className="text-center mb-3">
-            <h1>Iniciar Sesión</h1>
+          <MDBTabsPane show={justifyActive === 'tab1'}>
 
-            <div className='d-flex justify-content-between mx-auto' style={{width: '20%'}}>
-              <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-                <h3><BsFacebook /></h3>
-              </MDBBtn>
+            <div className="text-center mb-3">
+              <h1>Iniciar Sesión</h1>
+
+              <div className='d-flex justify-content-between mx-auto' style={{width: '20%'}}>
+                <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+                  <h3><BsFacebook /></h3>
+                </MDBBtn>
 
               <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
                 <MDBIcon  size="sm"/>
@@ -86,7 +88,7 @@ function Login() {
                 <h3><FaXTwitter /></h3>
               </MDBBtn>
 
-            </div>
+              </div>
 
             <p className="text-center mt-3">o</p>
           </div>
@@ -95,20 +97,20 @@ function Login() {
           <label >Contraseña</label>
           <MDBInput wrapperClass='mb-4' label='' id='form2' name="password" type='password' onChange={manejadorChange}/>
 
-          <div className="d-flex justify-content-between mx-4 mb-4">
-            <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Recordarme' />
-            <a href="!#">He olvidado mi contraseña</a>
-          </div>
+            <div className="d-flex justify-content-between mx-4 mb-4">
+              <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Recordarme' />
+              <a href="!#">He olvidado mi contraseña</a>
+            </div>
 
           <MDBBtn className="mb-4 w-100" onClick={manejadorBoton}>Ingresar</MDBBtn>
           <p className="text-center">¿Aún no tienes cuenta? </p>
           <p className='text-center'><a href="">Registrate</a></p>
 
-        </MDBTabsPane>
+          </MDBTabsPane>
 
 
-      </MDBTabsContent>
-
+        </MDBTabsContent>
+      </MDBRow>
     </MDBContainer>
   );
 }
