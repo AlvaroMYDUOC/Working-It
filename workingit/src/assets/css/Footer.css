@@ -1,0 +1,62 @@
+.padding-seccion{
+    padding: 20px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+}
+
+.logo img{
+    width: 230px;
+    flex-direction: row;
+}
+
+.links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+
+
+a{
+    color: brown;
+}
+
+.redsocial{
+    display: flex;
+    flex-direction:column ;
+    text-align: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin: 5px;
+
+}
+.redsocial p{
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.redsocial img{
+    width: 40px;
+    flex-direction: column;
+}
+
+.div-links p{
+    font-size: 16px;
+    line-height: 15px;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+h4{
+    color: black;
+    font-size: 18px;
+    align-items: flex-start;
+}
+
