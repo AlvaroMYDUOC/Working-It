@@ -1,5 +1,4 @@
 //Importe de librerias
-import logo from './logo.svg';
 import './assets/css/App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
@@ -9,14 +8,14 @@ import Navbar2 from './components/Navbar2';
 import Login from './components/Login';
 import Registro from './components/Registro';
 import SpecialistProfile from './components/SpecialistProfile';
-import MiIndex from './Pages/MiIndex.jsx';
+import Home from './Pages/Home.jsx';
 
 
 function App() {
   return (
     <Router>
           <Routes>
-              <Route  path="" element={<MiIndex />}/>
+              <Route  path="/" element={<Home />}/>
               <Route  path="/Navbar" element={<Navbar/>} />
               <Route  path="/Navbar2" element={<Navbar2/>} />
               <Route  path="/Login" element={<Login/>} />

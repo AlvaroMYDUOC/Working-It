@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar2 from "../components/Navbar2"
 
 
-const MiIndex = () => {
+const Home = () => {
   return (
     <>
       <Navbar2 />
@@ -10,4 +10,4 @@ const MiIndex = () => {
   )
 }
 
-export default MiIndex
+export default Home
