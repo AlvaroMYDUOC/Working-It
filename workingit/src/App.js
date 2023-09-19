@@ -9,13 +9,14 @@ import Navbar2 from './components/Navbar2';
 import Login from './components/Login';
 import Registro from './components/Registro';
 import SpecialistProfile from './components/SpecialistProfile';
-
+import MiIndex from './Pages/MiIndex.jsx';
 
 
 function App() {
   return (
     <Router>
           <Routes>
+              <Route  path="" element={<MiIndex />}/>
               <Route  path="/Navbar" element={<Navbar/>} />
               <Route  path="/Navbar2" element={<Navbar2/>} />
               <Route  path="/Login" element={<Login/>} />

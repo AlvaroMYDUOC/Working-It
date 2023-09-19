@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar2 from "../components/Navbar2"
 
 
-const Index = () => {
+const MiIndex = () => {
   return (
     <>
       <Navbar2 />
@@ -10,4 +10,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default MiIndex
