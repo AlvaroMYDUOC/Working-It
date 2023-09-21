@@ -5,6 +5,8 @@
 .footer{
     display: flex;
     flex-direction: column;
+    background-color: #FF9800;
+    
 }
 
 .logo img{

@@ -1,0 +1,52 @@
+/* Estilos para la tarjeta */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    background-color: aqua;
+  }
+  
+  /* Estilos para la imagen */
+  .card img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el título */
+  .card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para la descripción */
+  .card p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el enlace */
+  .card a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el contenedor del carrusel */
+  .cont-slider {
+    width: 100%;
+    margin: auto;
+    background-color: #FFC107;
+  }
+  

@@ -1,0 +1,87 @@
+/* Chatbot container */
+.chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+  }
+  
+  /* Chat circle */
+  .circle {
+    width: 50px;
+    height: 50px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+  }
+  
+  /* Popup container */
+  .popup {
+    display: none;
+    position: absolute;
+    bottom: 100px; /* Ajusta según sea necesario */
+    right: 20px;
+    width: 400px; /* Ajusta el ancho según tus necesidades */
+    height: 500px; /* Ajusta la altura según tus necesidades */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chatbot.open .popup {
+    display: block;
+  }
+  
+  /* Chat messages */
+  .chat-container {
+    padding: 10px;
+    height: 80%; /* Ajusta la altura según tus necesidades */
+    overflow-y: auto;
+  }
+  
+  .message {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .user {
+    background-color: #FF5722;
+    color: white;
+    align-self: flex-end;
+  }
+  
+  .bot {
+    background-color: #eee;
+    color: #333;
+    align-self: flex-start;
+  }
+  
+  /* Message input */
+  .message-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .message-input input {
+    flex: 1;
+    padding: 10px; /* Aumenta el padding para hacerlo más grande */
+    font-size: 16px; /* Aumenta el tamaño de fuente si es necesario */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+  }
+  
+  .message-input button {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
