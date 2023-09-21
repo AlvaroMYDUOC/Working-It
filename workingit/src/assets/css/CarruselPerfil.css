@@ -1,0 +1,31 @@
+/* Estilo para el carrusel */
+.carousel {
+  background-color: #f0f0f0; /* Color de fondo del carrusel */
+  border-radius: 10px; /* Borde redondeado */
+}
+
+/* Estilo para las diapositivas */
+.carousel-item {
+  width: 100%; /* Ancho de la diapositiva */
+  height: 100%; /* Alto de la diapositiva */
+  text-align: center; /* Centrar el contenido de las diapositivas */
+}
+
+/* Estilo para la imagen dentro de la diapositiva */
+.carousel-item img {
+  width: 100%; /* Asegura que la imagen llene todo el espacio de la diapositiva */
+  height: 100%; /* Asegura que la imagen llene todo el espacio de la diapositiva */
+  object-fit: contain; /* Escalar la imagen para llenar la diapositiva sin distorsión */
+}
+
+/* Estilo para el título */
+.carousel-caption h3 {
+  color: #f3efef; /* Color del título */
+  font-size: 24px; /* Tamaño del título */
+}
+
+/* Estilo para el párrafo */
+.carousel-caption p {
+  color: #fafafa; /* Color del párrafo */
+  font-size: 16px; /* Tamaño del párrafo */
+}
