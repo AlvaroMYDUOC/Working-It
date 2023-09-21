@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import '../assets/css/Registro.css';
-import clientImage from '../assets/img/cliente.jpg';
 import clientImage2 from '../assets/img/cliente2.jpg';
-import specImage from '../assets/img/worker.jpg';
 import specImage2 from '../assets/img/workers.jpg';
 import axios from 'axios';
 import { ApiRegistro } from '../services/apirest';
@@ -54,7 +52,7 @@ function Formulario1() {
     const [errorMsg, setErrorMsg] = useState("");
 
     const [form, setForm] = useState({
-        "email":"",
+            "email":"",
             "username":"",
 
             "country":"Chile",
