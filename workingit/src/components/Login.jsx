@@ -21,8 +21,13 @@ import '../assets/css/Login.css';
 import axios from 'axios';
 //Importe de servicios
 import { ApiLogin } from '../services/apirest';
+import { useNavigate } from 'react-router-dom'
+
+const homePageURL = "/"; //Variable que guarda la pagina de login para la funcion que sigue
 
 function Login() {
+    const navigate = useNavigate();
+
     const [form, setForm] = useState({
         email: "",
         password: ""
@@ -43,6 +48,21 @@ function Login() {
         axios.post(url, form)
         .then(response =>{
             console.log(response);
+            if(response.data.user && response.data.access_token){
+              const accessToken = response.data.access_token;
+              // Aqui se almacena el access token traido de la response
+              localStorage.setItem('token', accessToken)
+
+              //Configurar axios para incluir el token en las cabeceras de la solicitud
+              axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+              //Redirigimos al usuario a la pagina de inicio
+              navigate(homePageURL);
+              console.log("Redireccion exitosa")
+            } else {
+              //Entregar el inicio de sesion fallido
+              console.log("Inicio de sesion fallido")
+              console.log("Redireccion no completada")
+            }
         })
         .catch((error) =>{
             setError(true)

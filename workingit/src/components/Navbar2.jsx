@@ -11,9 +11,11 @@ import logo from '../assets/img/icon.png'
 
 function Navbar2() {
   const [categories, setCategories] = useState([]);
+  //Seteamos en un inicio que el accessToken no existe
+  const [accessTokenExists, setAccessTokenExists] = useState(false);
 
 useEffect(() => {
-  axios.get('http://149.50.130.111:8000/specialties/')
+  axios.get('http://149.50.130.111:8000/especialistas/')
     .then((response) => {
       setCategories(response.data.results);
       console.log(response);
@@ -21,6 +23,14 @@ useEffect(() => {
     .catch((error) => {
       console.error('Error al obtener las categorías:', error);
     });
+    //Aqui hacemos que accessToken tome lo que esta en el localStorage
+    const accessToken = localStorage.getItem('token');
+    //Ahora condicionamos, de que si hay algo, cambiamos el valor de setAccessTokenExists a true
+    if (accessToken) {
+      setAccessTokenExists(true);
+    }
+    //Aqui haremos que se verifique el valor del token para activar o desactivar botones
+
 }, []);
 
   return (
@@ -51,21 +61,33 @@ useEffect(() => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                {/* Esta sección es el dropdown que traerá las categorías de los profesionistas */}
                 <NavDropdown
                   title="Categorías"
-                  id={`offcanvasNavbarDropdown-expand-${expand}`}
-                >
+                  id={`offcanvasNavbarDropdown-expand-${expand}`}> 
+
                   {categories.map((category) => (
                     <NavDropdown.Item key={category.id} href={`#${category.id}`}>
                       {category.name}
                     </NavDropdown.Item>
                   ))}
                 </NavDropdown>
+                {/* En esta parte condicionamos a que si el token tiene valor true, mostramos crear proyecto y si no, se muestra el resto del navbar*/}
+                {accessTokenExists ? (
+                <>  
+                  <Nav.Link href="#">Solicitar una asesoria</Nav.Link>            
+                  <Nav.Link href="#">Mis Proyectos</Nav.Link>
+                  <Nav.Link href="#">Mensajes</Nav.Link>
+                  <Nav.Link href="#">Mi Perfil</Nav.Link>       
+                </>         
+                ) : (         
+                  <>
+                  {/*Esto se muestra si es que el token no esta activo*/}
                   <Nav.Link href="#action1">Solicita una asesoría</Nav.Link>
                   <Nav.Link href="#action1">¿Eres un especialista?</Nav.Link>
                   <Nav.Link href="#action2">Crea tu cuenta</Nav.Link>
-                  <Nav.Link href="#action2">Ingresar</Nav.Link>
+                  <Nav.Link href="/Login">Ingresar</Nav.Link>
+                  </>
+                )}
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
