@@ -1,0 +1,70 @@
+/* Estilo para el contenedor principal */
+.container {
+    margin-top: 20px;
+  }
+  
+  /* Estilo para el título */
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el botón "Nuevo Proyecto" */
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  /* Estilo para el enlace "Inicio" */
+  a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 10px;
+  }
+  
+  /* Estilo para la tabla */
+  .table {
+    width: 100%;
+  }
+  
+  /* Estilo para la fila activa de la tabla */
+  .table .active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Estilo para la paginación */
+  .pagination {
+    margin-top: 20px;
+  }
+  
+  .pagination .page-item .page-link {
+    color: #007bff;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+  }
+  
+  .pagination .page-item.disabled .page-link {
+    pointer-events: none;
+  }
+  
+  .pagination .page-item:first-child .page-link,
+  .pagination .page-item:last-child .page-link {
+    border-radius: 0;
+  }
+  
+  .pagination .page-link:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    color: #fff;
+  }
+  

@@ -5,12 +5,7 @@
 .footer{
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-    background-color: #FF9800;
-    
-=======
     background-color: white;
->>>>>>> de0cc58ae127b1a9d39aae251ae49c85b6439b82
 }
 
 .logo img{

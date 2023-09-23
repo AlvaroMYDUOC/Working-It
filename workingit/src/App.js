@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Navbar2 from './components/Navbar2';
 import Login from './components/Login';
 import Registro from './components/Registro';
+import Proyectos from './components/Proyectos';
 import SpecialistProfile from './components/SpecialistProfile';
 import Home from './Pages/Home.jsx';
 
@@ -18,9 +19,11 @@ function App() {
               <Route  path="/" element={<Home />}/>
               <Route  path="/Navbar" element={<Navbar/>} />
               <Route  path="/Navbar2" element={<Navbar2/>} />
+              <Route  path="/Proyectos" element={<Proyectos/>} />
               <Route  path="/Login" element={<Login/>} />
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
+              
 
 
 
