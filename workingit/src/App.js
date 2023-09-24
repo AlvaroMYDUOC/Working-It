@@ -10,6 +10,13 @@ import Registro from './components/Registro';
 import Proyectos from './components/Proyectos';
 import SpecialistProfile from './components/SpecialistProfile';
 import Home from './Pages/Home.jsx';
+import DataTable from './components/DataTable.jsx';
+
+import LoginC from './components/LoginC.jsx';
+import RegistroI from './components/RegistroI.jsx';
+import RegistroC from './components/RegistroC.jsx';
+import RegistroP from './components/RegistroP.jsx';
+import FooterD from './components/FooterD.jsx';
 
 
 function App() {
@@ -23,8 +30,16 @@ function App() {
               <Route  path="/Login" element={<Login/>} />
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
-              
+              <Route  path="/DataTable" element={<DataTable/>} />
 
+              <Route  path="/LoginC" element={<LoginC/>} />
+              <Route  path="/RegistroI" element={<RegistroI/>} />
+              <Route  path="/RegistroC" element={<RegistroC/>} />
+              <Route  path="/RegistroP" element={<RegistroP/>} />
+              <Route  path="/FooterD" element={<FooterD/>} />
+              
+              
+              
 
 
           </Routes>
