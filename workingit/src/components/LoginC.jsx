@@ -4,7 +4,7 @@ import cliente2 from '../assets/img/cliente2.jpg';
 import '../assets/css/Login.css';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const LoginC = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -66,4 +66,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginC;

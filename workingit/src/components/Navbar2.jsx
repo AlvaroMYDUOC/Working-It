@@ -7,6 +7,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import axios from 'axios';
 import logo from '../assets/img/icon.png'
+import { Link } from 'react-router-dom';
+
 
 
 function Navbar2() {
@@ -84,7 +86,7 @@ useEffect(() => {
                   {/*Esto se muestra si es que el token no esta activo*/}
                   <Nav.Link href="#action1">Solicita una asesoría</Nav.Link>
                   <Nav.Link href="#action1">¿Eres un especialista?</Nav.Link>
-                  <Nav.Link href="#action2">Crea tu cuenta</Nav.Link>
+                  <Nav.Link href="/RegistroI">Crea tu cuenta</Nav.Link>
                   <Nav.Link href="/Login">Ingresar</Nav.Link>
                   </>
                 )}

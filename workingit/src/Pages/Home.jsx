@@ -11,7 +11,8 @@ const Home = () => {
     <>
       <Navbar2 />
       <ChatBot />
-      <DataTable />
+      <Buscador />
+      <Carrusel />
       <Footer />
     </>
   )
