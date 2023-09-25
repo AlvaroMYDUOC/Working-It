@@ -7,8 +7,6 @@ import { ApiLogin } from '../services/apirest';
 
 const homePageURL = "/";
 
-const homePageURL = "/";
-
 const Login = () => {
   
   const navigate = useNavigate();
