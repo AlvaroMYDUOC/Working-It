@@ -1,0 +1,39 @@
+.registro-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .registro-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .cliente-card {
+    background-color: #f0f0f0;
+  }
+  
+  .profesionista-card {
+    background-color: #e0e0e0;
+  }
+  
+  .registro-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .registro-card h2 {
+    margin-top: 10px;
+    
+    
+  }
+  
+  .tr{
+    text-align: center;
+
+  }
+
+.usertype {
+    text-decoration: none;
+}
