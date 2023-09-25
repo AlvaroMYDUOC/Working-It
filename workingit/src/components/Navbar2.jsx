@@ -10,6 +10,24 @@ import logo from '../assets/img/icon.png'
 
 
 function Navbar2() {
+  //Ahora vamos a conseguir el is_professional del localStorage
+  const usuarioJSON = localStorage.getItem('usuario'); //Almacenamos en una constante local el item almacenado en el localStorage
+  const usuario = usuarioJSON ? JSON.parse(usuarioJSON): null; // Convertimos el valor de JSON a un objeto de JavaScript
+
+  //Revisaremos por consola si is_professional es true o false
+  if(usuario == null){
+    console.log('No hay usuario conectado')
+  } else{
+    console.log('is_professional: ', usuario.is_professional);
+  }
+
+  //Funcion para el logout
+  function handleLogout(){
+    localStorage.removeItem('token') // Eliminamos el token del local storage para que el Navbar deje de entender que hay un usuario ingreado
+    localStorage.removeItem('usuario') // Al Cerrar sesion eliminamos los datos del usuario
+    window.location.href = '/' //Redireccion a la carpeta raiz para poder reiniciar el Navbar
+  }
+  
   const [categories, setCategories] = useState([]);
   //Seteamos en un inicio que el accessToken no existe
   const [accessTokenExists, setAccessTokenExists] = useState(false);
@@ -29,7 +47,6 @@ useEffect(() => {
     if (accessToken) {
       setAccessTokenExists(true);
     }
-    //Aqui haremos que se verifique el valor del token para activar o desactivar botones
 
 }, []);
 
@@ -73,19 +90,35 @@ useEffect(() => {
                 </NavDropdown>
                 {/* En esta parte condicionamos a que si el token tiene valor true, mostramos crear proyecto y si no, se muestra el resto del navbar*/}
                 {accessTokenExists ? (
-                <>  
-                  <Nav.Link href="#">Solicitar una asesoria</Nav.Link>            
-                  <Nav.Link href="#">Mis Proyectos</Nav.Link>
-                  <Nav.Link href="#">Mensajes</Nav.Link>
-                  <Nav.Link href="#">Mi Perfil</Nav.Link>       
-                </>         
-                ) : (         
+                  //Menu si hay un token
+                  usuario.is_professional ? (
+                    //Menu si is_professional es true
+                  <>  
+                    <Nav.Link href="#">Asesorias asignadas</Nav.Link>            
+                    <Nav.Link href="#">Directorio de proyectos</Nav.Link>
+                    <Nav.Link href="#">Mensajes</Nav.Link>
+                    <Nav.Link href="#">Mi Perfil</Nav.Link>
+                    <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>              
+                  </>         
+                  ) : (
+                    //Menu si is_professional es false         
+                    <>
+                    {/*Esto se muestra si es que el token no esta activo*/}
+                    <Nav.Link href="#">Solicitar una asesoria</Nav.Link>            
+                    <Nav.Link href="/Proyectos">Mis Proyectos</Nav.Link>
+                    <Nav.Link href="#">Mensajes</Nav.Link>
+                    <Nav.Link href="#">Mi Perfil</Nav.Link>
+                    <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>
+                    </>
+                  )
+                ) : (
+                  //Menu si es que no hay usuario conectado
                   <>
                   {/*Esto se muestra si es que el token no esta activo*/}
                   <Nav.Link href="#action1">Solicita una asesoría</Nav.Link>
                   <Nav.Link href="#action1">¿Eres un especialista?</Nav.Link>
-                  <Nav.Link href="#action2">Crea tu cuenta</Nav.Link>
-                  <Nav.Link href="/Login">Ingresar</Nav.Link>
+                  <Nav.Link href="/RegistroI">Crea tu cuenta</Nav.Link>
+                  <Nav.Link href="/LoginC">Ingresar</Nav.Link>
                   </>
                 )}
                 </Nav>

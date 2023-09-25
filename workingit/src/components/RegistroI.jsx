@@ -10,7 +10,7 @@ const Registro = () => {
     <h3 className='tr'>¿Que te describe mejor?</h3>
       <div className="col-md-6">
         <div className="registro-card cliente-card">
-          <a className="usertype" href="/registro-cliente">
+          <a className="usertype" href="/RegistroC">
             <img src={cliente2} alt="Cliente" />
             <h2 className="usertype">Cliente</h2>
           </a>
@@ -18,7 +18,7 @@ const Registro = () => {
       </div>
       <div className="col-md-6">
         <div className="registro-card profesionista-card">
-          <a className="usertype" href="/registro-profesionista">
+          <a className="usertype" href="/RegistroP">
             <img src={workers} alt="Profesionista" />
             <h2 className="usertype">Profesionista</h2>
           </a>

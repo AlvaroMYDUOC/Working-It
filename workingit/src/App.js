@@ -3,7 +3,6 @@ import './assets/css/App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 //Importe de componentes
-import Navbar from './components/Navbar';
 import Navbar2 from './components/Navbar2';
 import Login from './components/Login';
 import Registro from './components/Registro';
@@ -24,7 +23,6 @@ function App() {
     <Router>
           <Routes>
               <Route  path="/" element={<Home />}/>
-              <Route  path="/Navbar" element={<Navbar/>} />
               <Route  path="/Navbar2" element={<Navbar2/>} />
               <Route  path="/Proyectos" element={<Proyectos/>} />
               <Route  path="/Login" element={<Login/>} />
