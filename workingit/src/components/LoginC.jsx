@@ -7,6 +7,8 @@ import { ApiLogin } from '../services/apirest';
 
 const homePageURL = "/";
 
+const homePageURL = "/";
+
 const Login = () => {
   
   const navigate = useNavigate();
@@ -52,6 +54,7 @@ const Login = () => {
         setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
       });
   };
+
 
   return (
     <div className="container">
