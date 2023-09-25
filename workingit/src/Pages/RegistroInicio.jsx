@@ -1,16 +1,17 @@
 import React from 'react'
 import Navbar2 from '../components/Navbar2'
+import RegistroI from '../components/RegistroI'
 import Footer from '../components/Footer'
-import DataTable from '../components/DataTable'
 
-const MisProyectos = () => {
+const RegistroInicio = () => {
   return (
+
     <>
       <Navbar2 />
-      <DataTable />
+      <RegistroI />
       <Footer />
     </>
   )
 }
 
-export default MisProyectos
+export default RegistroInicio
