@@ -12,11 +12,11 @@ import logo from '../assets/img/icon.png'
 function Navbar2() {
   //Ahora vamos a conseguir el is_professional del localStorage
   const usuarioJSON = localStorage.getItem('usuario'); //Almacenamos en una constante local el item almacenado en el localStorage
-  const usuario = usuarioJSON ? JSON.parse(usuarioJSON): null; // Convertimos el valor de JSON a un objeto de JavaScript
+  const usuario = usuarioJSON ? JSON.parse(usuarioJSON): null; // Convertimos el valor de JSON a un objeto de JavaScript y en caso de que no exista usuario se asigna el valor null
 
   //Revisaremos por consola si is_professional es true o false
   if(usuario == null){
-    console.log('No hay usuario conectado')
+    console.log('No hay usuario conectado') //Si el usuario queda como null entrega este mensaje en la consola.
   } else{
     console.log('is_professional: ', usuario.is_professional);
   }
