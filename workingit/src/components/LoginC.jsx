@@ -7,8 +7,6 @@ import { ApiLogin } from '../services/apirest';
 
 const homePageURL = "/";
 
-const homePageURL = "/";
-
 const Login = () => {
   
   const navigate = useNavigate();
@@ -42,12 +40,15 @@ const Login = () => {
 
           //Almacenamiento del local storage
           localStorage.setItem('token', accessToken);
+          localStorage.setItem('usuario', JSON.stringify(response.data.user));
 
           //Configura axios para incluir el token en las cabeceras de las solicitudes
           axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
           //Redirige al usuario a la pagina de inicio
           navigate(homePageURL);
+
+        console.log(localStorage.getItem('token.user_id.is_professional'))
         }
       })
       .catch((err) => {
