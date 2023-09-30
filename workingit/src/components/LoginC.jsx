@@ -3,8 +3,12 @@ import axios from 'axios';
 import cliente2 from '../assets/img/cliente2.jpg';
 import '../assets/css/Login.css';
 import { useNavigate } from 'react-router-dom';
+import { ApiLogin } from '../services/apirest';
+
+const homePageURL = "/";
 
 const LoginC = () => {
+  
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -12,27 +16,46 @@ const LoginC = () => {
     password: '',
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
 
   const manejadorChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
-  };
+    //Esto es solo una forma de visualizar en consola los campos a los que estas rellenando - Activar/Desactivar los devs
+    //console.log(form);
+  }
 
   const manejadorBoton = () => {
-    axios.post('http://149.50.130.111:8000/auth/login/', form)
+    //Almacenamiento del Endpoint 
+    let url = ApiLogin
+    axios.post(url, form)
       .then((response) => {
-        if (response.status === 200) {
-          localStorage.setItem('token', response.data.token);
-          navigate('/'); // Redirige al usuario a la página de inicio
+        if (response.data.user && response.data.access_token) {
+          //Pasar de variable el Token traido por la endpoint
+          const accessToken = response.data.access_token;
+
+          //Almacenamiento del local storage
+          localStorage.setItem('token', accessToken);
+          localStorage.setItem('usuario', JSON.stringify(response.data.user));
+
+          //Configura axios para incluir el token en las cabeceras de las solicitudes
+          axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+          //Redirige al usuario a la pagina de inicio
+          navigate(homePageURL);
+
+        console.log(localStorage.getItem('token.user_id.is_professional'))
         }
       })
       .catch((err) => {
         setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
       });
   };
+
 
   return (
     <div className="container">

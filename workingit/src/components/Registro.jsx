@@ -54,7 +54,6 @@ function Formulario1() {
     const [form, setForm] = useState({
             "email":"",
             "username":"",
-
             "country":"Chile",
             "city":"",
             "phone":"",
@@ -74,7 +73,12 @@ function Formulario1() {
       }
       const manejadorBoton = (e) => {
         e.preventDefault(); //Evitamos la recarga de la pag
-        const requiredFields = ['email', 'username', 'password', 'password_confirmation', 'first_name', 'last_name'];
+        const requiredFields = ['email',
+         'username',
+          'password',
+           'password_confirmation',
+            'first_name',
+             'last_name'];
       
         // Verificar si todos los campos requeridos tienen valores
         const allFieldsPresent = requiredFields.every((fieldName) => !!form[fieldName]);
