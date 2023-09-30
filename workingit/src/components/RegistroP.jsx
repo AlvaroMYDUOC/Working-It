@@ -1,10 +1,33 @@
 //Importes correspondiente
-import React, {useState} from 'react';
+import React, {useState , useEffect} from 'react';
 import workers from '../assets/img/workers.jpg';
 import axios from 'axios';
 import { ApiRegistro } from '../services/apirest';
+import { useNavigate } from 'react-router-dom';
 
 const RegistroP = () => {
+
+  //Constante para redireccion
+  const navigate = useNavigate();
+  const homePageUrl = "/";
+
+  //Constantes para las Specialties
+  const [especialidades, setEspecialidades] = useState([]);
+  const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("");
+
+  //Funcion para el dropdown y traer las specialties
+  useEffect(() => {
+    // Realiza la solicitud para obtener las especialidades desde tu API
+    axios.get('http://149.50.130.111:8000/especialistas/')
+      .then((response) => {
+        setEspecialidades(response.data.results); // Actualiza el estado con las especialidades obtenidas
+        console.log(response) //Comentar o no para usar esta wa 
+      })
+      .catch((error) => {
+        console.error("Error al obtener las especialidades:", error);
+      });
+  }, []);
+
   //Constantes para los mensajes de error
   const [error, setError] = useState();
   const [errorMsg, setErrorMsg] = useState("");
@@ -25,14 +48,21 @@ const RegistroP = () => {
             "last_name":"",
             "photo": "",
             "is_professional": true,
-            "specialties": [1]
+            "specialties": ""
   });
 
   //Funcion para ver si los campos se estan llenando correctamente (hay que matchear los campos y la info que va en la request)
   const manejadorChange = (e) => {
     if(e.target.name === "aceptaTerminos"){
       setAceptaTerminos(e.target.checked);
-    } else{
+    } else if(e.target.name === "especialidad"){
+      const especialidadId = e.target.value;
+      setForm({
+        ...form,
+        specialties: [parseInt(especialidadId)] //Convierte el ID de la espeecialidad a un entero
+      });
+      setEspecialidadSeleccionada(especialidadId);
+    }else{
       setForm({
         ...form,
         [e.target.name]: e.target.value
@@ -77,6 +107,7 @@ const RegistroP = () => {
     .then((response) => {
       console.log(response);
       console.log(response.data); //Esperamos poder ver la data de la response con esto
+      navigate(homePageUrl); //Redireccion post registro exitoso
     })
     .catch((error) => {
       setError(true);
@@ -84,7 +115,6 @@ const RegistroP = () => {
       console.error("Error: ", error);
     });
   };
-
 
   return (
     <div className="container">
@@ -124,6 +154,28 @@ const RegistroP = () => {
               <label htmlFor="city" className="form-label">Ciudad</label>
               <input type="text" className="form-control" id="city" name="city" onChange={manejadorChange} />
             </div>
+            {/*En teoria aqui debe ir el dropdown con las especialidades*/}
+            <div className="mb-3">
+              <label htmlFor="especialidad" className="form-label">
+                Especialidad
+              </label>
+              <select
+                className="form-select"
+                id="especialidad"
+                name="especialidad"
+                value={especialidadSeleccionada}
+                onChange={manejadorChange}
+              >
+                <option value="" disabled>
+                  Seleccione una especialidad
+                </option>
+                {especialidades.map((especialidad) => (
+                  <option key={especialidad.id} value={especialidad.id}>
+                    {especialidad.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           {/*Pondremos un manejador para que si el checkbox no esta tickeado, no se pueda registrar*/}  
           <div className="mb-3 form-check">
             <input type="checkbox" 
@@ -145,7 +197,7 @@ const RegistroP = () => {
       </div>
     </div>
     <hr className="mt-4 mb-4" />
-    <p className="psesion">¿Ya tienes una cuenta? <a href="#">Iniciar Sesión</a></p>
+    <p className="psesion">¿Ya tienes una cuenta? <a href="/LoginC">Iniciar Sesión</a></p>
   </div>
   )
 }
