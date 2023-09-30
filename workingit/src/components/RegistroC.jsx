@@ -123,8 +123,7 @@ const RegistroC = () => {
             </div>
             <div className="mb-3">
               <label htmlFor="city" className="form-label">Ciudad</label>
-              <input type="text" className="form-control" id="city" name="city" onChange={manejadorChange} />
-            </div>
+              <input type="text" className="form-control" id="city" name="city" onChange={manejadorChange} />            </div>
            {/* Pondremos un manejador para que si el checkbox no esta tickeado, no se pueda registrar */}
             <div className="mb-3 form-check">
               <input
