@@ -46,6 +46,12 @@
     font-weight: 900;
     margin-right: 10px;
   }
+
+  
+.footer-logo {
+  max-width: 100%; 
+  height: auto; 
+}
   
   .footer .btn.btn-link:hover {
     letter-spacing: 1px;
