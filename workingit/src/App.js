@@ -6,6 +6,8 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './Pages/Home.jsx';
 import Login from './Pages/Login.jsx';
 import Rc from './Pages/RegistroCliente';
+import RegistroCliente from './Pages/RegistroCliente';
+import Navbar2 from './components/Navbar2';
 
 
 
@@ -14,8 +16,11 @@ function App() {
     <Router>
           <Routes>
               <Route  path="/" element={<Home />}/>
-              <Route  path="/RegistroClientes" element={<Rc/>}/>
+              <Route  path="/RegistroClientes" element={<RegistroCliente/>}/>
               <Route  path="/Login" element={<Login />}/>
+
+
+              <Route path="/Navbar2" element={<Navbar2 />}/>
           </Routes>
         </Router>
   );

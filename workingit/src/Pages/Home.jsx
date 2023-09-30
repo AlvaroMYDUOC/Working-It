@@ -7,8 +7,8 @@ const Home = () => {
   return (
     <>
       <Navbar2 />
-      <ChatBot />
-      <Footer />
+      
+    
     </>
   )
 }
