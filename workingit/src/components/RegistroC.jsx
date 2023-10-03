@@ -1,10 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import cliente2 from '../assets/img/cliente2.jpg';
 import '../assets/css/RegistroC.css';
 import { ApiRegistro } from '../services/apirest';
+import { useNavigate } from 'react-router-dom';
+
 
 const RegistroC = () => {
+  
+  //Estados para la comprobacion de el matcheo de contras
+  const [errorPasswordMatch, setErrorPasswordMatch] = useState("");
+
+  const validatePasswordMatch = () => {
+    if (form.password !== form.password_confirmation) {
+      setErrorPasswordMatch("Las contraseñas no coinciden. Por favor, asegúrate de que coincidan.");
+      return false;
+    }
+    setErrorPasswordMatch(""); // Limpiar el mensaje de error si las contraseñas coinciden
+    return true;
+  };
+  
+  //Nuevo estado para el error del telefono
+  const [errorTelefono, setErrorTelefono] = useState("");
+
+  //Nuevo estado para el error del apellido
+  const [errorApellido, setErrorApellido] = useState("");
+
+  //Nuevo estado para el error de nombre de usuario
+  const [errorNombre, setErrorNombre] = useState("");
+
+  // Nuevo estado para el error de nombre de usuario
+  const [errorUsername, setErrorUsername] = useState("");
+
+  // Nuevo estado para el error de email
+  const [errorEmail, setErrorEmail] = useState("");
+
+  //Nuevo estado para mostrar / ocultar las reglas de contruccion de contrasenas
+  const [showPasswordRules, setShowPasswordRules] = useState(false);
+
+  //Ref para el campo de contrasena
+  const passwordInputRef = useRef(null);
+
+  //Metodo para mostrar las contrasenas
+  const handlePasswordInputClick = () => {
+    setShowPasswordRules(true)
+  }
+
+  // Manejar clic fuera del campo de contraseña
+   const handleClickOutside = (e) => {
+    if (passwordInputRef.current && !passwordInputRef.current.contains(e.target)) {
+      // Si se hace clic fuera del campo de contraseña, ocultar las reglas
+      setShowPasswordRules(false);
+    }
+  };
+  // Agregar un manejador de clic al cuerpo del documento
+  useEffect(() => {
+    document.body.addEventListener('click', handleClickOutside);
+    return () => {
+    document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  //Constante para redireccion
+  const navigate = useNavigate();
+  const homePageUrl = "/";
 
   //Constantes para tener los mensajes de error
   const [error,setError] = useState(false);
@@ -43,6 +102,7 @@ const RegistroC = () => {
   
   const manejadorBoton = (e) => {
     e.preventDefault(); // Evitamos la recarga de la pag al apretar el boton
+
     //Campos requeridos
   const requiredFields = [
     'email',
@@ -52,7 +112,10 @@ const RegistroC = () => {
     'first_name',
     'last_name'];
   
-
+  //Verifica si las contras coinciden
+  if(!validatePasswordMatch()){
+    return; //Detiene el envio si las contrasenas con coinciden
+  }
   //Verificacion de los campos requeridos tienen valores
   const allFieldsPresent = requiredFields.every((fieldName) => !!form[fieldName]);
 
@@ -75,13 +138,44 @@ const RegistroC = () => {
     .then((response) => {
       console.log(response);
       console.log(response.data); //Esperamos poder ver la data de la response con esto
+      navigate(homePageUrl); //Redireccion post registro exitoso
     })
     .catch((error) => {
-      setError(true);
-      setErrorMsg("Ha ocurrido un error con el Registro")
+      //El 400 indica un error en la solicitud
+      if (error.response && error.response.status === 400) {
+        // Seteo de error de Usuario
+        if(error.response.data && error.response.data.username && error.response.data.username[0] === "This field must be unique."){
+          setErrorUsername("El nombre de usuario ya está registrado. Por favor, elige otro nombre de usuario.");
+        } else {
+          setErrorUsername("")
+        }
+        // Seteo de error de Email
+        if (error.response.data && error.response.data.email && error.response.data.email[0] === "This field must be unique."){
+          setErrorEmail("El correo electronico ya se encuentra registrado. Por favor, utiliza otro direccion de correo electronico")
+        } else {
+          setErrorEmail("")
+        }
+        if (error.response.data && error.response.data.first_name && error.response.data.first_name[0] === "Ensure this field has at least 2 characters."){
+          setErrorNombre("El nombre debe tener al menos 2 caracteres")
+        } else {
+          setErrorNombre("")
+        }
+        if (error.response.data && error.response.data.last_name && error.response.data.last_name[0] === "Ensure this field has at least 2 characters."){
+          setErrorApellido("El apellido debe tener al menos 2 caracteres")
+        } else {
+          setErrorApellido("")
+        }
+        if (error.response.data && error.response.data.phone && error.response.data.phone[0] === "Debes introducir un número con el siguiente formato: +999999999. El límite son de 15 dígitos."){
+          setErrorTelefono("Debes introducir un número con el siguiente formato: +999999999. El límite son de 15 dígitos.")
+        } else {
+          setErrorTelefono("")
+        }
+      } else {
+        setErrorMsg("Ha Ocurrido un error con el registro")
+      }      
       console.error("Error: ", error);
-    });
-  }
+      });
+  };
   //Manejador del checkbox
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
@@ -96,30 +190,57 @@ const RegistroC = () => {
           <div className="mb-3">
               <label htmlFor="apellidos" className="form-label">Usuario</label>
               <input type="text" className="form-control" id="username" name="username" onChange={manejadorChange} />
+              {errorUsername && <p className="error-message">{errorUsername}</p>} {/* Mostrar mensaje de error de nombre de usuario */}
             </div>
             <div className="mb-3">
               <label htmlFor="nombres" className="form-label">Nombre</label>
               <input type="text" className="form-control" id="nombres" name="first_name" onChange={manejadorChange} />
+              {errorNombre && <p className="error-message">{errorNombre}</p>} {/* Mostrar problemas en el nombre */}
+
             </div>
             <div className="mb-3">
               <label htmlFor="apellidos" className="form-label">Apellido</label>
               <input type="text" className="form-control" id="apellidos" name="last_name" onChange={manejadorChange} />
+              {errorApellido && <p className="error-message">{errorApellido}</p>} {/* Mostrar problemas en el nombre */}
             </div>
             <div className="mb-3">
               <label htmlFor="telefono" className="form-label">Teléfono</label>
               <input type="text" className="form-control" id="phone" name="phone" onChange={manejadorChange} />
+              {errorTelefono && <p className="error-message">{errorTelefono}</p>} {/* Mostrar mensaje de error por correo electronico usado */}
             </div>
             <div className="mb-3">
               <label htmlFor="correo" className="form-label">Correo Electrónico</label>
               <input type="email" className="form-control" id="email" name="email" onChange={manejadorChange} />
+              {errorEmail && <p className="error-message">{errorEmail}</p>} {/* Mostrar mensaje de error por correo electronico usado */}
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">Contraseña</label>
-              <input type="password" className="form-control" id="password" name="password" onChange={manejadorChange} />
+              <input 
+              type="password" 
+              className="form-control" 
+              id="password" 
+              name="password" 
+              onChange={manejadorChange}
+              onClick={handlePasswordInputClick}
+              ref={passwordInputRef} //Manejar el clic en true o false
+              />
+              {/* Mostrar reglas de construccion de contrasena cuando se hace clic en el campo*/}
+              {showPasswordRules && (
+                <div className="password-rules">
+                  <p>La contrasena debe tener los siguientes requisitos:</p>
+                  <ul>
+                    <li>Debe contener al menos 8 caracteres</li>
+                    <li>Debe incluir al menos una letra mayuscula y una minuscula</li>
+                    <li>Debe contener al menos un numero</li>
+                    <li>Debe contener al menos un caracter especial, como ! @ # $ ?, etc </li>
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="mb-3">
               <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
               <input type="password" className="form-control" id="confirmPassword" name="password_confirmation" onChange={manejadorChange} />
+              {errorPasswordMatch && <p className="error-message">{errorPasswordMatch}</p>} {/* Mostrar mensaje de error si las contraseñas no coinciden */}
             </div>
             <div className="mb-3">
               <label htmlFor="city" className="form-label">Ciudad</label>
