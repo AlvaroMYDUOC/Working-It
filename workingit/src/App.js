@@ -35,11 +35,6 @@ function App() {
               <Route  path="/RegistroC" element={<RegistroC/>} />
               <Route  path="/RegistroP" element={<RegistroP/>} />
               <Route  path="/FooterD" element={<FooterD/>} />
-              
-              
-              
-
-
           </Routes>
         </Router>
   );
