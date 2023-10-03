@@ -1,19 +1,19 @@
 import React from 'react'
 import Navbar2 from '../components/Navbar2'
-import DataTable from '../components/DataTable'
 import FooterD from '../components/FooterD'
+import SpecialistProfile from '../components/SpecialistProfile'
 import ChatBot from '../components/BotChat'
 
 
-const MisProyectos = () => {
+const PerfilProfesional = () => {
   return (
     <>
       <Navbar2 />
-      <DataTable />
+      <SpecialistProfile />
       <ChatBot />
       <FooterD />
     </>
   )
 }
 
-export default MisProyectos
+export default PerfilProfesional

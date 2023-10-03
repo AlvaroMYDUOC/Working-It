@@ -12,7 +12,7 @@ const Buscador2 = () => {
     <div className="container py-1">
       <div className="row g-5">
         <div className="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-          <p><img src={logo} alt="logo"/></p>
+          <p><img src={logo} className="footer-logo" alt="logo"/></p>
         </div>
         <div className="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
           <h5 className="text-white mb-4">Legal</h5>

@@ -7,7 +7,7 @@ import { ApiLogin } from '../services/apirest';
 
 const homePageURL = "/";
 
-const Login = () => {
+const LoginC = () => {
   
   const navigate = useNavigate();
 
@@ -78,7 +78,7 @@ const Login = () => {
           </form>
         </div>
         <div className="col-md-6 d-flex justify-content-center align-items-center">
-          <div className="card">
+          <div className="login-card">
             <img src={cliente2} className="card-img-top" alt="Cliente" />
           </div>
         </div>
@@ -89,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginC;

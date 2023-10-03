@@ -9,14 +9,11 @@
     transition: transform 0.2s;
   }
   
-  .card:hover {
-    transform: scale(1.05);
-    background-color: aqua;
-  }
+  
   
   /* Estilos para la imagen */
   .card img {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -45,8 +42,8 @@
   
   /* Estilos para el contenedor del carrusel */
   .cont-slider {
-    width: 100%;
+    width: 80%;
     margin: auto;
-    background-color: #FFC107;
+   
   }
   

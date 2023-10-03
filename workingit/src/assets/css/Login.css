@@ -1,10 +1,58 @@
-.custom-input input {
-    /* Ajusta el ancho del campo de entrada */
-    width: 80%; /* Puedes ajustar el valor según tus necesidades */
-    
-    /* Ajusta el tamaño de fuente del texto en el campo de entrada */
-    font-size: 14px; /* Puedes ajustar el valor según tus necesidades */
-    
-    /* Añade más estilos de acuerdo a tus preferencias */
-  }
-  
+/* Estilos para el contenedor principal */
+.container {
+  margin-top: 20px;
+  padding: 0 auto;
+
+}
+
+/* Estilos para el formulario */
+.form-label {
+  font-weight: bold;
+}
+
+/* Espaciado entre elementos del formulario */
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+/* Botón de login */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+
+ 
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Estilos para el enlace de "Iniciar Sesión" */
+a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+
+/* Separador horizontal */
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.atype{
+  margin-left: 230px;
+}
+
+.login-card{
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
