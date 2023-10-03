@@ -1,6 +1,6 @@
 import React from 'react'
 import RegistroC from '../components/RegistroC'
-import Footer from '../components/Footer'
+import FooterD from '../components/FooterD'
 import Navbar2 from '../components/Navbar2'
 
 
@@ -10,7 +10,7 @@ const RegistroCliente = () => {
     <>
       <Navbar2 /> 
       <RegistroC />
-      <Footer />
+      <FooterD />
     </>
   )
 }

@@ -78,7 +78,7 @@ const LoginC = () => {
           </form>
         </div>
         <div className="col-md-6 d-flex justify-content-center align-items-center">
-          <div className="card">
+          <div className="login-card">
             <img src={cliente2} className="card-img-top" alt="Cliente" />
           </div>
         </div>

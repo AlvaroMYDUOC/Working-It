@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar2 from '../components/Navbar2'
 import RegistroI from '../components/RegistroI'
-import Footer from '../components/Footer'
+import FooterD from '../components/FooterD'
 
 const RegistroInicio = () => {
   return (
@@ -9,7 +9,7 @@ const RegistroInicio = () => {
     <>
       <Navbar2 />
       <RegistroI />
-      <Footer />
+      <FooterD />
     </>
   )
 }

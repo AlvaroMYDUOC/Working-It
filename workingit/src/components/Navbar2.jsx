@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import axios from 'axios';
 import logo from '../assets/img/icon.png'
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 
 
@@ -65,7 +65,7 @@ useEffect(() => {
                 className="d-inline-block align-top"
                 />
             </Navbar.Brand>
-            <Navbar.Brand href="#">Working It</Navbar.Brand>
+            <Navbar.Brand href="/">Working It</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
@@ -98,7 +98,7 @@ useEffect(() => {
                     <Nav.Link href="#">Asesorias asignadas</Nav.Link>            
                     <Nav.Link href="#">Directorio de proyectos</Nav.Link>
                     <Nav.Link href="#">Mensajes</Nav.Link>
-                    <Nav.Link href="#">Mi Perfil</Nav.Link>
+                    <Nav.Link href="/MiPerfil">Mi Perfil</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>              
                   </>         
                   ) : (

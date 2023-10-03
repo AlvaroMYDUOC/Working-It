@@ -6,7 +6,7 @@ import { FaTwitter, FaFacebookF, FaYoutube, FaInstagram, FaLinkedinIn } from 're
 
 
 
-const FooterD = () => {
+const Buscador2 = () => {
   return (
     <div className="container-fluid text-white-50 footer pt-5">
     <div className="container py-1">
@@ -47,4 +47,4 @@ const FooterD = () => {
   )
 }
 
-export default FooterD
+export default Buscador2
