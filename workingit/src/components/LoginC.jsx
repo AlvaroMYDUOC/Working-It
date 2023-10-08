@@ -47,8 +47,6 @@ const LoginC = () => {
 
           //Redirige al usuario a la pagina de inicio
           navigate(homePageURL);
-
-        console.log(localStorage.getItem('token.user_id.is_professional'))
         }
       })
       .catch((err) => {

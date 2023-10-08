@@ -2,8 +2,6 @@
 import './assets/css/App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-//Importe de componentes
-import Navbar2 from './components/Navbar2';
 //import Login from './components/Login';
 import Registro from './components/Registro';
 import Proyectos from './components/Proyectos';
@@ -25,12 +23,14 @@ import RegistroC from './components/RegistroC.jsx';
 import RegistroP from './components/RegistroP.jsx';
 import FooterD from './components/FooterD.jsx';
 import MisProyectos from './Pages/MisProyectos';
+import DirectorioProyectos from './components/buscadorProyectos.jsx';
 
 
 function App() {
   return (
     <Router>
           <Routes>
+              {/*Rutas para pruebas*/}
               <Route  path="/" element={<Home />}/>
               <Route  path="/LoginC" element={<Login/>} />
               <Route  path="/RegistroI" element={<RegistroInicio/>} />
@@ -38,6 +38,8 @@ function App() {
               <Route  path="/RegistroP" element={<RegistroProfesional/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/DataTable" element={<MisProyectos/>} /> 
+              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} /> 
+
               
 
 

@@ -6,6 +6,199 @@ import { ApiRegistro } from '../services/apirest';
 import { useNavigate } from 'react-router-dom';
 
 const RegistroP = () => {
+  //Seccion de instrucciones
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [showInstructionsCiudad, setShowInstructionsCiudad] = useState(false);
+
+  const handleCiudadInputClick = () => {
+    console.log('Clic en el campo de Ciudad')
+    setShowInstructionsCiudad(true);
+  };
+
+
+  const handleClickOutsideInstructionsCiudad = (e) => {
+    if(!e.target.closest("#city")){
+      //Si se hace clic fuera del campo de telefono, oculta las instrucciones
+      setShowInstructionsCiudad(false);
+    }
+  };
+
+  useEffect(() =>{
+    if(showInstructionsCiudad) {
+      document.body.addEventListener("click", handleClickOutsideInstructionsCiudad);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsCiudad);
+    }
+
+    return() => {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsCiudad);
+    };
+  }, [showInstructionsCiudad]);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [showInstructionsPassConfirm, setShowInstructionsPassConfirm] = useState(false);
+
+  const handlePassConfirmInputClick = () => {
+    console.log('Clic en el campo de PassConfirm')
+    setShowInstructionsPassConfirm(true);
+  };
+
+
+  const handleClickOutsideInstructionsPassConfirm = (e) => {
+    if(!e.target.closest("#confirmPassword")){
+      //Si se hace clic fuera del campo de telefono, oculta las instrucciones
+      setShowInstructionsPassConfirm(false);
+    }
+  };
+
+  useEffect(() =>{
+    if(showInstructionsPassConfirm) {
+      document.body.addEventListener("click", handleClickOutsideInstructionsPassConfirm);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsPassConfirm);
+    }
+
+    return() => {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsPassConfirm);
+    };
+  }, [showInstructionsPassConfirm]);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [showInstructionsCorreo, setShowInstructionsCorreo] = useState(false);
+
+  const handleCorreoInputClick = () => {
+    console.log('Clic en el campo de correo')
+    setShowInstructionsCorreo(true);
+  };
+
+
+  const handleClickOutsideInstructionsCorreo = (e) => {
+    if(!e.target.closest("#email")){
+      //Si se hace clic fuera del campo de telefono, oculta las instrucciones
+      setShowInstructionsCorreo(false);
+    }
+  };
+
+  useEffect(() =>{
+    if(showInstructionsCorreo) {
+      document.body.addEventListener("click", handleClickOutsideInstructionsCorreo);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsCorreo);
+    }
+
+    return() => {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsCorreo);
+    };
+  }, [showInstructionsCorreo]);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [showInstructionsNombre, setShowInstructionsNombre] = useState(false);
+
+  const handleNombreInputClick = () => {
+    console.log('Clic en el campo de nombre')
+    setShowInstructionsNombre(true);
+  };
+
+
+  const handleClickOutsideInstructionsNombre = (e) => {
+    if(!e.target.closest("#first_name")){
+      //Si se hace clic fuera del campo de telefono, oculta las instrucciones
+      setShowInstructionsNombre(false);
+    }
+  };
+
+  useEffect(() =>{
+    if(showInstructionsNombre) {
+      document.body.addEventListener("click", handleClickOutsideInstructionsNombre);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsNombre);
+    }
+
+    return() => {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsNombre);
+    };
+  }, [showInstructionsNombre]);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [showInstructionsTelefono, setShowInstructionsTelefono] = useState(false);
+
+  const handleTelefonoInputClick = () => {
+    console.log('Clic en el campo de telefono')
+    setShowInstructionsTelefono(true);
+  };
+
+
+  const handleClickOutsideInstructionsTelefono = (e) => {
+    if(!e.target.closest("#phone")){
+      //Si se hace clic fuera del campo de telefono, oculta las instrucciones
+      setShowInstructionsTelefono(false);
+    }
+  };
+
+  useEffect(() =>{
+    if(showInstructionsTelefono) {
+      document.body.addEventListener("click", handleClickOutsideInstructionsTelefono);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsTelefono);
+    }
+
+    return() => {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsTelefono);
+    };
+  }, [showInstructionsTelefono]);
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Instrucciones para el apellido
+  const [showInstructionsApellido, setShowInstructionsApellido] = useState(false);
+
+  const handleApellidoInputClick = () => {
+    console.log('Clic en el campo de apellido')
+    setShowInstructionsApellido(true);
+  };
+
+  const handleClickOutsideInstructionsApellido = (e) => {
+    if (!e.target.closest("#last_name")) {
+      // Si se hace clic fuera del campo de apellido, ocultar las instrucciones
+      setShowInstructionsApellido(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showInstructionsApellido) {
+      document.body.addEventListener("click", handleClickOutsideInstructionsApellido);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsApellido);
+    }
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutsideInstructionsApellido);
+    };
+  }, [showInstructionsApellido]);
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //INSTRUCCIONES PARA EL USUARIO
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const handleUsernameInputClick = () => {
+    setShowInstructions(true);
+  };
+
+  const handleClickOutsideInstructions = (e) => {
+    if (!e.target.closest("#username")) {
+      // Si se hace clic fuera del campo de usuario, ocultar las instrucciones
+      setShowInstructions(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showInstructions) {
+      document.body.addEventListener("click", handleClickOutsideInstructions);
+    } else {
+      document.body.removeEventListener("click", handleClickOutsideInstructions);
+    }
+  
+    return () => {
+      document.body.removeEventListener("click", handleClickOutsideInstructions);
+    };
+  }, [showInstructions]);
+  
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     //Estados para la comprobacion de el matcheo de contras
     const [errorPasswordMatch, setErrorPasswordMatch] = useState("");
 
@@ -54,6 +247,7 @@ const RegistroP = () => {
         setShowPasswordRules(false);
       }
     };
+
     // Agregar un manejador de clic al cuerpo del documento
     useEffect(() => {
       document.body.addEventListener('click', handleClickOutside);
@@ -161,6 +355,12 @@ const RegistroP = () => {
   form.photo = undefined;
   form.is_professional = true;
 
+  //Verificar si el checkbox de acpetacion de terminos esta marcado
+  if(!aceptaTerminos){
+    //Mostrar un nmensaje de error y detener el registro
+    setErrorMsg("Debes aceptar los terminos y condiciones de servicios antes de poder registrarte");
+    return;
+  }
   //Funcion que enviara y avisara si la request es correcta
   let url = ApiRegistro;
   // console.log("Datos a enviar: ", form); //Necesito visualizar los datos antes de enviarlos
@@ -219,28 +419,78 @@ const RegistroP = () => {
         <h2>Registro de Profesional</h2>
         <form onSubmit={manejadorBoton}>
         <div className="mb-3">
-            <label htmlFor="nombres" className="form-label">Usuario</label>
-            <input type="text" className="form-control" id="username" name="username" onChange={manejadorChange}/>
+            <label htmlFor="nombres" className="form-label">Nombre social</label>
+            <input type="text"
+            className="form-control" 
+            id="username" 
+            name="username" 
+            onChange={manejadorChange} 
+            onClick={handleUsernameInputClick} />
+            {showInstructions && (
+              <div className="username-instructions">
+                <p>El el nombre social debe ser de al menos 2 caracteres</p>
+              </div>
+            )}
             {errorUsername && <p className="error-message">{errorUsername}</p>} {/* Mostrar mensaje de error de nombre de usuario */}
           </div>
           <div className="mb-3">
             <label htmlFor="nombres" className="form-label">Nombre</label>
-            <input type="text" className="form-control" id="first_name" name="first_name" onChange={manejadorChange} />
+            <input type="text" 
+            className="form-control" 
+            id="first_name" 
+            name="first_name" 
+            onChange={manejadorChange} 
+            onClick={handleNombreInputClick}/>
+            {showInstructionsNombre && (
+              <div className="nombre-instructions">
+                <p>El nombre debe ser de al menos 2 caracteres</p>
+              </div>
+            )}
             {errorNombre && <p className="error-message">{errorNombre}</p>} {/* Mostrar problemas en el nombre */}
           </div>
           <div className="mb-3">
             <label htmlFor="apellidos" className="form-label">Apellido</label>
-            <input type="text" className="form-control" id="last_name" name="last_name" onChange={manejadorChange} />
+            <input type="text" 
+            className="form-control" 
+            id="last_name" 
+            name="last_name" 
+            onChange={manejadorChange}
+            onClick={handleApellidoInputClick} />
+            {showInstructionsApellido && (
+              <div className="nombre-instructions">
+                <p>El apellido debe ser de al menos 2 caracteres</p>
+              </div>
+            )}
             {errorApellido && <p className="error-message">{errorApellido}</p>} {/* Mostrar problemas en el nombre */}
           </div>
           <div className="mb-3">
             <label htmlFor="telefono" className="form-label">Teléfono</label>
-            <input type="text" className="form-control" id="phone" name="phone" onChange={manejadorChange} />
+            <input type="text" 
+            className="form-control" 
+            id="phone" 
+            name="phone" 
+            onChange={manejadorChange} 
+            onClick={handleTelefonoInputClick}/>
+            {showInstructionsTelefono && (
+              <div className="phone-instructions">
+                <p>El formato de telefono es +56988888888</p>
+              </div>
+            )}
             {errorTelefono && <p className="error-message">{errorTelefono}</p>} {/* Mostrar mensaje de error por correo electronico usado */}
           </div>
           <div className="mb-3">
             <label htmlFor="correo" className="form-label">Correo Electrónico</label>
-            <input type="email" className="form-control" id="email" name="email" onChange={manejadorChange} />
+            <input type="email" 
+            className="form-control" 
+            id="email" 
+            name="email"
+            onChange={manejadorChange} 
+            onClick={handleCorreoInputClick} />
+            {showInstructionsCorreo && (
+              <div className="email-instructions">
+                <p>Ingresar una direccion de correo valida como sujetoPrueba@hotmail.com</p>
+              </div>
+            )}
             {errorEmail && <p className="error-message">{errorEmail}</p>} {/* Mostrar mensaje de error por correo electronico usado */}
           </div>
           <div className="mb-3">
@@ -268,12 +518,32 @@ const RegistroP = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="confirmPassword" className="form-label">Confirmar Contraseña</label>
-            <input type="password" className="form-control" id="confirmPassword" name="password_confirmation" onChange={manejadorChange} />
+            <input type="password" 
+            className="form-control" 
+            id="confirmPassword" 
+            name="password_confirmation"
+             onChange={manejadorChange}
+             onClick={handlePassConfirmInputClick} />
+             {showInstructionsPassConfirm && (
+                <div className="password-rules">
+                  <p>Las contrasenas deben coincidir entre si</p>
+                </div>
+              )}
             {errorPasswordMatch && <p className="error-message">{errorPasswordMatch}</p>} {/* Mostrar mensaje de error si las contraseñas no coinciden */}
           </div>
           <div className="mb-3">
               <label htmlFor="city" className="form-label">Ciudad</label>
-              <input type="text" className="form-control" id="city" name="city" onChange={manejadorChange} />
+              <input type="text" 
+              className="form-control"
+              id="city" 
+              name="city" 
+              onChange={manejadorChange} 
+              onClick={handleCiudadInputClick}/>
+              {showInstructionsCiudad && (
+                <div className="ciudad-rules">
+                  <p>Ingresa el nombre de la ciudad donde resides</p>
+                </div>
+              )}
             </div>
             {/*En teoria aqui debe ir el dropdown con las especialidades*/}
             <div className="mb-3">
@@ -307,9 +577,16 @@ const RegistroP = () => {
             checked={aceptaTerminos}
             onChange={manejadorChange} 
             />
-            <label className="form-check-label" htmlFor="terminos">Acepto los términos y condiciones</label>
+            <label className="form-check-label" htmlFor="terminos">
+              Acepto los términos y condiciones
+              </label>
           </div>
-          <button type="submit" className="btn btn-primary" disabled={!aceptaTerminos}>Registrarme</button>
+          {!aceptaTerminos && (
+            <p className="error-message">
+              {errorMsg}
+            </p>
+          )}
+          <button type="submit" className="btn btn-primary" >Registrarme</button>
         </form>
       </div>
       <div className="col-md-6 d-flex justify-content-center align-items-center">

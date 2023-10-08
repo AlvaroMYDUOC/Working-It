@@ -6,12 +6,58 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import axios from 'axios';
 import logo from '../assets/img/icon.png'
+import { BsWindowSidebar } from 'react-icons/bs';
 //import { Link } from 'react-router-dom';
 
 
 
 function Navbar2() {
-  //Ahora vamos a conseguir el is_professional del localStorage
+  //Validacion para ver si el token aun se encuentra activo
+  const [isTokenValid, setIsTokenValid] = useState(false); // Nuevo estado para almacenar el resultado de la validación del token
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('token');
+
+    if (accessToken) {
+      setAccessTokenExists(true);
+
+      //Realizar una solicitud para validar el token
+      axios
+        .post(
+          'http://149.50.130.111:8000/validate-token/' ,
+          {},
+          {
+          headers: {
+            Authorization: "Bearer " + accessToken, //Aqui se incluye el token en las cabeceras
+          },
+        }
+      )
+        .then((response) =>{
+          //El token es valido
+          setIsTokenValid(true);
+          console.log("El token es valido")
+        })
+        .catch((error) => {
+          //El token no es valido
+          setIsTokenValid(false);
+          console.error('Error al validar el token: ', error)
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.detail === 'Given token not valid for any token type' &&
+            error.response.data.code === 'token_not_valid'
+          ) {
+            //Borra los objetos del localStorage si el token no es valido
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuario');
+            //Redireecciona al usuario a la pagina de inicio de sesion
+            window.location.href = 'LoginC'
+          }
+        });
+    }
+  }, []);
+
+    //Ahora vamos a conseguir el is_professional del localStorage
   const usuarioJSON = localStorage.getItem('usuario'); //Almacenamos en una constante local el item almacenado en el localStorage
   const usuario = usuarioJSON ? JSON.parse(usuarioJSON): null; // Convertimos el valor de JSON a un objeto de JavaScript y en caso de que no exista usuario se asigna el valor null
 
