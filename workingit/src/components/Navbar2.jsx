@@ -52,6 +52,7 @@ function Navbar2() {
             localStorage.removeItem('usuario');
             //Redireecciona al usuario a la pagina de inicio de sesion
             window.location.href = 'LoginC'
+            return;
           }
         });
     }
@@ -150,9 +151,8 @@ useEffect(() => {
                   ) : (
                     //Menu si is_professional es false         
                     <>
-                    {/*Esto se muestra si es que el token no esta activo*/}
                     <Nav.Link href="#">Solicitar una asesoria</Nav.Link>            
-                    <Nav.Link href="/Proyectos">Mis Proyectos</Nav.Link>
+                    <Nav.Link href="/MisProyectos">Mis Proyectos</Nav.Link>
                     <Nav.Link href="#">Mensajes</Nav.Link>
                     <Nav.Link href="#">Mi Perfil</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>

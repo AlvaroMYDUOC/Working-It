@@ -319,6 +319,12 @@ const RegistroC = () => {
     return;
   }
 
+  if(!aceptaTerminos){
+    //Mostrar mensaje de error y detener el registro
+    setError(true);
+    setErrorMsg("Debes aceptar los terminos y condiciones antes de poder registrarte")
+    return;
+  }
   //Establecer el valor de photo como undefined en el objeto form
   //Esto enviara la photo como undefined en la solicitud
   form.photo = undefined;
@@ -520,9 +526,13 @@ const RegistroC = () => {
                 checked={aceptaTerminos}
                 onChange={manejadorChange}/>
               <label className="form-check-label" htmlFor="terminos">Acepto los términos y condiciones</label>
+              {!aceptaTerminos && (
+                  <p className="error-message">
+                    {errorMsg}
+                  </p>
+                )}
             </div>
-
-            <button type="submit" className="btn btn-primary" disabled={!aceptaTerminos}>Registrarme</button>
+            <button type="submit" className="btn btn-primary" >Registrarme</button>
           </form>
         </div>
         <div className="col-md-6 d-flex justify-content-center align-items-center">

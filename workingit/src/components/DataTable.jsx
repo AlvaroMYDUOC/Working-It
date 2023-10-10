@@ -2,28 +2,13 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { FaExternalLinkAlt } from 'react-icons/fa'; // Importamos el ícono
-import Modal from '../components/Modal';
-import token from '../services/apirest.js';
-
+import CrearProyecto from './CrearProyectoModal';
 
 const DataTableComponent = () => {
-     // Estado para controlar si el modal está abierto o cerrado
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  // Función para abrir el modal
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  // Función para cerrar el modal
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   // Estado para almacenar los datos obtenidos de la API
   const [data, setData] = useState([]);
   
-  // useEffect para realizar la llamada a la API cuando el componente se monta
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -76,14 +61,8 @@ const DataTableComponent = () => {
   // Renderizamos el componente DataTable con los datos y columnas definidas
   return (
     <>
-        <div>
-    <button onClick={openModal}>Crear Nuevo Proyecto</button>
-
-    
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
-    />
+    <div style={{display: 'flex', flexDirection: 'row-reverse', padding: '8px'}}>
+    <CrearProyecto />
     </div>
     <DataTable
       title="Proyectos"

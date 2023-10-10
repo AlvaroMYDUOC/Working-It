@@ -264,7 +264,6 @@ const RegistroP = () => {
   const [especialidades, setEspecialidades] = useState([]);
   const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("");
 
-
   //Funcion para el dropdown y traer las specialties
   useEffect(() => {
     // Realiza la solicitud para obtener las especialidades desde tu API

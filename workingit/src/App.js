@@ -37,7 +37,7 @@ function App() {
               <Route  path="/RegistroC" element={<RegistroCliente/>} />
               <Route  path="/RegistroP" element={<RegistroProfesional/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
-              <Route  path="/DataTable" element={<MisProyectos/>} /> 
+              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} /> 
 
               
