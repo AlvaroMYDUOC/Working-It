@@ -3,7 +3,8 @@ import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { FaExternalLinkAlt } from 'react-icons/fa'; // Importamos el ícono
 import CrearProyecto from './CrearProyectoModal';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Alert } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 const DataTableComponent = () => {
   const usuarioString = localStorage.getItem('usuario'); // Obtenemos la cadena JSON
@@ -15,9 +16,13 @@ const DataTableComponent = () => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-
   const userId = usuarioObjeto.id;
   console.log("ID del usuario: ", userId)
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const [showEditSuccessAlert, setShowEditSuccessAlert] = useState(false); // Estado para mostrar el mensaje de éxito
 
 
   // Estado para almacenar los datos obtenidos de la API
@@ -66,7 +71,6 @@ const DataTableComponent = () => {
             setData(updatedData);
             setShowConfirmation(false); // Ocultar la confirmación
             setProjectToDelete(null);
-            // No es necesario recargar la página con window.location.reload()
 
             // Establece el mensaje de éxito y muestra el Alert
             setSuccessMessage('El proyecto fue eliminado exitosamente');
@@ -82,6 +86,42 @@ const DataTableComponent = () => {
             console.error("Error al eliminar el proyecto", error);
           });
       };
+
+      const handleEditProject = () => {
+        // Obtiene el ID del proyecto seleccionado
+        const projectId = selectedProject.id;
+      
+        // Realiza la solicitud PATCH para actualizar el proyecto
+        const token = localStorage.getItem('token');
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      
+        axios
+          .patch(`http://149.50.130.111:8002/api/projects/${projectId}/`, selectedProject, config)
+          .then(() => {
+            // Muestra el mensaje de éxito
+            setShowEditSuccessAlert(true);
+            // Limpia el mensaje de éxito después de un tiempo (por ejemplo, 3 segundos)
+            setTimeout(() => {
+              setShowEditSuccessAlert(false);
+            }, 3000);
+
+            setShowEditModal(false); // Cierra el modal de edición
+            console.log('Proyecto editado con exito')
+            setTimeout(() =>{
+              window.location.reload();
+            }, 1500);
+          })
+          .catch((error) => {
+            console.error('Error al editar el proyecto', error);
+          });
+      };
+      
+      
+
 
   // Definimos las columnas de la tabla
   const columns = [
@@ -117,7 +157,24 @@ const DataTableComponent = () => {
     {
       name: '',
       cell: row => (
-        <Button style={{padding: '8px'}} onClick={() => handleDeleteProject(row.id)}>Eliminar Proyecto</Button>
+        <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px'}} onClick={() => handleDeleteProject(row.id)}>Eliminar Proyecto</Button>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+    {
+      name: '',
+      cell: (row) => (
+        <Button
+          style={{ marginRight: '8px', padding: '6px 12px', fontSize: '14px' }}
+          onClick={() => {
+            setSelectedProject(row);
+            setShowEditModal(true);
+          }}
+        >
+          Modificar Proyecto
+        </Button>
       ),
       ignoreRowClick: true,
       allowOverflow: true,
@@ -130,19 +187,28 @@ const DataTableComponent = () => {
     
     <>
     <div style={{padding: '8px'}}>
-    <div style={{display: 'flex', flexDirection: 'row-reverse', padding: '10px'}}>
+    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px'}}>
+      <h2>Mis Proyectos</h2>
     <CrearProyecto />
     </div >
     <div style={{padding: '8px'}}>
     <DataTable
-      title="Mis proyectos"
+      title=""
       columns={columns}
       data={data}
       pagination
       highlightOnHover
+      customStyles={{
+        rows: {
+          style: {
+            marginBottom: '10px', // Ajusta el espaciado entre las filas aquí
+          },
+        },
+      }}
     />
     </div>
     </div>
+    {/*Moodal para la confirmacion de elminacion de proyecto*/}
     <Modal show={showConfirmation} onHide={() => setShowConfirmation(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Eliminación</Modal.Title>
@@ -162,6 +228,88 @@ const DataTableComponent = () => {
         {successMessage}
       </div>
       )}
+      {/*Modal para la modificacion de proyecto*/}
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modificar Proyecto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="projectName">
+              <Form.Label>Nombre del Proyecto</Form.Label>
+              <Form.Control
+                type="text"
+                value={selectedProject?.name || ''}
+                onChange={(e) => {
+                  setSelectedProject({
+                    ...selectedProject,
+                    name: e.target.value,
+                  });
+                }}
+              />
+            </Form.Group>
+            <Form.Group controlId="projectDescription">
+              <Form.Label>Descripción</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={selectedProject?.description || ''}
+                onChange={(e) => {
+                  setSelectedProject({
+                    ...selectedProject,
+                    description: e.target.value,
+                  });
+                }}
+              />
+            </Form.Group>
+            <Form.Group controlId="projectPhotos">
+            <Form.Label>Fotos</Form.Label>
+            <Form.Control
+              type="file"
+              onChange={(e) => {
+                const files = e.target.files;
+                if (files.length > 0) {
+                  // Aquí puedes manejar los archivos seleccionados, por ejemplo, almacenarlos en el estado selectedProject
+                  setSelectedProject({
+                    ...selectedProject,
+                    photos: files,
+                  });
+                }
+              }}
+            />
+          </Form.Group>
+            <Form.Group controlId="projectMT2">
+              <Form.Label>mt2</Form.Label>
+              <Form.Control
+                type="number"
+                value={selectedProject?.mt2 || ''}
+                onChange={(e) => {
+                  setSelectedProject({
+                    ...selectedProject,
+                    mt2: parseFloat(e.target.value),
+                  });
+                }}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleEditProject}>
+            Guardar Cambios
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Alerta de éxito para la edición del proyecto */}
+      {showEditSuccessAlert && (
+        <Alert variant="success" onClose={() => setShowEditSuccessAlert(false)} dismissible>
+          Proyecto modificado correctamente
+        </Alert>
+      )}
+
+
     </>
   );
 };
