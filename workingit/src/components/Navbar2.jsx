@@ -6,8 +6,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import axios from 'axios';
 import logo from '../assets/img/icon.png'
-import { BsWindowSidebar } from 'react-icons/bs';
-//import { Link } from 'react-router-dom';
 
 
 

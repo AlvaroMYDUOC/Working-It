@@ -19,8 +19,9 @@ const CrearProyectoModal = () => {
   });
   const [token, setToken] = useState('');
   const [errors, setErrors] = useState({}); // Para almacenar los errores de validación
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-
+  
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -83,13 +84,22 @@ const CrearProyectoModal = () => {
       .then(response => {
         // Maneja la respuesta de la API (por ejemplo, muestra un mensaje de éxito)
         console.log('Proyecto creado con éxito:', response.data);
+        setShowSuccessAlert(true);
         // Cierra el modal después de un éxito
         closeLargeModal();
+        setTimeout(() =>{
+          window.location.reload();
+        }, 1000);
+        setTimeout(hideSuccessAlert, 5000);
       })
       .catch(error => {
         console.error('Error al crear el proyecto:', error);
         // Maneja los errores de la solicitud
       });
+  };
+
+  const hideSuccessAlert = () => {
+    setShowSuccessAlert(false);
   };
 
   return (
@@ -187,6 +197,11 @@ const CrearProyectoModal = () => {
             </Button>
         </Modal.Footer>
       </Modal>
+      {showSuccessAlert && (
+      <div className="alert alert-success" role="alert" style={{padding: '15px'}}>
+        El proyecto fue creado con éxito.
+      </div>
+      )}
     </>
   );
 };
