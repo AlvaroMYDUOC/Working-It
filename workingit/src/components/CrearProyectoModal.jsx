@@ -104,7 +104,9 @@ const CrearProyectoModal = () => {
 
   return (
     <>
-      <Button onClick={openLargeModal}>Crear proyecto</Button>
+      <Button onClick={openLargeModal}
+      style={{backgroundColor: '#0011ff'}}
+      >Crear proyecto</Button>
       <Modal
         size="lg"
         show={showLargeModal}
@@ -197,11 +199,6 @@ const CrearProyectoModal = () => {
             </Button>
         </Modal.Footer>
       </Modal>
-      {showSuccessAlert && (
-      <div className="alert alert-success" role="alert" style={{padding: '15px'}}>
-        El proyecto fue creado con éxito.
-      </div>
-      )}
     </>
   );
 };

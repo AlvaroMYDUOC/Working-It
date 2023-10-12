@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import axios from 'axios';
-import logo from '../assets/img/icon.png'
+import logoBlue from '../assets/img/logoBlue.png'
 
 
 
@@ -104,15 +104,14 @@ useEffect(() => {
             <Navbar.Brand href="#home">
                 <img
                 alt=""
-                src={logo}
+                src={logoBlue}
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
-                style={{backgroundColor: 'blue'}}
                 />
             </Navbar.Brand>
             <Navbar.Brand href="/"
-            style={{color: 'blue'}}>Working It</Navbar.Brand>
+            style={{color: '#2e1b72', fontFamily: 'Chewy, cursive'}}>Working It</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}

@@ -73,7 +73,7 @@ const DataTableComponent = () => {
             setProjectToDelete(null);
 
             // Establece el mensaje de éxito y muestra el Alert
-            setSuccessMessage('El proyecto fue eliminado exitosamente');
+            setSuccessMessage('El proyecto fue eliminado correctamente');
             setShowSuccessAlert(true);
 
             // Limpia el mensaje de éxito después de un tiempo (por ejemplo, 3 segundos)
@@ -157,7 +157,7 @@ const DataTableComponent = () => {
     {
       name: '',
       cell: row => (
-        <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px'}} onClick={() => handleDeleteProject(row.id)}>Eliminar Proyecto</Button>
+        <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#cc1919', borderColor: 'black', height: '95%', padding: '8px'}} onClick={() => handleDeleteProject(row.id)}>Eliminar Proyecto</Button>
       ),
       ignoreRowClick: true,
       allowOverflow: true,
@@ -167,7 +167,7 @@ const DataTableComponent = () => {
       name: '',
       cell: (row) => (
         <Button
-          style={{ marginRight: '8px', padding: '6px 12px', fontSize: '14px' }}
+          style={{ marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#fffb02', color: 'black', borderColor: 'black', height: '95%', padding: '8px' }}
           onClick={() => {
             setSelectedProject(row);
             setShowEditModal(true);
@@ -225,7 +225,7 @@ const DataTableComponent = () => {
         </Modal.Footer>
       </Modal>
       {showSuccessAlert && (
-      <div className="alert alert-success" role="alert" style={{padding: '10px'}}>
+      <div className="alert alert-danger" role="alert" style={{padding: '10px'}}>
         {successMessage}
       </div>
       )}

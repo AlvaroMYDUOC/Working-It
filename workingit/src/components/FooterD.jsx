@@ -8,7 +8,7 @@ import { FaTwitter, FaFacebookF, FaYoutube, FaInstagram, FaLinkedinIn } from 're
 
 const Buscador2 = () => {
   return (
-    <div className="container-fluid text-white-50 footer pt-5">
+    <div className="container-fluid text-white-50 footer pt-5" style={{height: 'auto'}}>
     <div className="container py-1">
       <div className="row g-5">
         <div className="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">

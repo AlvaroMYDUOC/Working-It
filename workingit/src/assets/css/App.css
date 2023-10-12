@@ -36,3 +36,10 @@
         transform: rotate(360deg);
     }
 }
+
+@font-face {
+    font-family: 'Chewy';
+    src: local('Chewy'),
+        url('../fonts/Chewy-Regular.ttf')
+  }
+  
