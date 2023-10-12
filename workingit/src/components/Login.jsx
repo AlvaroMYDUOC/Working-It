@@ -106,7 +106,7 @@ function Login() {
             </div>
             <MDBBtn className="mb-4 w-100" onClick={manejadorBoton}>Ingresar</MDBBtn>
             <p className="text-center">¿Aún no tienes cuenta? </p>
-            <p className='text-center'><a href="">Registrate</a></p>
+            <p className='text-center'><a href="/RegistroInicio">Registrate</a></p>
           </MDBTabsPane>
         </MDBTabsContent>
       </MDBRow>

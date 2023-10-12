@@ -9,6 +9,7 @@ const RegistroInicio = () => {
     <>
       <Navbar2 />
       <RegistroI />
+      <hr/>
       <FooterD />
     </>
   )

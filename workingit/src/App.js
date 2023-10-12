@@ -34,6 +34,8 @@ function App() {
               <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
+             
+
               
               <Route  path="/Proyectos" element={<Proyectos/>} />
               <Route  path="/Registro" element={<Registro/>} />
