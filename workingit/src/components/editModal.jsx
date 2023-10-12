@@ -120,7 +120,7 @@ const Example = () => {
 
   return (
     <>
-      <Button  style={{backgroundColor: '#6d8cf1'}}onClick={handleShow}>
+      <Button  style={{backgroundColor: '#6d8cf1', padding: '8px'}}onClick={handleShow}>
         Editar Perfil
       </Button>
 

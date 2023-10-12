@@ -92,7 +92,7 @@ const SpecialistProfile = () => {
                 </div>
                 <div className="Supercontenedor" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gridGap: '10px' }}>
                   <div className="d-flex justify-content-start text-center py-1" style={{ gridColumn: 'span 3', display: 'grid', alignItems: 'center',justifyContent: 'center' }}>
-                  <MDBCardText className="small text-muted mb-0">Dispnoible</MDBCardText>
+                  <MDBCardText className="small text-muted mb-0">Disponible</MDBCardText>
                   </div>
                   <div className="d-flex justify-content-end text-center py-1" style={{ gridColumn: 'span 3' }}>
                     <div>

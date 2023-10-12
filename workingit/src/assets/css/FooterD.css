@@ -11,17 +11,20 @@
     padding-bottom: 50px; /* Deja espacio en la parte inferior para el footer */
     position: relative; /* Establece la posición como relativa para que los elementos secundarios puedan usar posición absoluta */
     flex-grow: 1;
-    padding-bottom: 50px;
   }
 
   .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente los elementos */
+    justify-content: center; /* Centra verticalmente los elementos */
     position: initial; /* Establece la posición como absoluta */
     bottom: 0; /* Fija el footer en la parte inferior de su contenedor principal */
     left: 0;
     width: 100%;
     background-color: #283499;
     background-size: contain;
-    padding: 10px 0;
+    padding: 0;
   }
   
   .footer .btn.btn-social {
@@ -36,6 +39,9 @@
     border: 1px solid #ffffff;
     border-radius: 40px;
     transition: .3s;
+    margin-bottom: 5px; /* Reduzca el espacio vertical entre los elementos según sus necesidades */
+    margin-right: 5px; /* Reduzca el espacio horizontal entre los botones sociales según sus necesidades */
+
   }
   
   .footer .btn.btn-social:hover {
@@ -50,6 +56,7 @@
     color: #ffffff;
     font-weight: normal;
     transition: .3s;
+    margin-bottom: 5px; /* Reduzca el espacio vertical entre los elementos según sus necesidades */
   }
   
   .footer .btn.btn-link:hover {
