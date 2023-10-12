@@ -49,7 +49,7 @@ function Navbar2() {
             localStorage.removeItem('token');
             localStorage.removeItem('usuario');
             //Redireecciona al usuario a la pagina de inicio de sesion
-            window.location.href = 'LoginC'
+            window.location.href = 'Login'
             return;
           }
         });
@@ -99,8 +99,8 @@ useEffect(() => {
   return (
     <>
       {['lg'].map((expand) => (
-        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3">
-          <Container fluid>
+        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3 blue-navbar">
+          <Container fluid >
             <Navbar.Brand href="#home">
                 <img
                 alt=""
@@ -108,9 +108,11 @@ useEffect(() => {
                 width="30"
                 height="30"
                 className="d-inline-block align-top"
+                style={{backgroundColor: 'blue'}}
                 />
             </Navbar.Brand>
-            <Navbar.Brand href="/">Working It</Navbar.Brand>
+            <Navbar.Brand href="/"
+            style={{color: 'blue'}}>Working It</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
@@ -126,7 +128,8 @@ useEffect(() => {
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                 <NavDropdown
                   title="Categorías"
-                  id={`offcanvasNavbarDropdown-expand-${expand}`}> 
+                  id={`offcanvasNavbarDropdown-expand-${expand}`}
+                  > 
 
                   {categories.map((category) => (
                     <NavDropdown.Item key={category.id} href={`#${category.id}`}>
@@ -162,8 +165,8 @@ useEffect(() => {
                   {/*Esto se muestra si es que el token no esta activo*/}
                   <Nav.Link href="#action1">Solicita una asesoría</Nav.Link>
                   <Nav.Link href="#action1">¿Eres un especialista?</Nav.Link>
-                  <Nav.Link href="/RegistroI">Crea tu cuenta</Nav.Link>
-                  <Nav.Link href="/LoginC">Ingresar</Nav.Link>
+                  <Nav.Link href="/RegistroInicio">Crea tu cuenta</Nav.Link>
+                  <Nav.Link href="/Login">Ingresar</Nav.Link>
                   </>
                 )}
                 </Nav>

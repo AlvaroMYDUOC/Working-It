@@ -11,24 +11,24 @@ function UncontrolledExample() {
     <Carousel>
       <Carousel.Item >
         <img src={Foto1} />
-        <Carousel.Caption>
-          <h3>Remodelacion patio</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <Carousel.Caption >
+          <h3 style={{color: 'white'}}>Remodelacion patio</h3>
+          <p style={{color: 'white'}}>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
       <img src={Foto2} alt="" />
 
         <Carousel.Caption>
-          <h3>Terraza techada</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3 style={{color: 'white'}}>Terraza techada</h3>
+          <p style={{color: 'white'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
       <img src={Foto3} alt="" />
         <Carousel.Caption>
-          <h3>Terraza y Paisajismo</h3>
-          <p>
+          <h3 style={{color: 'white'}}>Terraza y Paisajismo</h3>
+          <p style={{color: 'white'}}>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur.
           </p>
         </Carousel.Caption>

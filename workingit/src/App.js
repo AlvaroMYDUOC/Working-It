@@ -23,36 +23,24 @@ import RegistroC from './components/RegistroC.jsx';
 import RegistroP from './components/RegistroP.jsx';
 import FooterD from './components/FooterD.jsx';
 import MisProyectos from './Pages/MisProyectos';
-import DirectorioProyectos from './components/buscadorProyectos.jsx';
 
 
 function App() {
   return (
     <Router>
           <Routes>
-              {/*Rutas para pruebas*/}
+              {/*Rutas definitivas para la aplicacion*/}
               <Route  path="/" element={<Home />}/>
-              <Route  path="/LoginC" element={<Login/>} />
-              <Route  path="/RegistroI" element={<RegistroInicio/>} />
-              <Route  path="/RegistroC" element={<RegistroCliente/>} />
-              <Route  path="/RegistroP" element={<RegistroProfesional/>} />
+              <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
-              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} /> 
-
               
-
-
               <Route  path="/Proyectos" element={<Proyectos/>} />
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/DataTable" element={<DataTable/>} />
+              <Route  path="/Login" element={<Login/>} />
 
-              <Route  path="/LoginC" element={<LoginC/>} />
-              <Route  path="/RegistroI" element={<RegistroI/>} />
-              <Route  path="/RegistroC" element={<RegistroC/>} />
-              <Route  path="/RegistroP" element={<RegistroP/>} />
-              <Route  path="/FooterD" element={<FooterD/>} />
           </Routes>
         </Router>
   );

@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { FaExternalLinkAlt } from 'react-icons/fa'; // Importamos el ícono
 import CrearProyecto from './CrearProyectoModal';
-import { Button, Modal, Alert } from 'react-bootstrap';
+import { Button, Modal, Alert, Card } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 
 const DataTableComponent = () => {
@@ -186,6 +186,7 @@ const DataTableComponent = () => {
   return (
     
     <>
+    <Card style={{padding: '10px', margin: 'auto'}}>
     <div style={{padding: '8px'}}>
     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px'}}>
       <h2>Mis Proyectos</h2>
@@ -309,7 +310,7 @@ const DataTableComponent = () => {
         </Alert>
       )}
 
-
+    </Card>
     </>
   );
 };

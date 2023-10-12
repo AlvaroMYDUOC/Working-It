@@ -71,7 +71,7 @@ const SpecialistProfile = () => {
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
             <MDBCard>
-              <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
+              <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#89acf7', height: '200px' }}>
                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                   <MDBCardImage
                     src={photoPerfil} //Utiliza la imagen anteriormente mencionada
@@ -90,18 +90,23 @@ const SpecialistProfile = () => {
                 <div className="d-flex justify-content-start align-items-center py-1" style={{ width: '75px' }}>
                   {/* Aquí irán las valoraciones que el profesionista ya tenga */}
                 </div>
-                <div className="d-flex justify-content-end text-center py-1">
-                  <div>
-                    <MDBCardText className="mb-1 h5">5+</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Años trabajando</MDBCardText>
+                <div className="Supercontenedor" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gridGap: '10px' }}>
+                  <div className="d-flex justify-content-start text-center py-1" style={{ gridColumn: 'span 3', display: 'grid', alignItems: 'center',justifyContent: 'center' }}>
+                  <MDBCardText className="small text-muted mb-0">Dispnoible</MDBCardText>
                   </div>
-                  <div className="px-3">
-                    <MDBCardText className="mb-1 h5"><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /></MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Valoracion</MDBCardText>
-                  </div>
-                  <div>
-                    <MDBCardText className="mb-1 h5">3 años</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Miembro desde</MDBCardText>
+                  <div className="d-flex justify-content-end text-center py-1" style={{ gridColumn: 'span 3' }}>
+                    <div>
+                      <MDBCardText className="mb-1 h5">5+</MDBCardText>
+                      <MDBCardText className="small text-muted mb-0">Años trabajando</MDBCardText>
+                    </div>
+                    <div className="px-3">
+                      <MDBCardText className="mb-1 h5"><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /></MDBCardText>
+                      <MDBCardText className="small text-muted mb-0">Valoracion</MDBCardText>
+                    </div>
+                    <div>
+                      <MDBCardText className="mb-1 h5">3 años</MDBCardText>
+                      <MDBCardText className="small text-muted mb-0">Miembro desde</MDBCardText>
+                    </div>
                   </div>
                 </div>
               </div>

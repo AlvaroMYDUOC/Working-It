@@ -1,7 +1,9 @@
 /* Estilo para el carrusel */
 .carousel {
-  background-color: #f0f0f0; /* Color de fondo del carrusel */
+  background-color: #ffffff; /* Color de fondo del carrusel */
   border-radius: 10px; /* Borde redondeado */
+  color: #ffffff
+
 }
 
 /* Estilo para las diapositivas */
@@ -9,6 +11,7 @@
   width: 100%; /* Ancho de la diapositiva */
   height: 100%; /* Alto de la diapositiva */
   text-align: center; /* Centrar el contenido de las diapositivas */
+  color: #ffffff
 }
 
 /* Estilo para la imagen dentro de la diapositiva */
@@ -20,12 +23,12 @@
 
 /* Estilo para el título */
 .carousel-caption h3 {
-  color: #f3efef; /* Color del título */
+  color: #f5f5f5; /* Color del título */
   font-size: 24px; /* Tamaño del título */
 }
 
 /* Estilo para el párrafo */
 .carousel-caption p {
-  color: #fafafa; /* Color del párrafo */
+  color: #ffffff; /* Color del párrafo */
   font-size: 16px; /* Tamaño del párrafo */
 }
