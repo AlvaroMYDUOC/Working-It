@@ -35,6 +35,8 @@ function App() {
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
               <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} /> 
+              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
+
 
               
               <Route  path="/Proyectos" element={<Proyectos/>} />
