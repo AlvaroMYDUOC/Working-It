@@ -1,0 +1,52 @@
+/* DirectorioProyectos.css */
+
+
+
+.project-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px; /* Ajusta el ancho de la tarjeta */
+    margin: 0 auto; /* Centra la tarjeta horizontalmente en el contenedor */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 20px; /* Espacio entre tarjetas */
+  }
+  
+  .project-card-image {
+    max-width: 30%; /* Ajusta el ancho máximo de la imagen */
+    margin-right: 10px; /* Espacio entre la imagen y los detalles */
+  }
+  
+  .project-card-image img {
+    max-width: 100%;
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+  }
+  
+  .project-card-details {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .mini-card {
+    background-color: #f0f0f0;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .project-card h3 {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  .project-card p {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+  }
+  
+  .mini-card p {
+    font-size: 14px;
+    margin: 5px 0;
+  }

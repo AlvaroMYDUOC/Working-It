@@ -1,0 +1,46 @@
+/* ProfessionalCard.css */
+
+.professional-card {
+    display: flex; /* Utiliza flexbox para alinear contenido e imagen */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    max-width: 300px; /* Cambia a max-width en lugar de width */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .professional-card-image {
+    flex: 1; /* La imagen ocupará el espacio disponible a la derecha */
+    text-align: right; /* Alinea la imagen a la derecha */
+  }
+  
+  .professional-card-image img {
+    max-width: 100%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .professional-card-content {
+    flex: 2; /* El contenido ocupará el espacio disponible a la izquierda */
+    text-align: left; /* Alinea el contenido a la izquierda */
+  }
+  
+  .professional-card h3 {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  .professional-card p {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+  }
+  
+  .rating {
+    color: #f9a825; /* Color amarillo para las estrellas */
+    font-size: 20px;
+    margin: 10px 0;
+  }
+  

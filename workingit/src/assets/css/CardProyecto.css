@@ -1,0 +1,48 @@
+/* ProjectCard.css */
+
+.project-card {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .project-card-image {
+    flex: 1; /* Hace que la imagen ocupe todo el espacio disponible */
+    text-align: right; /* Alinea la imagen a la derecha */
+    padding-right: 10px; /* Espacio entre la imagen y los detalles */
+  }
+  
+  .project-card-image img {
+    max-width: 100%;
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+  }
+  
+  .project-card-details {
+    flex: 2; /* Hace que los detalles ocupen el doble de espacio que la imagen */
+    text-align: left; /* Alinea los detalles a la izquierda */
+  }
+  
+  .mini-card {
+    background-color: #f0f0f0;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .project-card h3 {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  .project-card p {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+  }
+  
+  .mini-card p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  

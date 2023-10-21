@@ -23,6 +23,9 @@ import RegistroC from './components/RegistroC.jsx';
 import RegistroP from './components/RegistroP.jsx';
 import FooterD from './components/FooterD.jsx';
 import MisProyectos from './Pages/MisProyectos';
+import Directorio from './components/Directorio';
+import DirectorioProyecto from './components/DirectorioProyecto';
+
 
 
 function App() {
@@ -35,8 +38,9 @@ function App() {
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
              
+              <Route  path="/directorioProyecto" element={<DirectorioProyecto/>} /> 
 
-              
+               
               <Route  path="/Proyectos" element={<Proyectos/>} />
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
