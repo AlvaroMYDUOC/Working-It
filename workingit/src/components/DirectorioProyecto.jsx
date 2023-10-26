@@ -14,9 +14,9 @@
 
     return (
         <div className="projects-directory">
-        {projects.map((project) => (
-            <ProyectoCard key={project.id} project={project} />
-        ))}
+            {projects.map((project) => (
+                <ProyectoCard key={project.id} project={project} />
+            ))}
         </div>
     );
     };

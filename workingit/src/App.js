@@ -38,7 +38,7 @@ function App() {
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
              
-              <Route  path="/directorioProyecto" element={<DirectorioProyecto/>} /> 
+              <Route  path="/DirectorioProfesional" element={<DirectorioProyecto/>} /> 
 
                
               <Route  path="/Proyectos" element={<Proyectos/>} />
