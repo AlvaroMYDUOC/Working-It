@@ -25,6 +25,7 @@ import FooterD from './components/FooterD.jsx';
 import MisProyectos from './Pages/MisProyectos';
 import Directorio from './components/Directorio';
 import DirectorioProyecto from './components/DirectorioProyecto';
+import FilterComponent from './components/Filtro';
 
 
 
@@ -38,7 +39,7 @@ function App() {
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
              
-              <Route  path="/DirectorioProfesional" element={<DirectorioProyecto/>} /> 
+              <Route  path="/Filtro" element={<FilterComponent/>} /> 
 
                
               <Route  path="/Proyectos" element={<Proyectos/>} />
