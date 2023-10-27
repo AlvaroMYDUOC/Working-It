@@ -143,7 +143,7 @@ useEffect(() => {
                     //Menu si is_professional es true
                   <>  
                     <Nav.Link href="#">Asesorias asignadas</Nav.Link>            
-                    <Nav.Link href="#">Directorio de proyectos</Nav.Link>
+                    <Nav.Link href="/DirectorioProyectos">Directorio de proyectos</Nav.Link>
                     <Nav.Link href="#">Mensajes</Nav.Link>
                     <Nav.Link href="/MiPerfil">Mi Perfil</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>              

@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 //import Login from './components/Login';
 import Registro from './components/Registro';
-import Proyectos from './components/Proyectos';
+import MisProyectos from './Pages/MisProyectos'
 import SpecialistProfile from './components/SpecialistProfile';
 //Rutas pages
 import Home from './Pages/Home.jsx';
@@ -23,10 +23,6 @@ import RegistroC from './components/RegistroC.jsx';
 import RegistroP from './components/RegistroP.jsx';
 import FooterD from './components/FooterD.jsx';
 import MisProyectos from './Pages/MisProyectos';
-import Directorio from './components/Directorio';
-import DirectorioProyecto from './components/DirectorioProyecto';
-import FilterComponent from './components/Filtro';
-
 
 
 function App() {
@@ -38,15 +34,15 @@ function App() {
               <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
-             
-              <Route  path="/Filtro" element={<FilterComponent/>} /> 
-
-               
+              
               <Route  path="/Proyectos" element={<Proyectos/>} />
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
-              <Route  path="/DataTable" element={<DataTable/>} />
               <Route  path="/Login" element={<Login/>} />
+
+
+              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
+
 
           </Routes>
         </Router>
