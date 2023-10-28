@@ -33,7 +33,7 @@ function Navbar2() {
         .then((response) =>{
           //El token es valido
           setIsTokenValid(true);
-          console.log("El token es valido")
+          //console.log("El token es valido")
         })
         .catch((error) => {
           //El token no es valido
@@ -62,9 +62,9 @@ function Navbar2() {
 
   //Revisaremos por consola si is_professional es true o false
   if(usuario == null){
-    console.log('No hay usuario conectado') //Si el usuario queda como null entrega este mensaje en la consola.
+    //console.log('No hay usuario conectado') //Si el usuario queda como null entrega este mensaje en la consola.
   } else{
-    console.log('is_professional: ', usuario.is_professional);
+    //console.log('is_professional: ', usuario.is_professional);
   }
 
   //Funcion para el logout
@@ -82,7 +82,7 @@ useEffect(() => {
   axios.get('http://149.50.130.111:8000/especialistas/')
     .then((response) => {
       setCategories(response.data.results);
-      console.log(response);
+      //console.log(response);
     })
     .catch((error) => {
       console.error('Error al obtener las categorías:', error);
