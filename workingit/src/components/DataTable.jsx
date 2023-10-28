@@ -361,15 +361,21 @@ const DataTableComponent = () => {
                 <p>MT2: {selectedProjectDetails.mt2}</p>
               </Col>
               <Col sm={6}>
-                <h5>Fotos del proyecto:</h5>
-                <Row>
-                  {selectedProjectDetails.photos.map((photo) => (
+              <h5>Fotos del proyecto:</h5>
+              <Row>
+                {selectedProjectDetails.photos && selectedProjectDetails.photos.length > 0 ? (
+                  selectedProjectDetails.photos.map((photo) => (
                     <Col key={photo.id} sm={6}>
                       <img src={photo.photo} alt={`Foto ${photo.id}`} style={{ maxWidth: '100%' }} />
                     </Col>
-                  ))}
-                </Row>
-              </Col>
+                  ))
+                ) : (
+                  <Col sm={12}>
+                    <p>No hay fotos disponibles para este proyecto.</p>
+                  </Col>
+                )}
+              </Row>
+            </Col>
             </Row>
           </Container>
         </Modal.Body>
