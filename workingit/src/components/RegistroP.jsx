@@ -4,6 +4,7 @@ import workers from '../assets/img/workers.jpg';
 import axios from 'axios';
 import { ApiRegistro } from '../services/apirest';
 import { useNavigate } from 'react-router-dom';
+import { Modal, Button, Form } from 'react-bootstrap';
 
 const RegistroP = () => {
   //Seccion de instrucciones
@@ -256,6 +257,9 @@ const RegistroP = () => {
       };
     }, []);
   
+  //Constantes para mostrar el modal de verificación con el código
+  const [showModal, setShowModal] = useState(false);
+
   //Constante para redireccion
   const navigate = useNavigate();
   const homePageUrl = "/";
@@ -367,7 +371,7 @@ const RegistroP = () => {
     .then((response) => {
       console.log(response);
       console.log(response.data); //Esperamos poder ver la data de la response con esto
-      navigate(homePageUrl);
+      setShowModal(true); //Condición de aparición del modal de verificación
     })
     .catch((error) => {
       //El 400 indica un error en la solicitud
@@ -411,6 +415,34 @@ const RegistroP = () => {
     });
   };
 
+  //Para la verificación del email 
+
+  const [verificationCode, setVerificationCode] = useState('');
+
+  const handleEnviarClick = () => {
+    // Obitene el valor del correo electrónico ingresado por el usuario en el formulario
+    const userEmail = form.email;
+
+    //Crea un objeto con los datos necesarios
+    const requestData = {
+      email: userEmail,
+      verification_code: verificationCode,
+    }
+
+    axios.post('http://149.50.130.111:8000/verify-email/', requestData)
+      .then((response) => {
+        console.log('Usuario verificado con éxito', response);
+        alert('Verificación exitosa');
+        setShowModal(false); //Cerramos el modal con esta última instrucción
+        navigate(homePageUrl);
+      })
+      .catch((error) => {
+        console.error('Error al verificar el usuario', error);
+        alert('hubo un error al enviar la solicitud de verificación')
+      })
+  }
+
+  
   return (
     <div className="container">
     <div className="row">
@@ -587,6 +619,33 @@ const RegistroP = () => {
           )}
           <button type="submit" className="btn btn-primary" >Registrarme</button>
         </form>
+        {/*Modal para la verificacón del usuario*/}
+        <br />
+        <Modal show={showModal} style={{padding: '10px'}} >
+          <Modal.Header>
+            <Modal.Title>¡Enhorabuena, estás a un paso de terminar tu registro!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{alignContent: 'center'}}>
+            <p>Debes ingresar el código de verificación enviado a tu correo electrónico, recuerda no cerrar esta pestaña</p>
+          </Modal.Body>
+          <Form style={{display: 'flex', flexDirection: 'column'}}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" style={{padding: '8px'}}>
+              <Form.Label style={{padding: '10px'}}>Código de verificación</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingresa aquí tu código de verificación..."
+                  autoFocus
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value)} // Manejo de cambios del codigo de verificación
+                />
+              </Form.Group>
+          </Form>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleEnviarClick}>
+              Enviar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
       <div className="col-md-6 d-flex justify-content-center align-items-center">
         <div className="card">

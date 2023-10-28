@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
+import { Container, Card, Row, Col } from 'react-bootstrap'; // Asumiendo que estás utilizando react-bootstrap
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+
+// import ImageFromApi from './ImageFromApi'; // Asegúrate de importar el componente ImageFromApi
 
 const DirectorioProyectos = () => {
   const [proyectos, setProyectos] = useState([]);
@@ -30,60 +31,69 @@ const DirectorioProyectos = () => {
 
   return (
     <div className="directorio-proyectos">
-      <div className="d-flex justify-content-center align-items-center" style={{padding: '8px'}}>
+      <h2 className="text-center">Directorio de Proyectos</h2>
+      <div className="d-flex justify-content-center align-items-center" style={{ padding: '8px' }}>
         <input
           type="text"
           placeholder="Especialista"
           value={especialista}
           onChange={(e) => setEspecialista(e.target.value)}
-          style={{ marginRight: '10px' }}
-        />
-        <input
-          type="text"
-          placeholder="Ciudad"
-          value={ciudad}
-          onChange={(e) => setCiudad(e.target.value)}
-          style={{ marginRight: '10px' }}
+          style={{padding: '5px', margin: '8px'}}
         />
         <Button variant="primary" onClick={handleBuscar}>Buscar</Button>
       </div>
       <Container className="d-flex justify-content-center align-items-center">
-        <div className="ordenar-dropdown">
+        <div className="ordenar-dropdown" style={{padding: '1px', marginBottom: '5px'}}>
           <Dropdown style={{}}>
             <Dropdown.Toggle as={Button} variant="primary">
               Ordenar por
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>Nombre</Dropdown.Item>
-              <Dropdown.Item>Fecha</Dropdown.Item>
               <Dropdown.Item>Tipo</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
       </Container>
-      <Container className="d-flex justify-content-center align-items-center">
-        <div className="proyectos">
-          {proyectos.map(proyecto => (
-            <Card key={proyecto.id} className="mb-3">
-              <Card.Body>
-                <div className="d-flex">
-                  <div>
-                    <Card.Title>{proyecto.name}</Card.Title>
-                    <Card.Text>{proyecto.description}</Card.Text>
-                    <p>Metros Cuadrados: {proyecto.mt2}</p>
-                    <p>Tipo: {proyecto.type}</p>
-                  </div>
-                  <div className="ml-auto">
-                    {proyecto.photos.length > 0 && (
-                      <Image src={proyecto.photos[0].photo} alt={proyecto.name} style={{ width: '100px' }} />
-                    )}
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-          ))}
+      <Container fluid className="p-0">
+      <Row>
+        <Col md={1}></Col>
+        <Col md={2}></Col>
+        <Col md={3}>
+        <div className="categorías" style={{ textAlign: 'left', margin: '0 20px' }}>
+          <h2>Categorías</h2>
+          <p>Maestro Ceramista</p>
+          <p>Maestro Ceramista</p>
+          <p>Maestro Ceramista</p>
+          <p>Maestro Ceramista</p>
+          <p>Ver más</p>
         </div>
-      </Container>
+        </Col>
+        <Col md={6}>
+          <div className="proyectos">
+            {proyectos.map(proyecto => (
+              <Card key={proyecto.id} className="mb-3" style={{padding: '5px', marginRight: '50px'}}>
+                <Card.Body>
+                  <div className="d-flex">
+                    <div>
+                      <Card.Title>{proyecto.name}</Card.Title>
+                      <Card.Text>{proyecto.description}</Card.Text>
+                      <p>Metros Cuadrados: {proyecto.mt2}</p>
+                      <p>Tipo: {proyecto.type}</p>
+                    </div>
+                    <div className="ml-auto">
+                      {proyecto.photos.length > 0 && (
+                        <img src={proyecto.photos[0].photo} alt={proyecto.name} style={{ width: '100px' }} />
+                      )}
+                    </div>
+                  </div>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        </Col>
+      </Row>
+    </Container>
     </div>
   );
 };

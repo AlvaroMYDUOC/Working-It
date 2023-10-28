@@ -24,7 +24,7 @@ const SpecialistProfile = () => {
     const apiUrl = `http://149.50.130.111:8001/api/profiles/` + userProfId;
 
     axios
-      .get(apiUrl)
+      .get(apiUrl, {withCredentials: true})
       .then((response) => {
         setUserProfile(response.data);
         setLoading(false);
