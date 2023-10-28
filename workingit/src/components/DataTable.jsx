@@ -5,6 +5,8 @@ import { FaExternalLinkAlt } from 'react-icons/fa'; // Importamos el ícono
 import CrearProyecto from './CrearProyectoModal';
 import { Button, Modal, Alert, Card } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 
 const DataTableComponent = () => {
   const usuarioString = localStorage.getItem('usuario'); // Obtenemos la cadena JSON
@@ -148,8 +150,13 @@ const DataTableComponent = () => {
     },
     {
       name: 'Ver Proyecto',
-      // Creamos un botón o ícono en la celda que redirige a la URL del proyecto
-      cell: row => <a href={`http://149.50.130.111:8002/api/projects/${row.id}/`} target="_blank" rel="noopener noreferrer"><FaExternalLinkAlt /></a>,
+      cell: (row) => (
+        <Link to={`/DetalleProyecto/${row.id}`}>
+          <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#cc1919', borderColor: 'black', height: '95%', padding: '8px'}} variant="info">
+            Ver Proyecto
+          </Button>
+        </Link>
+      ),
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
@@ -309,6 +316,10 @@ const DataTableComponent = () => {
           Proyecto modificado correctamente
         </Alert>
       )}
+      {/*Modal asesoria*/}
+      <>
+        
+      </>
 
     </Card>
     </>

@@ -22,7 +22,10 @@ import RegistroI from './components/RegistroI.jsx';
 import RegistroC from './components/RegistroC.jsx';
 import RegistroP from './components/RegistroP.jsx';
 import FooterD from './components/FooterD.jsx';
-import MisProyectos from './Pages/MisProyectos';
+import Directorio from './components/Directorio';
+import DirectorioProyecto from './components/DirectorioProyecto';
+
+
 
 
 function App() {
@@ -34,14 +37,20 @@ function App() {
               <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
+              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
+              <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
+              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} /> 
               
-              <Route  path="/Proyectos" element={<Proyectos/>} />
+              
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/Login" element={<Login/>} />
 
 
-              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
+              <Route  path="/DirectorioProyecto" element={<DirectorioProyecto/>} />
+
+
+             
 
 
           </Routes>
