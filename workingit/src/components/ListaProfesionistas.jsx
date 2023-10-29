@@ -4,31 +4,25 @@ import { Container, Card, Row, Col } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 
-const DirectorioProyectos = () => {
+const ListadoProfesionistas = () => {
   const [proyectos, setProyectos] = useState([]);
   const [especialista, setEspecialista] = useState('');
   const [ciudad, setCiudad] = useState('');
   const [tiposProyecto, setTiposProyecto] = useState([]);
-  const [paginaActual, setPaginaActual] = useState(1);
-  const [proyectosPorPagina] = useState(5);
   const [nombreProyecto, setNombreProyecto] = useState('');
+
+  const [profesionales, setProfesionales] = useState([]);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const profesionalesPorPagina = 5;
 
 
   useEffect(() => {
-    axios.get('http://149.50.130.111:8002/api/projects/')
+    axios.get('http://149.50.130.111:8001/api/profiles/')
       .then(response => {
-        setProyectos(response.data);
+        setProfesionales(response.data);
       })
       .catch(error => {
-        console.error('Error al cargar proyectos:', error);
-      });
-
-    axios.get('http://149.50.130.111:8002/api/project-types/')
-      .then(response => {
-        setTiposProyecto(response.data);
-      })
-      .catch(error => {
-        console.error('Error al cargar los tipos de proyecto', error);
+        console.error('Error al cargar los perfiles de profesionales:', error);
       });
   }, []);
 
@@ -72,11 +66,11 @@ const DirectorioProyectos = () => {
     }
   };
 
-  const indexUltimoProyecto = paginaActual * proyectosPorPagina;
-  const indexPrimerProyecto = indexUltimoProyecto - proyectosPorPagina;
-  const proyectosActuales = proyectos.slice(indexPrimerProyecto, indexUltimoProyecto);
+  const indexUltimoProfesional = paginaActual * profesionalesPorPagina;
+  const indexPrimerProfesional = indexUltimoProfesional - profesionalesPorPagina;
+  const profesionalesActuales = profesionales.slice(indexPrimerProfesional, indexUltimoProfesional);
 
-  const totalPaginas = Math.ceil(proyectos.length / proyectosPorPagina);
+  const totalPaginas = Math.ceil(profesionales.length / profesionalesPorPagina);
 
   const paginar = (numeroPagina) => {
     setPaginaActual(numeroPagina);
@@ -84,7 +78,7 @@ const DirectorioProyectos = () => {
 
   return (
     <div className="directorio-proyectos">
-      <h2 className="text-center">Directorio de Proyectos</h2>
+      <h2 className="text-center">Directorio de profesionales</h2>
        {/* Barra de búsqueda y botón */}
        <Container className="d-flex justify-content-center align-items-center">
         <input
@@ -134,25 +128,26 @@ const DirectorioProyectos = () => {
           </Col>
           <Col md={6}>
             <div className="proyectos">
-              {proyectosActuales.map(proyecto => (
-                <Card key={proyecto.id} className="mb-3" style={{ padding: '5px', marginRight: '50px' }}>
-                  <Card.Body>
-                    <div className="d-flex">
-                      <div>
-                        <Card.Title>{proyecto.name}</Card.Title>
-                        <Card.Text>{proyecto.description}</Card.Text>
-                        <p>Metros Cuadrados: {proyecto.mt2}</p>
-                        <p>Tipo: {proyecto.type}</p>
-                      </div>
-                      <div className="ml-auto">
-                        {proyecto.photos.length > 0 && (
-                          <img src={proyecto.photos[0].photo} alt={proyecto.name} style={{ width: '100px' }} />
-                        )}
-                      </div>
-                    </div>
-                  </Card.Body>
-                </Card>
-              ))}
+                    {profesionalesActuales.map(profesional => (
+                    <Col md={6} key={profesional.professional_id}>
+                    <Card className="mb-3">
+                        <Card.Body>
+                        <div className="d-flex">
+                            <div>
+                            <Card.Title>{`${profesional.first_name} ${profesional.last_name}`}</Card.Title>
+                            <Card.Text>Sobre mi: {profesional.about_me || 'No information available'}</Card.Text>
+                            <Card.Text>Especialidad: {profesional.specialties.join(', ')}</Card.Text>
+                            </div>
+                            <div className="ml-auto">
+                            {profesional.professional_photo && (
+                                <img src={profesional.professional_photo} alt={`${profesional.first_name} ${profesional.last_name}`} style={{ width: '100px' }} />
+                            )}
+                            </div>
+                        </div>
+                        </Card.Body>
+                    </Card>
+                    </Col>
+                ))}
             </div>
           </Col>
         </Row>
@@ -162,13 +157,15 @@ const DirectorioProyectos = () => {
           <button
             key={i}
             onClick={() => paginar(i + 1)}
-            style={{ cursor: 'pointer',
-            margin: '5px',
-            background: 'white',
-            color: 'blue',
-            border: '1px solid #ccc',
-            padding: '6px 12px',
-            borderRadius: '5px', }}
+            style={{
+              cursor: 'pointer',
+              margin: '5px',
+              background: 'white',
+              color: 'blue',
+              border: '1px solid #ccc',
+              padding: '6px 12px',
+              borderRadius: '5px',
+            }}
           >
             {i + 1}
           </button>
@@ -178,4 +175,4 @@ const DirectorioProyectos = () => {
   );
 };
 
-export default DirectorioProyectos;
+export default ListadoProfesionistas;

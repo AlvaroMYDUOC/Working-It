@@ -14,6 +14,8 @@ import RegistroCliente from './Pages/RegistroCliente.jsx';
 import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/PerfilProfesional.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
+import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
+
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
 
 
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
+              <Route  path="/DirectorioProfesionistas" element={<DirectorioProfesionistas/>} />
 
 
           </Routes>
