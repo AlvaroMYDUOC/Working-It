@@ -151,7 +151,7 @@ useEffect(() => {
                   ) : (
                     //Menu si is_professional es false         
                     <>
-                    <Nav.Link href="#">Solicitar una asesoria</Nav.Link>            
+                    <Nav.Link href="/DirectorioProfesionistas">Directorio de profesionistas</Nav.Link>            
                     <Nav.Link href="/MisProyectos">Mis Proyectos</Nav.Link>
                     <Nav.Link href="#">Mensajes</Nav.Link>
                     <Nav.Link href="#">Mi Perfil</Nav.Link>
