@@ -14,6 +14,40 @@ import {
 } from 'react-bootstrap';import { Form } from 'react-bootstrap';
 
 const DataTableComponent = () => {
+
+   // Función para solicitar asesoría
+   const requestAssistance = () => {
+    const projectId = selectedProjectDetails.id; // Obtén el ID del proyecto
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const requestData = {
+      project: projectId, // ID del proyecto para el que se solicita asesoría
+      // Otra información relevante relacionada con la asesoría si es necesario
+    };
+
+    axios
+      .post('http://149.50.130.111:8002/api/solicitudes-asesoria/', requestData, config)
+      .then((response) => {
+        // Maneja la respuesta de la API después de solicitar asesoría
+        console.log('Asesoría solicitada con éxito');
+        // Puedes realizar otras acciones aquí, como mostrar un mensaje de éxito
+      })
+      .catch((error) => {
+        console.error('Error al solicitar asesoría', error);
+        // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error
+      });
+  };
+  const handleRequestAssistance = () => {
+    requestAssistance();
+    // También puedes cerrar el modal de detalles del proyecto aquí si es necesario
+    setShowProjectModal(false);
+  };
+
+
   const usuarioString = localStorage.getItem('usuario'); // Obtenemos la cadena JSON
   const usuarioObjeto = JSON.parse(usuarioString); // Parseamos la cadena a un objeto JavaScript
 
@@ -383,7 +417,7 @@ const DataTableComponent = () => {
           <Button variant="secondary" onClick={() => setShowProjectModal(false)}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={() => setShowProjectModal(false)}>
+          <Button variant="primary" onClick={handleRequestAssistance}>
             Solicitar Asesoría
           </Button>
         </Modal.Footer>
