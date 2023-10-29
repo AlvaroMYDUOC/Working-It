@@ -17,50 +17,80 @@ const SpecialistProfile = () => {
   const [aboutMe, setAboutMe] = useState('');
   const [photoP, setPhotoP] = useState(fotoDefault);
   const photoPerfil = photoP || fotoDefault; // Si PhotoP es null, te trae la imagen que corresponde
+  const datosUsuario = JSON.parse(localStorage.getItem('usuario'));
+  const esProfesional = datosUsuario.is_professional
+
+
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('usuario'));
-    const userProfId = userData.professional_id;
-    const apiUrl = `http://149.50.130.111:8001/api/profiles/` + userProfId;
 
-    axios
-      .get(apiUrl, {withCredentials: true})
-      .then((response) => {
-        setUserProfile(response.data);
-        setLoading(false);
+    if (userData) {
+      const isProfessional = userData.is_professional;
+      const professionalId = isProfessional ? userData.professional_id : localStorage.getItem('id_profesional');
+      console.log('professionalId = ', professionalId)
 
-        const { first_name, last_name, specialties, about_me, professional_photo } = response.data;
-        setFirstName(first_name);
-        setLastName(last_name);
-        setAboutMe(about_me);
-        setPhotoP(professional_photo);
+      if (professionalId) {
+        let apiUrl = '';
 
-        if (specialties && specialties.length > 0) {
-          const specialtiesEndpoint = 'http://149.50.130.111:8000/especialistas/';
-          const specialtyIds = specialties;
+        if(isProfessional === false){
+          const profesionalAjeno = JSON.parse(professionalId)
+          const {id_profesional} = profesionalAjeno;
+          apiUrl = `http://149.50.130.111:8001/api/profiles/` + id_profesional;
+          console.log('El usuario no es profesional ', apiUrl)
 
-          axios
-            .get(specialtiesEndpoint)
-            .then((specialtyResponse) => {
-              const specialtiesList = specialtyResponse.data.results;
-
-              const specialtyNames = specialtyIds.map((specialtyId) => {
-                const matchingSpecialty = specialtiesList.find((s) => s.id === specialtyId);
-                return matchingSpecialty ? matchingSpecialty.name : 'Especialidad no encontrada';
-              });
-
-              const specialtyNamesCombined = specialtyNames.join(', ');
-              setSpecialtyType(specialtyNamesCombined);
-            })
-            .catch((error) => {
-              console.error('Error al obtener el tipo de especialidad:', error);
-            });
+        } else {
+          apiUrl = `http://149.50.130.111:8001/api/profiles/` + professionalId;
+          console.log('El usuario  es profesional ',apiUrl)
         }
-      })
-      .catch((error) => {
-        setError(error.message);
+        
+
+        axios
+          .get(apiUrl, { withCredentials: true })
+          .then((response) => {
+            setUserProfile(response.data);
+            setLoading(false);
+
+            const { first_name, last_name, specialties, about_me, professional_photo } = response.data;
+            setFirstName(first_name);
+            setLastName(last_name);
+            setAboutMe(about_me);
+            setPhotoP(professional_photo);
+
+            if (specialties && specialties.length > 0) {
+              const specialtiesEndpoint = 'http://149.50.130.111:8000/especialistas/';
+              const specialtyIds = specialties;
+
+              axios
+                .get(specialtiesEndpoint)
+                .then((specialtyResponse) => {
+                  const specialtiesList = specialtyResponse.data.results;
+
+                  const specialtyNames = specialtyIds.map((specialtyId) => {
+                    const matchingSpecialty = specialtiesList.find((s) => s.id === specialtyId);
+                    return matchingSpecialty ? matchingSpecialty.name : 'Especialidad no encontrada';
+                  });
+
+                  const specialtyNamesCombined = specialtyNames.join(', ');
+                  setSpecialtyType(specialtyNamesCombined);
+                })
+                .catch((error) => {
+                  console.error('Error al obtener el tipo de especialidad:', error);
+                });
+            }
+          })
+          .catch((error) => {
+            setError(error.message);
+            setLoading(false);
+          });
+      } else {
+        setError('No se encontró el ID del profesional en el almacenamiento local.');
         setLoading(false);
-      });
+      }
+    } else {
+      setError('No se encontró información de usuario en el almacenamiento local.');
+      setLoading(false);
+    }
   }, []);
 
   const aboutMeText = aboutMe ? aboutMe : "Aun no se ha brindado información de este profesional";
@@ -125,7 +155,8 @@ const SpecialistProfile = () => {
                   <Carrusel />
                 </MDBRow>
               </MDBCardBody>
-              <EditModal />
+              {esProfesional &&(<EditModal/>
+)}
             </MDBCard>
           </MDBCol>
         </MDBRow>

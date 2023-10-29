@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+
 
 const ListadoProfesionistas = () => {
   const [proyectos, setProyectos] = useState([]);
@@ -13,6 +15,13 @@ const ListadoProfesionistas = () => {
   const [profesionales, setProfesionales] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
   const profesionalesPorPagina = 5;
+
+  const navigate = useNavigate();
+
+  const handleProfessionalClick = (id_profesional) => {
+    localStorage.setItem('id_profesional', JSON.stringify({ id_profesional}));
+    navigate('/PerfilProfesionista');
+  };
 
   useEffect(() => {
     axios.get('http://149.50.130.111:8000/especialistas/')
@@ -143,7 +152,14 @@ const ListadoProfesionistas = () => {
                     <Row>
                       <Col md={6}>
                         <div>
-                          <Card.Title>{`${profesional.first_name} ${profesional.last_name}`}</Card.Title>
+                          <Card.Title>
+                            <a
+                              href="#"
+                              onClick={() => handleProfessionalClick(profesional.professional_id)}
+                            >
+                              {`${profesional.first_name} ${profesional.last_name}`}
+                            </a>
+                          </Card.Title>
                           <Card.Text>Sobre mí: {profesional.about_me || 'No information available'}</Card.Text>
                           <Card.Text>Especialidad: {profesional.specialties.join(', ')}</Card.Text>
                         </div>
