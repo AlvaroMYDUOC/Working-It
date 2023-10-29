@@ -154,7 +154,6 @@ useEffect(() => {
                     <Nav.Link href="/DirectorioProfesionistas">Directorio de profesionistas</Nav.Link>            
                     <Nav.Link href="/MisProyectos">Mis Proyectos</Nav.Link>
                     <Nav.Link href="#">Mensajes</Nav.Link>
-                    <Nav.Link href="#">Mi Perfil</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>
                     </>
                   )
