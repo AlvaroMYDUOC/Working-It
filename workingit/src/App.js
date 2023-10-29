@@ -13,22 +13,7 @@ import RegistroInicio from './Pages/RegistroInicio.jsx';
 import RegistroCliente from './Pages/RegistroCliente.jsx';
 import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/PerfilProfesional.jsx';
-
-
-//Rutas components
-import DataTable from './components/DataTable.jsx';
-import LoginC from './components/LoginC.jsx';
-import RegistroI from './components/RegistroI.jsx';
-import RegistroC from './components/RegistroC.jsx';
-import RegistroP from './components/RegistroP.jsx';
-import FooterD from './components/FooterD.jsx';
-import Directorio from './components/Directorio';
-import DirectorioProyecto from './components/DirectorioProyecto';
-import Chat from './components/Chat';
-
-
-
-
+import DirectorioProyectos from './Pages/DirectorioProyectos';
 
 function App() {
   return (
@@ -49,15 +34,7 @@ function App() {
               <Route  path="/Login" element={<Login/>} />
 
 
-              <Route  path="/DirectorioProyecto" element={<DirectorioProyecto/>} />
-
-
-              <Route  path="/Chat" element={<Chat/>} />
-
-              
-
-
-             
+              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
 
 
           </Routes>
