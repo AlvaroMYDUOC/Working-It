@@ -24,6 +24,8 @@ import RegistroP from './components/RegistroP.jsx';
 import FooterD from './components/FooterD.jsx';
 import Directorio from './components/Directorio';
 import DirectorioProyecto from './components/DirectorioProyecto';
+import Chat from './components/Chat';
+
 
 
 
@@ -48,6 +50,11 @@ function App() {
 
 
               <Route  path="/DirectorioProyecto" element={<DirectorioProyecto/>} />
+
+
+              <Route  path="/Chat" element={<Chat/>} />
+
+              
 
 
              

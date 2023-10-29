@@ -3,12 +3,51 @@ import DataTable from 'react-data-table-component';
 import axios from 'axios';
 import { FaExternalLinkAlt } from 'react-icons/fa'; // Importamos el ícono
 import CrearProyecto from './CrearProyectoModal';
-import { Button, Modal, Alert, Card } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
+import {
+  Button,
+  Modal,
+  Alert,
+  Card,
+  Container,
+  Row,
+  Col,
+} from 'react-bootstrap';import { Form } from 'react-bootstrap';
 
 const DataTableComponent = () => {
+
+   // Función para solicitar asesoría
+   const requestAssistance = () => {
+    const projectId = selectedProjectDetails.id; // Obtén el ID del proyecto
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const requestData = {
+      project: projectId, // ID del proyecto para el que se solicita asesoría
+      // Otra información relevante relacionada con la asesoría si es necesario
+    };
+
+    axios
+      .post('http://149.50.130.111:8002/api/solicitudes-asesoria/', requestData, config)
+      .then((response) => {
+        // Maneja la respuesta de la API después de solicitar asesoría
+        console.log('Asesoría solicitada con éxito');
+        // Puedes realizar otras acciones aquí, como mostrar un mensaje de éxito
+      })
+      .catch((error) => {
+        console.error('Error al solicitar asesoría', error);
+        // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error
+      });
+  };
+  const handleRequestAssistance = () => {
+    requestAssistance();
+    // También puedes cerrar el modal de detalles del proyecto aquí si es necesario
+    setShowProjectModal(false);
+  };
+
+
   const usuarioString = localStorage.getItem('usuario'); // Obtenemos la cadena JSON
   const usuarioObjeto = JSON.parse(usuarioString); // Parseamos la cadena a un objeto JavaScript
 
@@ -25,6 +64,27 @@ const DataTableComponent = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
   const [showEditSuccessAlert, setShowEditSuccessAlert] = useState(false); // Estado para mostrar el mensaje de éxito
+
+  //Modal de asesoría
+
+  const [showProjectModal, setShowProjectModal] = useState(false);
+  const [projectURL, setProjectURL] = useState('');
+  const [selectedProjectDetails, setSelectedProjectDetails] = useState({});
+
+
+  const openProjectModal = async (projectId) => {
+    const project = data.find((project) => project.id === projectId);
+  
+    if (project) {
+      try {
+        const response = await axios.get(`http://149.50.130.111:8002/api/projects/${projectId}/`);
+        setSelectedProjectDetails(response.data);
+        setShowProjectModal(true);
+      } catch (error) {
+        console.error("Error al obtener los detalles del proyecto", error);
+      }
+    }
+  };
 
 
   // Estado para almacenar los datos obtenidos de la API
@@ -150,12 +210,11 @@ const DataTableComponent = () => {
     },
     {
       name: 'Ver Proyecto',
-      cell: (row) => (
-        <Link to={`/DetalleProyecto/${row.id}`}>
-          <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#cc1919', borderColor: 'black', height: '95%', padding: '8px'}} variant="info">
-            Ver Proyecto
-          </Button>
-        </Link>
+      cell: row => (
+        <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#00ffd5', borderColor: 'black', height: '95%', padding: '8px', color: 'black'}}
+        onClick={() => openProjectModal(row.id)}>
+          Ver Proyecto            
+        </Button>
       ),
       ignoreRowClick: true,
       allowOverflow: true,
@@ -316,11 +375,53 @@ const DataTableComponent = () => {
           Proyecto modificado correctamente
         </Alert>
       )}
-      {/*Modal asesoria*/}
-      <>
-        
-      </>
-
+      {/*Modal de asesoriía*/}
+      <Modal
+        size="lg"
+        show={showProjectModal}
+        onHide={() => setShowProjectModal(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-lg">Detalles del proyecto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
+            <Row>
+              <Col sm={6}>
+                <h3>{selectedProjectDetails.name}</h3>
+                <p>ID: {selectedProjectDetails.id}</p>
+                <p>Descripción: {selectedProjectDetails.description}</p>
+                <p>MT2: {selectedProjectDetails.mt2}</p>
+              </Col>
+              <Col sm={6}>
+              <h5>Fotos del proyecto:</h5>
+              <Row>
+                {selectedProjectDetails.photos && selectedProjectDetails.photos.length > 0 ? (
+                  selectedProjectDetails.photos.map((photo) => (
+                    <Col key={photo.id} sm={6}>
+                      <img src={photo.photo} alt={`Foto ${photo.id}`} style={{ maxWidth: '100%' }} />
+                    </Col>
+                  ))
+                ) : (
+                  <Col sm={12}>
+                    <p>No hay fotos disponibles para este proyecto.</p>
+                  </Col>
+                )}
+              </Row>
+            </Col>
+            </Row>
+          </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowProjectModal(false)}>
+            Cerrar
+          </Button>
+          <Button variant="primary" onClick={handleRequestAssistance}>
+            Solicitar Asesoría
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Card>
     </>
   );
