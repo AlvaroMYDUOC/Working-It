@@ -1,0 +1,77 @@
+/* Directorio.css */
+
+.directory {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección de la flexión para apilar las tarjetas verticalmente */
+    align-items: center; /* Centra las tarjetas horizontalmente */
+    gap: 20px;
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+  }
+  
+  .professional-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: row; /* Cambia la dirección de la flexión para que la imagen esté a la derecha */
+    justify-content: space-between; /* Alinea los elementos horizontalmente con espacio entre ellos */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .professional-card-image img {
+    max-width: 100%;
+    border-radius: 50%;
+  }
+  
+  .professional-card-details {
+    flex: 1; /* Permite que los detalles ocupen todo el espacio disponible a la izquierda */
+    text-align: center; /* Alinea los detalles al centro */
+  }
+  
+  .professional-card-details h3 {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  .professional-card-details p {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0;
+  }
+  
+  .rating {
+    color: #f9a825;
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  /* Directorio.css */
+
+/* Estilos para los botones de paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+}
+
+/* Deshabilitar botones de paginación cuando no se pueden usar */
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

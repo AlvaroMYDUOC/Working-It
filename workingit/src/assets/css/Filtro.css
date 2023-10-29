@@ -1,0 +1,30 @@
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+.star-filter{
+    display: flex;
+    flex-direction: column;
+}
+  
+.star-gold {
+    color: gold;
+}
+  
+.star-gray {
+    color: gray;
+}

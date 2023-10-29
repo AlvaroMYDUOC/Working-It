@@ -19,7 +19,6 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
-      <FooterD />
     </>
   )
 }

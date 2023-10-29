@@ -14,8 +14,6 @@ import RegistroCliente from './Pages/RegistroCliente.jsx';
 import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/PerfilProfesional.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
-import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
-
 
 function App() {
   return (
@@ -25,18 +23,17 @@ function App() {
               <Route  path="/" element={<Home />}/>
               <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
               <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
+              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
+              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
               <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
-              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} /> 
-
-              
-              <Route  path="/Proyectos" element={<Proyectos/>} />
+              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} />               
+              <Route  path="/MisProyectos" element={<MisProyectos />} />
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/Login" element={<Login/>} />
 
 
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
-              <Route  path="/DirectorioProfesionistas" element={<DirectorioProfesionistas/>} />
 
 
           </Routes>
