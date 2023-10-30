@@ -105,10 +105,18 @@ const SpecialistProfile = () => {
                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                   <MDBCardImage
                     src={photoPerfil} //Utiliza la imagen anteriormente mencionada
-                    alt="Imagen de perfil genérica"
+                    alt="No existe foto de perfil"
                     className="mt-4 mb-2 img-thumbnail rounded-circle"
                     fluid
-                    style={{ width: '150px', zIndex: '1' }}
+                    style={{
+                      width: '90%',
+                      height: '100%',
+                      objectFit: 'fill',
+                      borderRadius: '50%', // Hace que la imagen sea redonda
+                    }}
+                    onError={(e) => {
+                      e.target.src = fotoDefault; // Asignar la imagen predeterminada en caso de error
+                    }}
                   />
                 </div>
                 <div className="ms-3" style={{ marginTop: '130px', color: 'white' }}>

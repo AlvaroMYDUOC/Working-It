@@ -1,6 +1,6 @@
 //Importe de librerias
 import './assets/css/App.css';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 //import Login from './components/Login';
 import Registro from './components/Registro';
@@ -17,33 +17,58 @@ import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
 
 
 function App() {
-  return (
-    <Router>
-          <Routes>
-              {/*Rutas definitivas para la aplicacion*/}
-              <Route  path="/" element={<Home />}/>
-              <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
-              <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
-              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
-              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
-              <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
-              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} />               
-              <Route  path="/MisProyectos" element={<MisProyectos />} />
-              <Route  path="/Registro" element={<Registro/>} />
-              <Route  path="/Login" element={<Login/>} />
-              <Route  path="/PerfilProfesionista" element={<PerfilProfesional/>} /> 
+    return ( <
+        Router >
+        <
+        Routes > { /*Rutas definitivas para la aplicacion*/ } <
+        Route path = "/"
+        element = { < Home / > }
+        /> <
+        Route path = "/RegistroInicio"
+        element = { < RegistroInicio / > }
+        /> <
+        Route path = "/MiPerfil"
+        element = { < PerfilProfesional / > }
+        />  <
+        Route path = "/MisProyectos"
+        element = { < MisProyectos / > }
+        />  <
+        Route path = "/MisProyectos"
+        element = { < MisProyectos / > }
+        />  <
+        Route path = "/RegistroCliente"
+        element = { < RegistroCliente / > }
+        />  <
+        Route path = "/RegistroProfesional"
+        element = { < RegistroProfesional / > }
+        />                <
+        Route path = "/MisProyectos"
+        element = { < MisProyectos / > }
+        /> <
+        Route path = "/Registro"
+        element = { < Registro / > }
+        /> <
+        Route path = "/Login"
+        element = { < Login / > }
+        /> <
+        Route path = "/PerfilProfesionista"
+        element = { < PerfilProfesional / > }
+        /> 
+
+        <
+        Route path = "/DirectorioProyectos"
+        element = { < DirectorioProyectos / > }
+        /> <
+        Route path = "/DirectorioProfesionistas"
+        element = { < DirectorioProfesionistas / > }
+        />
 
 
 
-
-              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
-              <Route  path="/DirectorioProfesionistas" element={<DirectorioProfesionistas/>} />
-
-
-
-          </Routes>
-        </Router>
-  );
+        <
+        /Routes> <
+        /Router>
+    );
 }
 
 export default App;

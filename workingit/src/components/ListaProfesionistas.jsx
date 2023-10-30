@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import fotoDefault from '../assets/img/defaultProfile.jpg'
 
 
 const ListadoProfesionistas = () => {
@@ -154,23 +155,40 @@ const ListadoProfesionistas = () => {
                         <div>
                           <Card.Title>
                             <a
-                              href="#"
+                              href=""
                               onClick={() => handleProfessionalClick(profesional.professional_id)}
                             >
                               {`${profesional.first_name} ${profesional.last_name}`}
                             </a>
                           </Card.Title>
                           <Card.Text>Sobre mí: {profesional.about_me || 'No information available'}</Card.Text>
-                          <Card.Text>Especialidad: {profesional.specialties.join(', ')}</Card.Text>
+                          <Card.Text>Especialidad: {profesional.specialties.map((specialtyId, index) => {
+                            const matchedSpecialty = categorias.find(specialidad => specialidad.id === specialtyId);
+                            return (
+                              <span key={specialtyId}>
+                                {matchedSpecialty ? matchedSpecialty.name : `Especialidad ${index + 1}`} 
+                                {index !== profesional.specialties.length - 1 && ', '}
+                              </span>
+                            );})}
+                          </Card.Text>
                         </div>
                       </Col>
                       <Col md={6}>
                         <div className="d-flex justify-content-end">
-                          {profesional.professional_photo && (
+                          {profesional.professional_photo ? (
                             <img
                               src={profesional.professional_photo}
                               alt={`${profesional.first_name} ${profesional.last_name}`}
-                              style={{ width: '100px', height: 'auto' }}
+                              style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+                              onError={(e) => {
+                                e.target.src = fotoDefault; // Asignar la imagen predeterminada en caso de error
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src={fotoDefault}
+                              alt="Default Profile"
+                              style={{ width: '100px', height: '100px', borderRadius: '50%' }}
                             />
                           )}
                         </div>
