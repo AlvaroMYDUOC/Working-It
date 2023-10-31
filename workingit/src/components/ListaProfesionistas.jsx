@@ -141,7 +141,7 @@ const ListadoProfesionistas = () => {
                 onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                 onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
               >
-                Ver más
+                Ver todo
               </p>
             </div>
           </Col>
