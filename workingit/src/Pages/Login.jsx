@@ -19,8 +19,6 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
-      <hr/>
-      <FooterD />
     </>
   )
 }

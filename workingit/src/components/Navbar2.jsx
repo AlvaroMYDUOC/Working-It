@@ -71,6 +71,7 @@ function Navbar2() {
   function handleLogout(){
     localStorage.removeItem('token') // Eliminamos el token del local storage para que el Navbar deje de entender que hay un usuario ingreado
     localStorage.removeItem('usuario') // Al Cerrar sesion eliminamos los datos del usuario
+    localStorage.removeItem('id_profesional') // Al cerrar la sesión nos aseguramos de eliminar también el objeto del localStorage
     window.location.href = '/' //Redireccion a la carpeta raiz para poder reiniciar el Navbar
   }
   
@@ -154,7 +155,6 @@ useEffect(() => {
                     <Nav.Link href="/DirectorioProfesionistas">Directorio de profesionistas</Nav.Link>            
                     <Nav.Link href="/MisProyectos">Mis Proyectos</Nav.Link>
                     <Nav.Link href="#">Mensajes</Nav.Link>
-                    <Nav.Link href="#">Mi Perfil</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>
                     </>
                   )

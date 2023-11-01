@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Card, Row, Col } from 'react-bootstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Container, Card, Row, Col, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+
 
 const DirectorioProyectos = () => {
   const [proyectos, setProyectos] = useState([]);
@@ -13,7 +13,21 @@ const DirectorioProyectos = () => {
   const [proyectosPorPagina] = useState(5);
   const [nombreProyecto, setNombreProyecto] = useState('');
 
+  //Para el modal con el proyecto seleccionado
 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState({});
+
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setShowModal(true);
+  };
+
+  const tiposProyectoMap = {};
+  tiposProyecto.forEach((tipo) => {
+  tiposProyectoMap[tipo.id] = tipo.name;
+});
+  
   useEffect(() => {
     axios.get('http://149.50.130.111:8002/api/projects/')
       .then(response => {
@@ -128,7 +142,7 @@ const DirectorioProyectos = () => {
                 onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                 onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
               >
-                Ver más
+                Ver todo
               </p>
             </div>
           </Col>
@@ -139,10 +153,27 @@ const DirectorioProyectos = () => {
                   <Card.Body>
                     <div className="d-flex">
                       <div>
+                      <a
+                        onClick={() => handleProjectClick(proyecto)}
+                        
+                        style={{
+                          textDecoration: 'none',
+                          color: 'black',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.textDecoration = 'underline';
+                          e.target.style.color = 'blue';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.textDecoration = 'none';
+                          e.target.style.color = 'black';
+                        }}
+                      >
                         <Card.Title>{proyecto.name}</Card.Title>
+                      </a>
                         <Card.Text>{proyecto.description}</Card.Text>
                         <p>Metros Cuadrados: {proyecto.mt2}</p>
-                        <p>Tipo: {proyecto.type}</p>
+                        <p>Tipo: {tiposProyectoMap[proyecto.type]}</p>
                       </div>
                       <div className="ml-auto">
                         {proyecto.photos.length > 0 && (
@@ -174,6 +205,34 @@ const DirectorioProyectos = () => {
           </button>
         ))}
       </div>
+      {/* Modal de detalles del proyecto */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Detalles del proyecto</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Container>
+          <Row>
+            <Col>
+              <h3>{selectedProject.name}</h3>
+              <br />
+              <p>Descripción: {selectedProject.description}</p>
+              <br />
+              <p>Metros cuadrados: {selectedProject.mt2}</p>
+              <br />
+              <p>Tipo proyecto: {selectedProject.type}</p>
+            </Col>
+            <Col>
+              {selectedProject.photos && selectedProject.photos.length > 0 && (
+                <Card>
+                  <Card.Img src={selectedProject.photos[0].photo} alt={selectedProject.name} />
+                </Card>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </Modal.Body>
+    </Modal>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import axios from 'axios';
-import { FaExternalLinkAlt } from 'react-icons/fa'; // Importamos el ícono
 import CrearProyecto from './CrearProyectoModal';
 import {
   Button,
@@ -15,38 +14,135 @@ import {
 
 const DataTableComponent = () => {
 
-   // Función para solicitar asesoría
-   const requestAssistance = () => {
-    const projectId = selectedProjectDetails.id; // Obtén el ID del proyecto
+
+  // Modal para la asesoría
+  const [showAsesoriaModal, setShowAsesoriaModal] = useState(false);
+  const [projectTypes, setProjectTypes] = useState([]); // Estado para almacenar los tipos de proyectos
+  const [profesionales, setProfesionales] = useState([]);
+  const [especialidades, setEspecialidades] = useState([]); // Agregar estado para las especialidades
+
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [selectedProfessional, setSelectedProfessional] = useState(null);
+
+  const handleSelectProfessional = (professional) => {
+    setSelectedProfessional(professional);
+    setShowConfirmationModal(true);
+  };
+
+  const handleConfirmation = () => {
+    // Verifica si hay un profesional seleccionado
+    if (!selectedProfessional) {
+      // Muestra un mensaje de error o maneja la falta de selección
+      return;
+    }
+
     const token = localStorage.getItem('token');
-    const config = {
+
+    // Hacer la solicitud POST
+    axios.post('http://149.50.130.111:8002/api/solicitudes-asesoria/', {
+      project: selectedProjectDetails.id,
+      professional_asesor: selectedProfessional.professional_id,
+    }, {
       headers: {
         Authorization: `Bearer ${token}`,
-      },
-    };
-    const requestData = {
-      project: projectId, // ID del proyecto para el que se solicita asesoría
-      // Otra información relevante relacionada con la asesoría si es necesario
-    };
+      }
+    })
+    .then((response) => {
+      // Lógica si la solicitud se realizó con éxito
+      alert('¡Asesoría solicitada con éxito!');
+      console.log('Solicitud de asesoría enviada con éxito', response.data);
+      setShowConfirmationModal(false);
+      setShowAsesoriaModal(false);
+    })
+    .catch((error) => {
+      // Manejar errores si la solicitud falla
+      alert('¡Error en la solicitud de la asesoría!');
+      console.error('Error al enviar la solicitud de asesoría', error);
+      // Aquí puedes manejar los errores, mostrar mensajes o realizar otras acciones
+      // ...
+    });
+  };
 
+  // Hacer la solicitud a la API para obtener la lista de profesionales
+  useEffect(() => {
     axios
-      .post('http://149.50.130.111:8002/api/solicitudes-asesoria/', requestData, config)
-      .then((response) => {
-        // Maneja la respuesta de la API después de solicitar asesoría
-        console.log('Asesoría solicitada con éxito');
-        // Puedes realizar otras acciones aquí, como mostrar un mensaje de éxito
+      .get('http://149.50.130.111:8001/api/profiles/')
+      .then(response => {
+        setProfesionales(response.data);
       })
-      .catch((error) => {
-        console.error('Error al solicitar asesoría', error);
-        // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error
+      .catch(error => {
+        console.error('Error al obtener la lista de profesionales', error);
       });
-  };
-  const handleRequestAssistance = () => {
-    requestAssistance();
-    // También puedes cerrar el modal de detalles del proyecto aquí si es necesario
-    setShowProjectModal(false);
+  }, []);
+
+  useEffect(() => {
+    // Llamada a la API para obtener la lista de especialidades
+    axios
+      .get('http://149.50.130.111:8000/especialistas/')
+      .then(response => {
+        setEspecialidades(response.data.results);
+      })
+      .catch(error => {
+        console.error('Error al obtener la lista de especialidades', error);
+      });
+
+    // Llamada a la API para obtener la lista de profesionales
+    axios
+      .get('http://149.50.130.111:8001/api/profiles/')
+      .then(response => {
+        setProfesionales(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener la lista de profesionales', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Hacer la solicitud a la API para obtener los tipos de proyectos
+    axios.get('http://149.50.130.111:8002/api/project-types/')
+      .then(response => {
+        setProjectTypes(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener los tipos de proyectos', error);
+      });
+  }, []);
+
+  // Obtener datos de profesionales desde la API
+  useEffect(() => {
+    axios
+      .get('http://149.50.130.111:8001/api/profiles/')
+      .then(response => {
+        setProfesionales(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener la lista de profesionales', error);
+      });
+  }, []);
+
+  const getSpecialtyNameFromId = (specialtyId) => {
+    const specialty = especialidades.find(spec => spec.id === specialtyId);
+    return specialty ? specialty.name : 'Sin especialidad';
   };
 
+  const columnsProfesionales = [
+    {
+      name: 'Nombre Completo',
+      selector: 'full_name',
+      cell: (row) => `${row.first_name} ${row.last_name}`,
+    },
+    {
+      name: 'Especialidad',
+      selector: 'especialidad',
+      cell: (row) => row.specialties.map(specialty => getSpecialtyNameFromId(specialty)).join(', '),
+    },
+    {
+      name: '',
+      cell: (row) => (
+        <button className="btn btn-primary" onClick={() => handleSelectProfessional(row)}>Seleccionar</button>
+      ),
+    },
+  ];
 
   const usuarioString = localStorage.getItem('usuario'); // Obtenemos la cadena JSON
   const usuarioObjeto = JSON.parse(usuarioString); // Parseamos la cadena a un objeto JavaScript
@@ -375,7 +471,7 @@ const DataTableComponent = () => {
           Proyecto modificado correctamente
         </Alert>
       )}
-      {/*Modal de asesoriía*/}
+      {/*Modal de Ver Proyecto*/}
       <Modal
         size="lg"
         show={showProjectModal}
@@ -393,6 +489,11 @@ const DataTableComponent = () => {
                 <p>ID: {selectedProjectDetails.id}</p>
                 <p>Descripción: {selectedProjectDetails.description}</p>
                 <p>MT2: {selectedProjectDetails.mt2}</p>
+                {projectTypes.length > 0 && selectedProjectDetails.type && (
+                  <p>Tipo de Proyecto: {
+                    projectTypes.find(projectType => projectType.id === selectedProjectDetails.type)?.name || 'No disponible'
+                  }</p>
+                )}
               </Col>
               <Col sm={6}>
               <h5>Fotos del proyecto:</h5>
@@ -417,12 +518,67 @@ const DataTableComponent = () => {
           <Button variant="secondary" onClick={() => setShowProjectModal(false)}>
             Cerrar
           </Button>
-          <Button variant="primary" onClick={handleRequestAssistance}>
+          <Button variant="primary" onClick={() => {
+            setShowProjectModal(false); // Cierra el modal actual
+            setShowAsesoriaModal(true); // Abre el modal de asesoría
+          }}>
             Solicitar Asesoría
           </Button>
         </Modal.Footer>
       </Modal>
     </Card>
+    {/* Modal para solicitar asesoría */}
+    <Modal
+      size="lg"
+      show={showAsesoriaModal}
+      onHide={() => setShowAsesoriaModal(false)}
+      aria-labelledby="example-modal-sizes-title-lg"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="example-modal-sizes-title-lg">Solicitar Asesoría</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p>
+          Tu proyecto es del tipo {
+            projectTypes.find(projectType => projectType.id === selectedProjectDetails.type)?.name || 'No disponible'
+          }. Aquí está la lista de profesionales de la plataforma:
+        </p>
+        {/* DataTable para mostrar la lista de profesionales */}
+        <DataTable
+        title="Lista de Profesionales"
+        columns={columnsProfesionales}
+        data={profesionales}
+        pagination
+        highlightOnHover
+        sortable
+      />
+      </Modal.Body>
+      <Modal.Footer>
+        {/* Botón para cerrar el modal de asesoría */}
+        <Button variant="secondary" onClick={() => setShowAsesoriaModal(false)}>
+          Cerrar
+        </Button>
+      </Modal.Footer>
+    </Modal>
+    {/* Nuevo modal para la confirmación */}
+    <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Selección</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedProfessional && (
+            <p>¿Estás seguro de escoger a {selectedProfessional.first_name} {selectedProfessional.last_name}?</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
+            Escoger otro
+          </Button>
+          <Button variant="primary" onClick={handleConfirmation}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

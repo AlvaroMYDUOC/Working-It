@@ -1,20 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col } from 'react-bootstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+import fotoDefault from '../assets/img/defaultProfile.jpg'
+
 
 const ListadoProfesionistas = () => {
   const [proyectos, setProyectos] = useState([]);
-  const [especialista, setEspecialista] = useState('');
-  const [ciudad, setCiudad] = useState('');
-  const [tiposProyecto, setTiposProyecto] = useState([]);
   const [nombreProyecto, setNombreProyecto] = useState('');
+
+  const [nombreEspecialidad, setNombreEspecialidad] = useState('');
+  const [categorias, setCategorias] = useState([]);
 
   const [profesionales, setProfesionales] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
   const profesionalesPorPagina = 5;
 
+  const navigate = useNavigate();
+
+  const handleProfessionalClick = (id_profesional) => {
+    localStorage.setItem('id_profesional', JSON.stringify({ id_profesional}));
+    navigate('/PerfilProfesionista');
+  };
+
+  useEffect(() => {
+    axios.get('http://149.50.130.111:8000/especialistas/')
+      .then(response => {
+        setCategorias(response.data.results);
+      })
+      .catch(error => {
+        console.error('Error al cargar las especialidades:', error);
+      });
+  }, []);
 
   useEffect(() => {
     axios.get('http://149.50.130.111:8001/api/profiles/')
@@ -28,40 +46,41 @@ const ListadoProfesionistas = () => {
 
   const handleBuscar = () => {
     if (nombreProyecto.trim() === '') {
-      axios.get('http://149.50.130.111:8002/api/projects/')
+      axios.get('http://149.50.130.111:8001/api/profiles/')
         .then(response => {
-          setProyectos(response.data);
+          setProfesionales(response.data);
         })
         .catch(error => {
-          console.error('Error al cargar proyectos:', error);
+          console.error('Error al cargar perfiles de profesionales:', error);
         });
     } else {
       const palabrasClave = nombreProyecto.toLowerCase().split(' ');
-      const proyectosFiltrados = proyectos.filter(proyecto =>
-        palabrasClave.every(palabra =>
-          proyecto.name.toLowerCase().includes(palabra)
-        )
+      const profesionalesFiltrados = profesionales.filter(profesional =>
+      palabrasClave.every(palabra =>
+        profesional.first_name.toLowerCase().includes(palabra) ||
+        profesional.last_name.toLowerCase().includes(palabra)
+      )
       );
-      setProyectos(proyectosFiltrados);
+      setProfesionales(profesionalesFiltrados);
     }
   };
 
-  const filtrarProyectosPorCategoria = (categoriaId) => {
-    if (categoriaId === 0) {
-      axios.get('http://149.50.130.111:8002/api/projects/')
+  const filtrarProfesionistasPorCategoria = (especialidad) => {
+    if (!especialidad) {
+      axios.get('http://149.50.130.111:8001/api/profiles/')
         .then(response => {
-          setProyectos(response.data);
+          setProfesionales(response.data);
         })
         .catch(error => {
-          console.error('Error al cargar proyectos:', error);
+          console.error('Error al cargar los perfiles de profesionales:', error);
         });
     } else {
-      axios.get(`http://149.50.130.111:8002/api/projects/?type=${categoriaId}`)
+      axios.get(`http://149.50.130.111:8001/api/profiles/?specialty=${especialidad}`)
         .then(response => {
-          setProyectos(response.data);
+          setProfesionales(response.data);
         })
         .catch(error => {
-          console.error('Error al cargar proyectos:', error);
+          console.error('Error al cargar los perfiles de profesionales por especialidad:', error);
         });
     }
   };
@@ -98,11 +117,11 @@ const ListadoProfesionistas = () => {
           <Col md={2}></Col>
           <Col md={3}>
             <div className="categorías" style={{ textAlign: 'left', margin: '0 20px' }}>
-              <h2>Categorías</h2>
-              {tiposProyecto.map(tipo => (
+              <h2>Especialidades</h2>
+              {categorias.map(categoria => (
                 <p
-                  key={tipo.id}
-                  onClick={() => filtrarProyectosPorCategoria(tipo.id)}
+                  key={categoria.id}
+                  onClick={() => filtrarProfesionistasPorCategoria(categoria.name)}
                   style={{
                     cursor: 'pointer',
                     textDecoration: 'none',
@@ -110,11 +129,11 @@ const ListadoProfesionistas = () => {
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                 >
-                  {tipo.name}
+                  {categoria.name}
                 </p>
               ))}
               <p
-                onClick={() => filtrarProyectosPorCategoria(0)}
+                onClick={() => filtrarProfesionistasPorCategoria('')}
                 style={{
                   cursor: 'pointer',
                   textDecoration: 'none',
@@ -122,32 +141,62 @@ const ListadoProfesionistas = () => {
                 onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                 onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
               >
-                Ver más
+                Ver todo
               </p>
             </div>
           </Col>
-          <Col md={6}>
-            <div className="proyectos">
-                    {profesionalesActuales.map(profesional => (
-                    <Col md={6} key={profesional.professional_id}>
-                    <Card className="mb-3">
-                        <Card.Body>
-                        <div className="d-flex">
-                            <div>
-                            <Card.Title>{`${profesional.first_name} ${profesional.last_name}`}</Card.Title>
-                            <Card.Text>Sobre mi: {profesional.about_me || 'No information available'}</Card.Text>
-                            <Card.Text>Especialidad: {profesional.specialties.join(', ')}</Card.Text>
-                            </div>
-                            <div className="ml-auto">
-                            {profesional.professional_photo && (
-                                <img src={profesional.professional_photo} alt={`${profesional.first_name} ${profesional.last_name}`} style={{ width: '100px' }} />
-                            )}
-                            </div>
+          <Col md={4}>
+            <div className="profesionistas">
+              {profesionalesActuales.map(profesional => (
+                <Card key={profesional.professional_id} className="mb-3" style={{ margin: '10px 0' }}>
+                  <Card.Body>
+                    <Row>
+                      <Col md={6}>
+                        <div>
+                          <Card.Title>
+                            <a
+                              href=""
+                              onClick={() => handleProfessionalClick(profesional.professional_id)}
+                            >
+                              {`${profesional.first_name} ${profesional.last_name}`}
+                            </a>
+                          </Card.Title>
+                          <Card.Text>Sobre mí: {profesional.about_me || 'No information available'}</Card.Text>
+                          <Card.Text>Especialidad: {profesional.specialties.map((specialtyId, index) => {
+                            const matchedSpecialty = categorias.find(specialidad => specialidad.id === specialtyId);
+                            return (
+                              <span key={specialtyId}>
+                                {matchedSpecialty ? matchedSpecialty.name : `Especialidad ${index + 1}`} 
+                                {index !== profesional.specialties.length - 1 && ', '}
+                              </span>
+                            );})}
+                          </Card.Text>
                         </div>
-                        </Card.Body>
-                    </Card>
-                    </Col>
-                ))}
+                      </Col>
+                      <Col md={6}>
+                        <div className="d-flex justify-content-end">
+                          {profesional.professional_photo ? (
+                            <img
+                              src={profesional.professional_photo}
+                              alt={`${profesional.first_name} ${profesional.last_name}`}
+                              style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+                              onError={(e) => {
+                                e.target.src = fotoDefault; // Asignar la imagen predeterminada en caso de error
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src={fotoDefault}
+                              alt="Default Profile"
+                              style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+                            />
+                          )}
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              ))}
             </div>
           </Col>
         </Row>
