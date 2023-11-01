@@ -6,6 +6,9 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Registro from './components/Registro';
 import MisProyectos from './Pages/MisProyectos'
 import SpecialistProfile from './components/SpecialistProfile';
+
+
+
 //Rutas pages
 import Home from './Pages/Home.jsx';
 import Login from './Pages/Login.jsx';
@@ -14,6 +17,8 @@ import RegistroCliente from './Pages/RegistroCliente.jsx';
 import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/PerfilProfesional.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
+
+
 
 function App() {
   return (
@@ -26,15 +31,22 @@ function App() {
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
               <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
               <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
-              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} /> 
+              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} />
+
+              
               
               
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/Login" element={<Login/>} />
+              
 
 
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
+
+            
+
+            
 
 
           </Routes>
