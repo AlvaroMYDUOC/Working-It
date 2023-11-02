@@ -19,8 +19,7 @@ import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
 function App() {
     return ( <
         Router >
-        <
-        Routes > { /*Rutas definitivas para la aplicacion*/ } <
+         { /*Rutas definitivas para la aplicacion*/ } <
         Route path = "/"
         element = { < Home / > }
         /> <
@@ -65,9 +64,8 @@ function App() {
 
 
 
-        <
-        /Routes> <
-        /Router>
+        
+        </Router>
     );
 }
 
