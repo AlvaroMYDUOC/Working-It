@@ -68,9 +68,9 @@ function App() {
 
             
 
-        <
-        /Routes> <
-        /Router>
+        </Routes> 
+        
+          </Router>
     );
 }
 export default App;
