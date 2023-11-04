@@ -43,7 +43,7 @@ function App() {
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/Login" element={<Login/>} />
 
-              <Route  path="/Chat" element={<Chat/>} />
+              <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
               
 
 
