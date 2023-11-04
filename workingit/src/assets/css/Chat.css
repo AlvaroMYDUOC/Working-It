@@ -224,3 +224,125 @@
     align-items: center;
     width: calc(100% - 70px); /* Ajusta el ancho para alinear correctamente */
   }
+
+  /* Añade estas reglas de estilo al final de tu archivo CSS actual */
+.conversations_column {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  border-left: 1px solid #ccc; /* Añade un borde izquierdo para separar la columna de conversaciones */
+  padding: 10px;
+}
+
+.conversation_card {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-image img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+/* Otros estilos personalizados según tus necesidades */
+
+/* Añade estas reglas de estilo al final de tu archivo CSS actual */
+.conversations_column {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  border-left: 1px solid #ccc; /* Añade un borde izquierdo para separar la columna de conversaciones */
+  padding: 10px;
+}
+
+.conversation_card {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-image img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+/* Añade estas reglas de estilo al final de tu archivo CSS */
+.conversations_column {
+  position: absolute;
+  left: 0; /* Cambia la posición de la columna a la izquierda */
+  top: 50px; /* Deja espacio para el navbar (ajusta según sea necesario) */
+  width: 20%;
+  height: calc(100% - 50px); /* Ajusta la altura para que no tape el navbar */
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  border-right: 1px solid #ccc; /* Añade un borde derecho para separar la columna de conversaciones */
+  padding: 10px;
+}
+
+/* Resto de tus estilos ... */
+
+/* Añade estilos para el navbar si es necesario */
+.navbar {
+  height: 50px; /* Altura del navbar */
+  background-color: #333; /* Color de fondo del navbar */
+  color: #fff; /* Color del texto del navbar */
+  /* Otros estilos del navbar */
+}
+
+/* Agrega estos estilos a tu archivo CSS actual */
+.conversations_column {
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 20%;
+  height: calc(100% - 50px);
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+}
+
+.conversation_card {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.conversation_card img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.conversation_card .name {
+  font-weight: bold;
+  font-size: 16px; /* Ajusta el tamaño de fuente según tus preferencias */
+}

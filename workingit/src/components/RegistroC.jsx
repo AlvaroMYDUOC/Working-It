@@ -600,7 +600,7 @@ const RegistroC = () => {
         </div>
       </div>
       <hr className="mt-4 mb-4" />
-      <p className="psesion">¿Ya tienes una cuenta? <a href="/LoginC">Iniciar Sesión</a></p>
+      <p className="psesion">¿Ya tienes una cuenta? <a href="/Login">Iniciar Sesión</a></p>
     </div>
   );
 };

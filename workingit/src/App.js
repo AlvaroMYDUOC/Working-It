@@ -10,13 +10,14 @@ import SpecialistProfile from './components/SpecialistProfile';
 //Rutas pages
 import Home from './Pages/Home.jsx';
 import Login from './Pages/Login.jsx';
+import ChatProfesional from './Pages/ChatProfesional.jsx';
 import RegistroInicio from './Pages/RegistroInicio.jsx';
 import RegistroCliente from './Pages/RegistroCliente.jsx';
 import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/MiPerfilProfesionista.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
 // import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
-import Chat from './components/Chat';
+
 
 
 
@@ -35,17 +36,14 @@ function App() {
               <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
               <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} />
 
+              <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
+
               
               
               
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/Login" element={<Login/>} />
-
-              <Route  path="/Chat" element={<Chat/>} />
-              
-
-
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
 
             
