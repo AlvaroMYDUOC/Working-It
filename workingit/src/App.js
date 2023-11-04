@@ -36,23 +36,24 @@ function App() {
               <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
               <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} />
 
-              <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
-
               
               
               
               <Route  path="/Registro" element={<Registro/>} />
               <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
               <Route  path="/Login" element={<Login/>} />
+
+              <Route  path="/Chat" element={<Chat/>} />
+              
+
+
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
 
             
 
-            
-
-
-          </Routes>
-        </Router>
-  );
+        </Routes> 
+        
+          </Router>
+    );
 }
 export default App;
