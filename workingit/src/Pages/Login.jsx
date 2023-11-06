@@ -18,7 +18,9 @@ const Login = () => {
             </Card>
           </Col>
         </Row>
+        <hr/>
       </Container>
+      <FooterD />
     </>
   )
 }
