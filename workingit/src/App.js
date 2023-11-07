@@ -50,6 +50,7 @@ function App() {
 
 
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
+              <Route  path="/DirectorioProfesionistas" element={<DirectorioProfesionistas/>} />
 
             
 
