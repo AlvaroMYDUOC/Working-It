@@ -19,40 +19,27 @@ import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/MiPerfilProfesionista.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
 import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
-
-
-
-
+import AsesoriasProfesional from './Pages/AsesoriasProfesional';
 
 function App() {
 
   return (
     <Router>
           <Routes>
-              {/*Rutas definitivas para la aplicacion*/}
-              <Route  path="/" element={<Home />}/>
-              <Route  path="/RegistroInicio" element={<RegistroInicio/>} />
-              <Route  path="/MiPerfil" element={<PerfilProfesional/>} /> 
-              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
-              <Route  path="/MisProyectos" element={<MisProyectos/>} /> 
-              <Route  path="/RegistroCliente" element={<RegistroCliente/>} /> 
-              <Route  path="/RegistroProfesional" element={<RegistroProfesional/>} />
-
-              
-              
-              
-              <Route  path="/Registro" element={<Registro/>} />
-              <Route  path="/MiPerfil" element={<SpecialistProfile/>} />
-              <Route  path="/Login" element={<Login/>} />
-
-              <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
-              
-
-
-              <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
-              <Route  path="/DirectorioProfesionistas" element={<DirectorioProfesionistas/>} />
-
-            
+                {/* Rutas definitivas para la aplicación */}
+                <Route path="/" element={<Home />} />
+                <Route path="/RegistroInicio" element={<RegistroInicio />} />
+                <Route path="/MiPerfil" element={<PerfilProfesional />} />
+                <Route path="/MisProyectos" element={<MisProyectos />} />
+                <Route path="/RegistroCliente" element={<RegistroCliente />} />
+                <Route path="/RegistroProfesional" element={<RegistroProfesional />} />
+                <Route path="/Registro" element={<Registro />} />
+                <Route path="/Login" element={<Login />} />
+                <Route path="/PerfilProfesionista" element={<PerfilProfesional />} />
+                <Route path="/DirectorioProyectos" element={<DirectorioProyectos />} />
+                <Route path="/DirectorioProfesionistas" element={<DirectorioProfesionistas />} />
+                <Route path="/AsesoriasProfesional" element={<AsesoriasProfesional />} />
+                <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
 
             </Routes>
         </Router>
