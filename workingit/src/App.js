@@ -16,7 +16,9 @@ import RegistroCliente from './Pages/RegistroCliente.jsx';
 import RegistroProfesional from './Pages/RegistroProfesional.jsx';
 import PerfilProfesional from './Pages/MiPerfilProfesionista.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
-// import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
+import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
+
+import MiPerfilProfesionista from './Pages/MiPerfilProfesionista';
 
 
 
@@ -44,10 +46,12 @@ function App() {
               <Route  path="/Login" element={<Login/>} />
 
               <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
+              <Route  path="/PerfilProfesionista" element={<MiPerfilProfesionista/>} />
               
 
 
               <Route  path="/DirectorioProyectos" element={<DirectorioProyectos/>} />
+              <Route  path="/DirectorioProfesionistas" element={<DirectorioProfesionistas/>} />
 
             
 

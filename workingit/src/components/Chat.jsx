@@ -1,44 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import '../assets/css/Chat.css';
+import fotoDefault from '../assets/img/defaultProfile.jpg';
 
-function ConversationsList() {
+function Chat() {
   const [conversations, setConversations] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedConversation, setSelectedConversation] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState('');
 
   useEffect(() => {
-    // Realizar la solicitud a tu servidor proxy
-    fetch('http://149.50.130.111:8080/conversations?userID=1')
+    // Código para cargar las conversaciones iniciales
+    // Reemplaza este código con la lógica de carga de conversaciones
+    const userID = 1;
+    fetch(`http://149.50.130.111:8080/conversations?userID=${userID}`)
       .then((response) => response.json())
       .then((data) => {
         setConversations(data);
-        setLoading(false);
       })
-      .catch((error) => {
-        console.error('Error al obtener las conversaciones', error);
-        setLoading(false);
-      });
+      .catch((error) => console.error('Error al obtener las conversaciones:', error));
   }, []);
 
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
+  const loadMessages = useCallback((conversationId) => {
+    fetch(`http://149.50.130.111:8080/messages?conversation_id=${conversationId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages(data);
+      })
+      .catch((error) => console.error('Error al obtener los mensajes:', error));
+  }, []);
+
+  const handleConversationClick = (conversation) => {
+    setSelectedConversation(conversation);
+    loadMessages(conversation._id);
+  };
+
+  const handleSendMessage = () => {
+    // Tu código para enviar mensajes
+    // Asegúrate de actualizar el estado de messages cuando envíes un nuevo mensaje
+  };
 
   return (
-    <div>
-      <h2>Lista de Conversaciones</h2>
-      <ul>
+    <div className="chat-app">
+      <div className="sidebar">
         {conversations.map((conversation) => (
-          <li key={conversation._id}>
-            <strong>Conversación ID:</strong> {conversation._id}
-            <br />
-            <strong>Último mensaje:</strong> {conversation.last_message}
-            <br />
-            <strong>Fecha y hora del último mensaje:</strong>{' '}
-            {conversation.last_message_timestamp}
-          </li>
+          <div
+            className={`conversation-card ${selectedConversation === conversation ? 'selected' : ''}`}
+            key={conversation._id}
+            onClick={() => handleConversationClick(conversation)}
+          >
+            <img src={fotoDefault} alt="User Avatar" />
+            <div className="conversation-info">
+              <p>{conversation.participants[1] === 1 ? 'User 1' : 'User 2'}</p>
+              <p>{conversation.last_message}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
+      <div className="chat-container">
+        <div className="message-list">
+          {messages.map((message, index) => (
+            <div
+              key={message._id}
+              className={`message ${message.sender_id === 1 ? 'user-message' : 'other-message'}`}
+            >
+              {message.content}
+            </div>
+          ))}
+        </div>
+        <div className="message-input">
+          <input
+            type="text"
+            placeholder="Escribe un mensaje..."
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+          />
+          <button onClick={handleSendMessage}>Enviar</button>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default ConversationsList;
+export default Chat;
