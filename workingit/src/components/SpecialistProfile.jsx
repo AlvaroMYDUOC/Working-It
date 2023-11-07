@@ -6,6 +6,8 @@ import { BsStarFill } from 'react-icons/bs';
 import axios from 'axios';
 import fotoDefault from '../assets/img/defaultProfile.jpg';
 import EditModal from './editModal.jsx';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const SpecialistProfile = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -16,9 +18,36 @@ const SpecialistProfile = () => {
   const [specialtyType, setSpecialtyType] = useState('');
   const [aboutMe, setAboutMe] = useState('');
   const [photoP, setPhotoP] = useState(fotoDefault);
-  const photoPerfil = photoP || fotoDefault; // Si PhotoP es null, te trae la imagen que corresponde
+  const photoPerfil = photoP || fotoDefault;
   const datosUsuario = JSON.parse(localStorage.getItem('usuario'));
-  const esProfesional = datosUsuario.is_professional
+  const esProfesional = datosUsuario.is_professional;
+  const [showModal, setShowModal] = useState(false);
+  const [user_id,setID] = useState("")
+
+
+  const [messageContent, setMessageContent] = useState('');
+  const [recipientId, setRecipientId] = useState(null);
+
+  const sendMessage = async () => {
+    try {
+      const userToken = localStorage.getItem('token');
+      const cleanedData = {
+        content: messageContent,
+        sender_id: userToken,
+        recipient_id: user_id, // Utiliza directamente el valor de profesional_id
+      };
+      const response = await axios.post('http://149.50.130.111:8080/messages', cleanedData);
+  
+      console.log('Mensaje enviado con éxito:', response.data);
+      handleCloseModal();
+    } catch (error) {
+      console.error('Error al enviar el mensaje:', error);
+    }
+  };
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
 
 
 
@@ -28,34 +57,35 @@ const SpecialistProfile = () => {
     if (userData) {
       const isProfessional = userData.is_professional;
       const professionalId = isProfessional ? userData.professional_id : localStorage.getItem('id_profesional');
-      console.log('professionalId = ', professionalId)
+      console.log('professionalId = ', professionalId);
 
       if (professionalId) {
         let apiUrl = '';
 
-        if(isProfessional === false){
-          const profesionalAjeno = JSON.parse(professionalId)
-          const {id_profesional} = profesionalAjeno;
+        if (isProfessional === false) {
+          const profesionalAjeno = JSON.parse(professionalId);
+          const { id_profesional } = profesionalAjeno;
           apiUrl = `http://149.50.130.111:8001/api/profiles/` + id_profesional;
-          console.log('El usuario no es profesional ', apiUrl)
-
+          console.log('El usuario no es profesional ', apiUrl);
         } else {
           apiUrl = `http://149.50.130.111:8001/api/profiles/` + professionalId;
-          console.log('El usuario  es profesional ',apiUrl)
+          console.log('El usuario es profesional ', apiUrl);
         }
-        
 
         axios
           .get(apiUrl, { withCredentials: true })
           .then((response) => {
             setUserProfile(response.data);
             setLoading(false);
-
-            const { first_name, last_name, specialties, about_me, professional_photo } = response.data;
+          
+            const {user_id, first_name, last_name, specialties, about_me, professional_photo } = response.data;
+            setID(parseInt(user_id))
             setFirstName(first_name);
             setLastName(last_name);
             setAboutMe(about_me);
             setPhotoP(professional_photo);
+
+            
 
             if (specialties && specialties.length > 0) {
               const specialtiesEndpoint = 'http://149.50.130.111:8000/especialistas/';
@@ -104,7 +134,7 @@ const SpecialistProfile = () => {
               <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#89acf7', height: '200px' }}>
                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                   <MDBCardImage
-                    src={photoPerfil} //Utiliza la imagen anteriormente mencionada
+                    src={photoPerfil}
                     alt="No existe foto de perfil"
                     className="mt-4 mb-2 img-thumbnail rounded-circle"
                     fluid
@@ -112,10 +142,10 @@ const SpecialistProfile = () => {
                       width: '90%',
                       height: '100%',
                       objectFit: 'fill',
-                      borderRadius: '50%', // Hace que la imagen sea redonda
+                      borderRadius: '50%',
                     }}
                     onError={(e) => {
-                      e.target.src = fotoDefault; // Asignar la imagen predeterminada en caso de error
+                      e.target.src = fotoDefault;
                     }}
                   />
                 </div>
@@ -125,12 +155,14 @@ const SpecialistProfile = () => {
                 </div>
               </div>
               <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
-                <div className="d-flex justify-content-start align-items-center py-1" style={{ width: '75px' }}>
-                  {/* Aquí irán las valoraciones que el profesionista ya tenga */}
-                </div>
+                <div className="d-flex justify-content-start align-items-center py-1" style={{ width: '75px' }}></div>
                 <div className="Supercontenedor" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gridGap: '10px' }}>
-                  <div className="d-flex justify-content-start text-center py-1" style={{ gridColumn: 'span 3', display: 'grid', alignItems: 'center',justifyContent: 'center' }}>
-                  <MDBCardText className="small text-muted mb-0">Disponible</MDBCardText>
+                  <div className="d-flex justify-content-start text-center py-1" style={{ gridColumn: 'span 3', display: 'grid', alignItems: 'center', justifyContent: 'center' }}>
+                    <div className="d-flex justify-content-start text-center py-1">
+                      <Button variant="primary" onClick={handleShowModal}>
+                        Contáctame
+                      </Button>
+                    </div>
                   </div>
                   <div className="d-flex justify-content-end text-center py-1" style={{ gridColumn: 'span 3' }}>
                     <div>
@@ -139,7 +171,7 @@ const SpecialistProfile = () => {
                     </div>
                     <div className="px-3">
                       <MDBCardText className="mb-1 h5"><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /><BsStarFill /></MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">Valoracion</MDBCardText>
+                      <MDBCardText className="small text-muted mb-0">Valoración</MDBCardText>
                     </div>
                     <div>
                       <MDBCardText className="mb-1 h5">3 años</MDBCardText>
@@ -163,12 +195,29 @@ const SpecialistProfile = () => {
                   <Carrusel />
                 </MDBRow>
               </MDBCardBody>
-              {esProfesional &&(<EditModal/>
-)}
+              {esProfesional && <EditModal />}
             </MDBCard>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+      {/* Modal para "Contáctame" */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Contáctame</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <label htmlFor="mensaje">Mensaje:</label>
+          <textarea id="mensaje" rows="4" cols="50" value={messageContent} onChange={(e) => setMessageContent(e.target.value)}></textarea>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+          <Button variant="primary" onClick={sendMessage}>
+            Enviar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

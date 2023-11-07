@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import fotoDefault from '../assets/img/defaultProfile.jpg'
+
+
+
+
+
 
 
 const ListadoProfesionistas = () => {
@@ -96,6 +101,7 @@ const ListadoProfesionistas = () => {
   };
 
   return (
+    
     <div className="directorio-proyectos">
       <h2 className="text-center">Directorio de profesionales</h2>
        {/* Barra de búsqueda y botón */}
