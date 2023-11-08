@@ -145,7 +145,7 @@ useEffect(() => {
                   <>  
                     <Nav.Link href="/AsesoriasProfesional">Asesorias asignadas</Nav.Link>            
                     <Nav.Link href="/DirectorioProyectos">Directorio de proyectos</Nav.Link>
-                    <Nav.Link href="#">Mensajes</Nav.Link>
+                    <Nav.Link href="/ChatProfesional">Mensajes</Nav.Link>
                     <Nav.Link href="/MiPerfil">Mi Perfil</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>              
                   </>         
@@ -154,7 +154,7 @@ useEffect(() => {
                     <>
                     <Nav.Link href="/DirectorioProfesionistas">Directorio de profesionistas</Nav.Link>            
                     <Nav.Link href="/MisProyectos">Mis Proyectos</Nav.Link>
-                    <Nav.Link href="/Chat">Mensajes</Nav.Link>
+                    <Nav.Link href="/ChatProfesional">Mensajes</Nav.Link>
                     <Nav.Link onClick={handleLogout}>Cerrar sesion</Nav.Link>
                     </>
                   )

@@ -13,6 +13,46 @@ const ListaAsesorias = () => {
   const [selectValue, setSelectValue] = useState(''); // Valor por defecto del selector
   const [especialistas, setEspecialistas] = useState([]);
   const [selectedEspecialistas, setSelectedEspecialistas] = useState([]);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [activeAsesoriaId, setActiveAsesoriaId] = useState(null);
+
+  const handleTerminateAsesoria = (asesoriaId) => {
+    setActiveAsesoriaId(asesoriaId);
+    setShowConfirmationModal(true);
+  };
+
+  const handleConfirmTermination = async () => {
+    try {
+      const userToken = localStorage.getItem('token');
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      const userId = usuario.professional_id;
+
+      if (userToken) {
+        const terminationData = {
+          user_id: userId
+        }
+        await axios.post(
+          `http://149.50.130.111:8002/api/solicitudes-asesoria/${activeAsesoriaId}/terminate/`,terminationData,
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`
+            }
+          }
+        );
+  
+        console.log(`Asesoría ${activeAsesoriaId} terminada exitosamente.`);
+  
+        // Lógica adicional después de terminar la asesoría...
+        setShowConfirmationModal(false);
+      } else {
+        console.error('No se encontró el token en el localStorage.');
+        // Manejo de errores (puede mostrar un mensaje al usuario)
+      }
+    } catch (error) {
+      console.error('Error al terminar la asesoría:', error);
+      // Manejo de errores (puede mostrar un mensaje al usuario)
+    }
+  };
 
   // Nuevo useEffect para mostrar los especialistas seleccionados en la consola
   useEffect(() => {
@@ -129,6 +169,9 @@ const ListaAsesorias = () => {
                         <Card.Text>Metros cuadrados: {proyectoRelacionado.mt2}</Card.Text>
                         <Card.Text>Tipo: {proyectoRelacionado.type}</Card.Text>
                         <Card.Text>Propietario: {proyectoRelacionado.owner}</Card.Text>
+                        <Button variant="danger" onClick={() => handleTerminateAsesoria(asesoria.id)}>
+                          Terminar asesoría
+                        </Button>
                       </Col>
                       <Col md={3} className="text-center">
                         {fotoProyecto ? (
@@ -290,6 +333,27 @@ const ListaAsesorias = () => {
           <Button variant='primary' onClick={handleSendInfo}>Enviar Información</Button>
         </Modal.Footer>
     </Modal>
+    {/*Modal de confirmación para la eliminación de la asesoría.*/}
+    <Modal
+        show={showConfirmationModal}
+        onHide={() => setShowConfirmationModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Término de Asesoría</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas terminar esta asesoría?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmationModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleConfirmTermination}>
+            Terminar Asesoría
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
