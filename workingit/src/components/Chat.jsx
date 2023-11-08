@@ -9,14 +9,17 @@ function Chat() {
   const [inputMessage, setInputMessage] = useState('');
   const [user_id, setUserID] = useState('');
   const [recipientId, setRecipientId] = useState('');
+  
 
   useEffect(() => {
     // Obtén el user_id del localStorage
     const userToken = localStorage.getItem('usuario');
     const userData = JSON.parse(userToken);
     const userID = userData.id;
-    setUserID(userID);
+    const username = userData.first_name + " " + userData.last_name;
 
+    setUserID(userID);
+    
     if (userID) {
       fetch(`http://149.50.130.111:8080/conversations?userID=${userID}`)
         .then((response) => response.json())
@@ -47,8 +50,16 @@ function Chat() {
   const handleSendMessage = () => {
     if (inputMessage.trim() === '') {
       return;
+    } 
+    const nombreChat = (username, conversation)=>{ 
+    if (username === conversation.sender_name) {
+      <p>conversation.recipient_name</p>
+      
     }
-
+    else{
+      <p>conversation.sender_name</p>
+    }
+  }
     const message = {
       content: inputMessage,
       sender_id: user_id,
@@ -81,6 +92,7 @@ function Chat() {
           >
             <img src={fotoDefault} alt="User Avatar" />
             <div className="conversation-info">
+               
               <p>{conversation.last_message}</p>
             </div>
           </div>
