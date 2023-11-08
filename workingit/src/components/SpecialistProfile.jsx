@@ -24,20 +24,27 @@ const SpecialistProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [user_id,setID] = useState("")
 
+  
 
   const [messageContent, setMessageContent] = useState('');
-  const [recipientId, setRecipientId] = useState(null);
-
+  
+  //User_id
   const sendMessage = async () => {
     try {
-      const userToken = localStorage.getItem('token');
+      const userToken = localStorage.getItem('usuario');    
+      const userData = JSON.parse(userToken);
+      const userId = userData.id;
+      const username = userData.first_name + " " + userData.last_name;
+      const prof_username = firstName + " " + lastName;
+
       const cleanedData = {
-        content: messageContent,
-        sender_id: userToken,
-        recipient_id: user_id, // Utiliza directamente el valor de profesional_id
-      };
+      content: messageContent,
+      sender_id: userId,
+      recipient_id: user_id, // Utiliza directamente el valor de profesional_id
+      sender_name: username,
+      recipient_name: prof_username
+    };
       const response = await axios.post('http://149.50.130.111:8080/messages', cleanedData);
-  
       console.log('Mensaje enviado con éxito:', response.data);
       handleCloseModal();
     } catch (error) {

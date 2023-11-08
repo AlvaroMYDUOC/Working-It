@@ -7,17 +7,26 @@ function Chat() {
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
+  const [user_id, setUserID] = useState('');
+  const [recipientId, setRecipientId] = useState('');
 
   useEffect(() => {
-    // Código para cargar las conversaciones iniciales
-    // Reemplaza este código con la lógica de carga de conversaciones
-    const userID = 1;
-    fetch(`http://149.50.130.111:8080/conversations?userID=${userID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setConversations(data);
-      })
-      .catch((error) => console.error('Error al obtener las conversaciones:', error));
+    // Obtén el user_id del localStorage
+    const userToken = localStorage.getItem('usuario');
+    const userData = JSON.parse(userToken);
+    const userID = userData.id;
+    setUserID(userID);
+
+    if (userID) {
+      fetch(`http://149.50.130.111:8080/conversations?userID=${userID}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setConversations(data);
+        })
+        .catch((error) => console.error('Error al obtener las conversaciones:', error));
+    } else {
+      console.error('user_id no encontrado en el localStorage');
+    }
   }, []);
 
   const loadMessages = useCallback((conversationId) => {
@@ -32,11 +41,33 @@ function Chat() {
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation);
     loadMessages(conversation._id);
+    setRecipientId(conversation.recipient_id);
   };
 
   const handleSendMessage = () => {
-    // Tu código para enviar mensajes
-    // Asegúrate de actualizar el estado de messages cuando envíes un nuevo mensaje
+    if (inputMessage.trim() === '') {
+      return;
+    }
+
+    const message = {
+      content: inputMessage,
+      sender_id: user_id,
+      recipient_id: recipientId,
+    };
+
+    fetch('http://149.50.130.111:8080/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessages([...messages, data]);
+        setInputMessage('');
+      })
+      .catch((error) => console.error('Error al enviar el mensaje:', error));
   };
 
   return (
@@ -50,7 +81,6 @@ function Chat() {
           >
             <img src={fotoDefault} alt="User Avatar" />
             <div className="conversation-info">
-              <p>{conversation.participants[1] === 1 ? 'User 1' : 'User 2'}</p>
               <p>{conversation.last_message}</p>
             </div>
           </div>
@@ -61,7 +91,8 @@ function Chat() {
           {messages.map((message, index) => (
             <div
               key={message._id}
-              className={`message ${message.sender_id === 1 ? 'user-message' : 'other-message'}`}
+              
+              className={`message ${message.sender_id === user_id ? 'user-message' : 'other-message'}`}
             >
               {message.content}
             </div>
