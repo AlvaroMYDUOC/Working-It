@@ -9,17 +9,15 @@ function Chat() {
   const [inputMessage, setInputMessage] = useState('');
   const [user_id, setUserID] = useState('');
   const [recipientId, setRecipientId] = useState('');
-  
 
   useEffect(() => {
     // Obtén el user_id del localStorage
     const userToken = localStorage.getItem('usuario');
     const userData = JSON.parse(userToken);
     const userID = userData.id;
-    const username = userData.first_name + " " + userData.last_name;
 
     setUserID(userID);
-    
+
     if (userID) {
       fetch(`http://149.50.130.111:8080/conversations?userID=${userID}`)
         .then((response) => response.json())
@@ -41,25 +39,19 @@ function Chat() {
       .catch((error) => console.error('Error al obtener los mensajes:', error));
   }, []);
 
+
+
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation);
     loadMessages(conversation._id);
-    setRecipientId(conversation.recipient_id);
+    setRecipientId(conversation.RecipientName); // Acceso a RecipientName
   };
 
   const handleSendMessage = () => {
     if (inputMessage.trim() === '') {
       return;
-    } 
-    const nombreChat = (username, conversation)=>{ 
-    if (username === conversation.sender_name) {
-      <p>conversation.recipient_name</p>
-      
     }
-    else{
-      <p>conversation.sender_name</p>
-    }
-  }
+
     const message = {
       content: inputMessage,
       sender_id: user_id,
@@ -92,7 +84,7 @@ function Chat() {
           >
             <img src={fotoDefault} alt="User Avatar" />
             <div className="conversation-info">
-               
+              <p>{conversation.RecipientName}</p> {/* Acceso a RecipientName */}
               <p>{conversation.last_message}</p>
             </div>
           </div>
@@ -103,7 +95,6 @@ function Chat() {
           {messages.map((message, index) => (
             <div
               key={message._id}
-              
               className={`message ${message.sender_id === user_id ? 'user-message' : 'other-message'}`}
             >
               {message.content}
