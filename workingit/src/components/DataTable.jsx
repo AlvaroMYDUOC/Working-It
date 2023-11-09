@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';import { Form } from 'react-bootstrap';
+import fotoDefault from '../assets/img/imgNoDisponible.png'
 
 const DataTableComponent = () => {
 
@@ -20,14 +21,36 @@ const DataTableComponent = () => {
   const [projectTypes, setProjectTypes] = useState([]); // Estado para almacenar los tipos de proyectos
   const [profesionales, setProfesionales] = useState([]);
   const [especialidades, setEspecialidades] = useState([]); // Agregar estado para las especialidades
-
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedProfessional, setSelectedProfessional] = useState(null);
+  const [additionalProjectInfo, setAdditionalProjectInfo] = useState([]);
 
-  const handleSelectProfessional = (professional) => {
-    setSelectedProfessional(professional);
-    setShowConfirmationModal(true);
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+      if (token) {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        };
+
+        axios.get('http://149.50.130.111:8002/api/additional-project-info/get_info_for_project/1/', config)
+          .then(response => {
+            setAdditionalProjectInfo(response.data);
+          })
+          .catch(error => {
+            console.error('Error al obtener información adicional del proyecto:', error);
+          });
+      } else {
+        console.error('Token no encontrado en el localStorage');
+      }
+    }, []);
+
+    const handleSelectProfessional = (professional) => {
+      setSelectedProfessional(professional);
+      setShowConfirmationModal(true); 
+    };
 
   const handleConfirmation = () => {
     // Verifica si hay un profesional seleccionado
@@ -501,7 +524,7 @@ const DataTableComponent = () => {
                 {selectedProjectDetails.photos && selectedProjectDetails.photos.length > 0 ? (
                   selectedProjectDetails.photos.map((photo) => (
                     <Col key={photo.id} sm={6}>
-                      <img src={photo.photo} alt={`Foto ${photo.id}`} style={{ maxWidth: '100%' }} />
+                      <img src={photo.photo} alt={fotoDefault} onError={(e) => {e.target.src = fotoDefault;}} style={{ maxWidth: '100%' }} />
                     </Col>
                   ))
                 ) : (
@@ -512,6 +535,29 @@ const DataTableComponent = () => {
               </Row>
             </Col>
             </Row>
+          </Container>
+          <hr />
+          <Container>
+            <h4>Información otorgada por asesor.</h4>
+            {additionalProjectInfo.length > 0 ? (
+              additionalProjectInfo.map(info => {
+                // Buscar el nombre del asesor por su ID
+                const asesor = profesionales.find(profesional => profesional.id === info.professional_asesor);
+                const nombreAsesor = asesor ? `${asesor.first_name} ${asesor.last_name}` : `ID: ${info.professional_asesor}`;
+
+                return (
+                  <div key={info.id}>
+                    <p>Id de asesoria: {info.id}</p>
+                    <p>Descripción: {info.description}</p>
+                    <p>Nombre profesional asesor: {nombreAsesor}</p>
+                    <p>Tipo de profesional sugerido para el trabajo : {info.types_of_professionals.join(', ')}</p>
+                    <hr /> {/* Línea separadora entre cada información adicional */}
+                  </div>
+                );
+              })
+            ) : (
+              <p>No se encontró información adicional para este proyecto.</p>
+            )}
           </Container>
         </Modal.Body>
         <Modal.Footer>
