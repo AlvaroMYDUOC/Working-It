@@ -42,15 +42,12 @@ const ListaAsesorias = () => {
   
         console.log(`Asesoría ${activeAsesoriaId} terminada exitosamente.`);
   
-        // Lógica adicional después de terminar la asesoría...
         setShowConfirmationModal(false);
       } else {
         console.error('No se encontró el token en el localStorage.');
-        // Manejo de errores (puede mostrar un mensaje al usuario)
       }
     } catch (error) {
       console.error('Error al terminar la asesoría:', error);
-      // Manejo de errores (puede mostrar un mensaje al usuario)
     }
   };
 
