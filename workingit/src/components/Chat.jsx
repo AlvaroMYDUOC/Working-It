@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom'; // Asegúrate de importar useLocation
+import { useLocation } from 'react-router-dom';
 import '../assets/css/Chat.css';
 import fotoDefault from '../assets/img/defaultProfile.jpg';
 
@@ -14,18 +14,17 @@ function Chat() {
 
   const [selectedConversationId, setSelectedConversationId] = useState(null);
 
-  const location = useLocation(); // Obtén la ubicación actual de la URL
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const professionalId = searchParams.get('professionalId'); // Obtiene el professionalId de la URL
+  const professionalId = searchParams.get('professionalId');
 
   useEffect(() => {
-    // El user_id del localStorage o el professionalId de la URL
     const userToken = localStorage.getItem('usuario');
     const userData = JSON.parse(userToken);
     const userID = userData.id;
 
-    setUserData(userData); // Almacena los datos del usuario en el estado
-    setUserID(userID || professionalId); // Utiliza el professionalId si está presente en la URL
+    setUserData(userData);
+    setUserID(userID || professionalId);
 
     if (userID || professionalId) {
       fetch(`http://149.50.130.111:8080/conversations?userID=${userID || professionalId}`)
@@ -51,12 +50,39 @@ function Chat() {
   const handleConversationClick = (conversation) => {
     setSelectedConversationId(conversation._id);
     setSelectedConversation(conversation);
+  
+    // Utiliza el primer participante en la conversación como "recipient_id"
+    const participants = conversation.participants;
+    
+    if (participants.length > 1) {
+      // Filtra el participante que no sea el usuario actual (user_id)
+      const recipientId = participants.find((participant) => participant !== user_id);
+      setRecipientId(recipientId);
+    } else {
+      console.error('La conversación no tiene suficientes participantes para determinar un destinatario.');
+    }
+  
     loadMessages(conversation._id);
-    setRecipientId(conversation.recipient_id);
   };
-
+  
   const handleSendMessage = () => {
     if (inputMessage.trim() === '') {
+      return;
+    }
+  
+    // Verifica si no hay una conversación seleccionada
+    if (!selectedConversationId) {
+      console.error('No hay una conversación seleccionada para enviar mensajes.');
+      return;
+    }
+  
+    if (!recipientId) {
+      console.error('No se pudo obtener el recipientId de la conversación.');
+      return;
+    }
+  
+    if (user_id === recipientId) {
+      console.error('No puedes enviarte mensajes a ti mismo.');
       return;
     }
   
@@ -65,8 +91,6 @@ function Chat() {
       sender_id: user_id,
       recipient_id: recipientId,
     };
-  
-    console.log('Mensaje a enviar:', message);
   
     fetch(`http://149.50.130.111:8080/messages?conversation_id=${selectedConversationId}`, {
       method: 'POST',
@@ -92,21 +116,21 @@ function Chat() {
     }
 
     if (message.sender_id === user_id) {
-      return userData.first_name + ' ' + userData.last_name; // Nombre del usuario
+      return userData.first_name + ' ' + userData.last_name;
     } else {
-      return selectedConversation.recipient_name; // Nombre del profesional
+      return selectedConversation.recipient_name;
     }
   };
 
   return (
     <div className="chat-app">
       <div className="sidebar">
-            {conversations.map((conversation) => (
-            <div
-              className={`conversation-card ${selectedConversationId === conversation._id ? 'selected' : ''}`}
-              key={conversation._id}
-              onClick={() => handleConversationClick(conversation)}
-            >
+        {conversations.map((conversation) => (
+          <div
+            className={`conversation-card ${selectedConversationId === conversation._id ? 'selected' : ''}`}
+            key={conversation._id}
+            onClick={() => handleConversationClick(conversation)}
+          >
             <img src={fotoDefault} alt="User Avatar" />
             <div className="conversation-info">
               <p>{conversation.RecipientName}</p>
@@ -143,5 +167,3 @@ function Chat() {
 }
 
 export default Chat;
-
-
