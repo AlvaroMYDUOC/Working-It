@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom'; // Asegúrate de importar useLocation
 import '../assets/css/Chat.css';
 import fotoDefault from '../assets/img/defaultProfile.jpg';
 
@@ -9,26 +10,34 @@ function Chat() {
   const [inputMessage, setInputMessage] = useState('');
   const [user_id, setUserID] = useState('');
   const [recipientId, setRecipientId] = useState('');
+  const [userData, setUserData] = useState(null);
+
+  const [selectedConversationId, setSelectedConversationId] = useState(null);
+
+  const location = useLocation(); // Obtén la ubicación actual de la URL
+  const searchParams = new URLSearchParams(location.search);
+  const professionalId = searchParams.get('professionalId'); // Obtiene el professionalId de la URL
 
   useEffect(() => {
-    // Obtén el user_id del localStorage
+    // El user_id del localStorage o el professionalId de la URL
     const userToken = localStorage.getItem('usuario');
     const userData = JSON.parse(userToken);
     const userID = userData.id;
 
-    setUserID(userID);
+    setUserData(userData); // Almacena los datos del usuario en el estado
+    setUserID(userID || professionalId); // Utiliza el professionalId si está presente en la URL
 
-    if (userID) {
-      fetch(`http://149.50.130.111:8080/conversations?userID=${userID}`)
+    if (userID || professionalId) {
+      fetch(`http://149.50.130.111:8080/conversations?userID=${userID || professionalId}`)
         .then((response) => response.json())
         .then((data) => {
           setConversations(data);
         })
         .catch((error) => console.error('Error al obtener las conversaciones:', error));
     } else {
-      console.error('user_id no encontrado en el localStorage');
+      console.error('user_id no encontrado en el localStorage ni en la URL');
     }
-  }, []);
+  }, [professionalId]);
 
   const loadMessages = useCallback((conversationId) => {
     fetch(`http://149.50.130.111:8080/messages?conversation_id=${conversationId}`)
@@ -39,26 +48,27 @@ function Chat() {
       .catch((error) => console.error('Error al obtener los mensajes:', error));
   }, []);
 
-
-
   const handleConversationClick = (conversation) => {
+    setSelectedConversationId(conversation._id);
     setSelectedConversation(conversation);
     loadMessages(conversation._id);
-    setRecipientId(conversation.RecipientName); // Acceso a RecipientName
+    setRecipientId(conversation.recipient_id);
   };
 
   const handleSendMessage = () => {
     if (inputMessage.trim() === '') {
       return;
     }
-
+  
     const message = {
       content: inputMessage,
       sender_id: user_id,
       recipient_id: recipientId,
     };
-
-    fetch('http://149.50.130.111:8080/messages', {
+  
+    console.log('Mensaje a enviar:', message);
+  
+    fetch(`http://149.50.130.111:8080/messages?conversation_id=${selectedConversationId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -67,24 +77,39 @@ function Chat() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log('Mensaje enviado exitosamente:', data);
         setMessages([...messages, data]);
         setInputMessage('');
       })
-      .catch((error) => console.error('Error al enviar el mensaje:', error));
+      .catch((error) => {
+        console.error('Error al enviar el mensaje:', error);
+      });
+  };
+
+  const getMessageSenderName = (message) => {
+    if (!selectedConversation) {
+      return '';
+    }
+
+    if (message.sender_id === user_id) {
+      return userData.first_name + ' ' + userData.last_name; // Nombre del usuario
+    } else {
+      return selectedConversation.recipient_name; // Nombre del profesional
+    }
   };
 
   return (
     <div className="chat-app">
       <div className="sidebar">
-        {conversations.map((conversation) => (
-          <div
-            className={`conversation-card ${selectedConversation === conversation ? 'selected' : ''}`}
-            key={conversation._id}
-            onClick={() => handleConversationClick(conversation)}
-          >
+            {conversations.map((conversation) => (
+            <div
+              className={`conversation-card ${selectedConversationId === conversation._id ? 'selected' : ''}`}
+              key={conversation._id}
+              onClick={() => handleConversationClick(conversation)}
+            >
             <img src={fotoDefault} alt="User Avatar" />
             <div className="conversation-info">
-              <p>{conversation.RecipientName}</p> {/* Acceso a RecipientName */}
+              <p>{conversation.RecipientName}</p>
               <p>{conversation.last_message}</p>
             </div>
           </div>
@@ -97,7 +122,9 @@ function Chat() {
               key={message._id}
               className={`message ${message.sender_id === user_id ? 'user-message' : 'other-message'}`}
             >
-              {message.content}
+              <p>
+                {getMessageSenderName(message)}: {message.content}
+              </p>
             </div>
           ))}
         </div>
@@ -116,3 +143,5 @@ function Chat() {
 }
 
 export default Chat;
+
+
