@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import imagenDefault from '../assets/img/imgNoDisponible.png'
 
 
 const DirectorioProyectos = () => {
@@ -147,40 +148,56 @@ const DirectorioProyectos = () => {
             </div>
           </Col>
           <Col md={6}>
-            <div className="proyectos">
-              {proyectosActuales.map(proyecto => (
-                <Card key={proyecto.id} className="mb-3" style={{ padding: '5px', marginRight: '50px' }}>
-                  <Card.Body>
-                    <div className="d-flex">
-                      <div>
-                      <a
-                        onClick={() => handleProjectClick(proyecto)}
-                        
-                        style={{
-                          textDecoration: 'none',
-                          color: 'black',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.textDecoration = 'underline';
-                          e.target.style.color = 'blue';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.textDecoration = 'none';
-                          e.target.style.color = 'black';
-                        }}
-                      >
-                        <Card.Title>{proyecto.name}</Card.Title>
-                      </a>
-                        <Card.Text>{proyecto.description}</Card.Text>
-                        <p>Metros Cuadrados: {proyecto.mt2}</p>
-                        <p>Tipo: {tiposProyectoMap[proyecto.type]}</p>
-                      </div>
-                      <div className="ml-auto">
-                        {proyecto.photos.length > 0 && (
-                          <img src={proyecto.photos[0].photo} alt={proyecto.name} style={{ width: '100px' }} />
-                        )}
-                      </div>
-                    </div>
+          <div className="proyectos">
+  {proyectosActuales.map(proyecto => (
+    <Card key={proyecto.id} className="mb-4">
+      <Card.Body>
+        <Row>
+          <Col md={8} sm={8}>
+              <div>
+                          <a
+                            onClick={() => handleProjectClick(proyecto)}
+                            style={{
+                              textDecoration: 'none',
+                              color: 'black',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.textDecoration = 'underline';
+                              e.target.style.color = 'blue';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.textDecoration = 'none';
+                              e.target.style.color = 'black';
+                            }}
+                          >
+                            <Card.Title>{proyecto.name}</Card.Title>
+                          </a>
+                          <Card.Text>{proyecto.description}</Card.Text>
+                          <p>Metros Cuadrados: {proyecto.mt2}</p>
+                          <p>Tipo: {tiposProyectoMap[proyecto.type]}</p>
+                        </div>
+                      </Col>
+                      <Col md={4} sm={4}>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+                          {proyecto.photos && proyecto.photos.length > 0 ? (
+                            <img
+                              src={proyecto.photos[0].photo}
+                              alt={proyecto.name}
+                              style={{ width: '100px' }}
+                              onError={(e) => {
+                                e.target.src = imagenDefault; // Ruta de la imagen por defecto
+                              }}
+                            />
+                          ) : (
+                            <img
+                              src={imagenDefault}
+                              alt='Imagen por defecto'
+                              style={{ width: '100px' }}
+                            />
+                          )}
+                        </div>
+                      </Col>
+                    </Row>
                   </Card.Body>
                 </Card>
               ))}
@@ -223,11 +240,22 @@ const DirectorioProyectos = () => {
               <p>Tipo proyecto: {selectedProject.type}</p>
             </Col>
             <Col>
-              {selectedProject.photos && selectedProject.photos.length > 0 && (
-                <Card>
-                  <Card.Img src={selectedProject.photos[0].photo} alt={selectedProject.name} />
-                </Card>
-              )}
+              {selectedProject.photos && selectedProject.photos.length > 0 ? (
+                <img
+                src={selectedProject.photos[0].photo}
+                alt={selectedProject.name}
+                style={{ width: '100px' }}
+                onError={(e) => {
+                  e.target.src = imagenDefault; // Ruta de la imagen por defecto
+                }}
+              />
+            ) : (
+              <img
+                src={imagenDefault}
+                alt='Imagen por defecto'
+                style={{ width: '100px' }}
+              />
+            )}
             </Col>
           </Row>
         </Container>
