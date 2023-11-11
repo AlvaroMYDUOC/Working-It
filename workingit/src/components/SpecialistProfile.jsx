@@ -165,13 +165,16 @@ const SpecialistProfile = () => {
               <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                 <div className="d-flex justify-content-start align-items-center py-1" style={{ width: '75px' }}></div>
                 <div className="Supercontenedor" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gridGap: '10px' }}>
-                  <div className="d-flex justify-content-start text-center py-1" style={{ gridColumn: 'span 3', display: 'grid', alignItems: 'center', justifyContent: 'center' }}>
-                    <div className="d-flex justify-content-start text-center py-1">
-                      <Button variant="primary" onClick={handleShowModal}>
-                        Contáctame
-                      </Button>
-                    </div>
-                  </div>
+                 {/* Mostrar el botón solo si el usuario no es un profesional */}
+                    {!esProfesional && (
+                      <div className="d-flex justify-content-start text-center py-1" style={{ gridColumn: 'span 3', display: 'grid', alignItems: 'center', justifyContent: 'center' }}>
+                        <div className="d-flex justify-content-start text-center py-1">
+                          <Button variant="primary" onClick={handleShowModal}>
+                            Contáctame
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   <div className="d-flex justify-content-end text-center py-1" style={{ gridColumn: 'span 3' }}>
                     <div>
                       <MDBCardText className="mb-1 h5">5+</MDBCardText>

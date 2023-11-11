@@ -32,8 +32,7 @@ const Buscador2 = () => {
           <h5 className="text-white mb-4">Redes Sociales</h5>
           
           <div className="d-flex pt-2">
-          <a className="btn btn-outline-light btn-social" href="#"><FaTwitter /></a>
-        <a className="btn btn-outline-light btn-social" href="#"><FaFacebookF /></a>
+        <a className="btn btn-outline-light btn-social" href="https://www.facebook.com/profile.php?id=100089893233058&mibextid=LQQJ4d"><FaFacebookF /></a>
         <a className="btn btn-outline-light btn-social" href="#"><FaYoutube /></a>
         <a className="btn btn-outline-light btn-social" href="#"><FaInstagram /></a>
         <a className="btn btn-outline-light btn-social" href="#"><FaLinkedinIn /></a>

@@ -39,7 +39,7 @@ function Chat() {
   }, [professionalId]);
 
   const loadMessages = useCallback((conversationId) => {
-    fetch(`http://149.50.130.111:8080/messages?conversation_id=${conversationId}`)
+    fetch(`http://149.50.130.111:8080/messages/?conversation_id=${conversationId}`)
       .then((response) => response.json())
       .then((data) => {
         setMessages(data);
@@ -125,42 +125,56 @@ function Chat() {
   return (
     <div className="chat-app">
       <div className="sidebar">
-        {conversations.map((conversation) => (
-          <div
-            className={`conversation-card ${selectedConversationId === conversation._id ? 'selected' : ''}`}
-            key={conversation._id}
-            onClick={() => handleConversationClick(conversation)}
-          >
-            <img src={fotoDefault} alt="User Avatar" />
-            <div className="conversation-info">
-              <p>{conversation.RecipientName}</p>
-              <p>{conversation.last_message}</p>
+      {(conversations?.length === 0 || !conversations) ? (
+          <div className="no-messages">No tienes mensajes</div>
+        ) : (
+          conversations.map((conversation) => (
+            <div
+              className={`conversation-card ${selectedConversationId === conversation._id ? 'selected' : ''}`}
+              key={conversation._id}
+              onClick={() => handleConversationClick(conversation)}
+            >
+              <img src={fotoDefault} alt="User Avatar" />
+              <div className="conversation-info">
+                <p>{conversation.RecipientName}</p>
+                <p>{conversation.last_message}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
       <div className="chat-container">
-        <div className="message-list">
-          {messages.map((message, index) => (
-            <div
-              key={message._id}
-              className={`message ${message.sender_id === user_id ? 'user-message' : 'other-message'}`}
-            >
-              <p>
-                {getMessageSenderName(message)}: {message.content}
-              </p>
+        {selectedConversationId ? (
+          <>
+            <div className="message-list">
+              {messages && messages.length === 0 ? (
+                <div className="no-messages">No hay mensajes en esta conversación</div>
+              ) : (
+                messages.map((message, index) => (
+                  <div
+                    key={message._id}
+                    className={`message ${message.sender_id === user_id ? 'user-message' : 'other-message'}`}
+                  >
+                    <p>
+                      {getMessageSenderName(message)}: {message.content}
+                    </p>
+                  </div>
+                ))
+              )}
             </div>
-          ))}
-        </div>
-        <div className="message-input">
-          <input
-            type="text"
-            placeholder="Escribe un mensaje..."
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-          />
-          <button onClick={handleSendMessage}>Enviar</button>
-        </div>
+            <div className="message-input">
+              <input
+                type="text"
+                placeholder="Escribe un mensaje..."
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+              />
+              <button onClick={handleSendMessage}>Enviar</button>
+            </div>
+          </>
+        ) : (
+          <div className="select-conversation">Selecciona una conversación para empezar a chatear</div>
+        )}
       </div>
     </div>
   );

@@ -16,6 +16,7 @@
   flex-direction: column;
 }
 
+
 .message-list {
   flex: 1;
   overflow-y: auto;
@@ -37,6 +38,8 @@
 
 .other-message {
   background-color: #e0e0e0;
+  align-self: flex-start;
+
 }
 
 .message-input {
@@ -65,10 +68,11 @@ button {
 
 /* Estilos para las tarjetas de conversación en la columna de la barra lateral */
 .conversation-card {
+  background-color: #3498db;
   display: flex;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
   transition: background-color 0.2s;
 }
