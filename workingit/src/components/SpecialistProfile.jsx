@@ -36,6 +36,7 @@ const SpecialistProfile = () => {
       const userData = JSON.parse(userToken);
       const userId = userData.id;
       const username = userData.first_name + " " + userData.last_name;
+      console.log(username)
       const prof_username = firstName + " " + lastName;
 
       const cleanedData = {
