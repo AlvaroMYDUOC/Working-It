@@ -45,7 +45,7 @@ const SpecialistProfile = () => {
       sender_name: username,
       recipient_name: prof_username
     };
-      const response = await axios.post('http://149.50.130.111:8080/messages', cleanedData);
+      const response = await axios.post('http://149.50.130.111:8080/messages/', cleanedData);
       console.log('Mensaje enviado con éxito:', response.data);
       handleCloseModal();
     } catch (error) {

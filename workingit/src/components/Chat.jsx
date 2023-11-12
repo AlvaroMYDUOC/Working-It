@@ -92,7 +92,7 @@
         recipient_id: recipientId,
       };
     
-      fetch(`http://149.50.130.111:8080/messages?conversation_id=${selectedConversationId}`, {
+      fetch(`http://149.50.130.111:8080/messages/?conversation_id=${selectedConversationId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
