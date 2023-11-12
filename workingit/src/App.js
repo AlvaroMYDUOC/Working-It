@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Registro from './components/Registro';
 import MisProyectos from './Pages/MisProyectos'
 import SpecialistProfile from './components/SpecialistProfile';
+import Carrusel from './components/Carrusel.jsx';
 
 //Rutas pages
 import './assets/css/App.css';
@@ -20,6 +21,8 @@ import PerfilProfesional from './Pages/MiPerfilProfesionista.jsx';
 import DirectorioProyectos from './Pages/DirectorioProyectos';
 import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
 import AsesoriasProfesional from './Pages/AsesoriasProfesional';
+import Sobre from './components/Sobre.jsx';
+import Info from './components/Info.jsx';
 
 function App() {
 
@@ -40,6 +43,9 @@ function App() {
                 <Route path="/DirectorioProfesionistas" element={<DirectorioProfesionistas />} />
                 <Route path="/AsesoriasProfesional" element={<AsesoriasProfesional />} />
                 <Route  path="/ChatProfesional" element={<ChatProfesional/>} />
+                <Route  path="/Sobre" element={<Sobre/>} />
+                <Route  path="/Info" element={<Info/>} />
+                <Route  path="/Carrusel" element={<Carrusel/>} />
 
             </Routes>
         </Router>
