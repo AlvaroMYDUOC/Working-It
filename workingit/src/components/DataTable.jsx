@@ -24,33 +24,54 @@ const DataTableComponent = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [selectedProfessional, setSelectedProfessional] = useState(null);
   const [additionalProjectInfo, setAdditionalProjectInfo] = useState([]);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
+
+  const openProjectModal = async (projectId) => {
+    const token = localStorage.getItem('token');
+  
+    if (projectId) {
+      setSelectedProjectId(projectId); // Agrega esta línea
+      try {
+        const response = await axios.get(`http://149.50.130.111:8002/api/projects/${projectId}/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setSelectedProjectDetails(response.data);
+        setShowProjectModal(true);
+      } catch (error) {
+        console.error("Error al obtener los detalles del proyecto", error);
+      }
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+  
+    if (token && selectedProjectId) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+  
+      axios.get(`http://149.50.130.111:8002/api/additional-project-info/get_info_for_project/${selectedProjectId}/`, config)
+        .then(response => {
+          setAdditionalProjectInfo(response.data);
+        })
+        .catch(error => {
+          console.error('Error al obtener información adicional del proyecto:', error);
+        });
+    } else {
+      console.error('Token no encontrado en el localStorage o no hay proyecto seleccionado');
+    }
+  }, [selectedProjectId]);
 
-      if (token) {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
+  const handleSelectProfessional = (professional) => {
+    setSelectedProfessional(professional);
+    setShowConfirmationModal(true);
+  };
 
-        axios.get('http://149.50.130.111:8002/api/additional-project-info/get_info_for_project/1/', config)
-          .then(response => {
-            setAdditionalProjectInfo(response.data);
-          })
-          .catch(error => {
-            console.error('Error al obtener información adicional del proyecto:', error);
-          });
-      } else {
-        console.error('Token no encontrado en el localStorage');
-      }
-    }, []);
-
-    const handleSelectProfessional = (professional) => {
-      setSelectedProfessional(professional);
-      setShowConfirmationModal(true); 
-    };
 
   const handleConfirmation = () => {
     // Verifica si hay un profesional seleccionado
@@ -189,22 +210,6 @@ const DataTableComponent = () => {
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [projectURL, setProjectURL] = useState('');
   const [selectedProjectDetails, setSelectedProjectDetails] = useState({});
-
-
-  const openProjectModal = async (projectId) => {
-    const project = data.find((project) => project.id === projectId);
-  
-    if (project) {
-      try {
-        const response = await axios.get(`http://149.50.130.111:8002/api/projects/${projectId}/`);
-        setSelectedProjectDetails(response.data);
-        setShowProjectModal(true);
-      } catch (error) {
-        console.error("Error al obtener los detalles del proyecto", error);
-      }
-    }
-  };
-
 
   // Estado para almacenar los datos obtenidos de la API
   const [data, setData] = useState([]);

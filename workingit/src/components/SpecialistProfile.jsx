@@ -32,7 +32,7 @@ const SpecialistProfile = () => {
   //User_id
   const sendMessage = async () => {
     try {
-      const userToken = localStorage.getItem('usuario');    
+      const userToken = localStorage.getItem('usuario');
       const userData = JSON.parse(userToken);
       const userId = userData.id;
       const username = userData.first_name + " " + userData.last_name;
