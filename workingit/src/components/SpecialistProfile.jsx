@@ -32,10 +32,11 @@ const SpecialistProfile = () => {
   //User_id
   const sendMessage = async () => {
     try {
-      const userToken = localStorage.getItem('usuario');    
+      const userToken = localStorage.getItem('usuario');
       const userData = JSON.parse(userToken);
       const userId = userData.id;
       const username = userData.first_name + " " + userData.last_name;
+      console.log(username)
       const prof_username = firstName + " " + lastName;
 
       const cleanedData = {
@@ -45,7 +46,7 @@ const SpecialistProfile = () => {
       sender_name: username,
       recipient_name: prof_username
     };
-      const response = await axios.post('http://149.50.130.111:8080/messages', cleanedData);
+      const response = await axios.post('http://149.50.130.111:8080/messages/', cleanedData);
       console.log('Mensaje enviado con éxito:', response.data);
       handleCloseModal();
     } catch (error) {

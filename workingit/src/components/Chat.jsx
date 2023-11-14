@@ -1,4 +1,4 @@
-  import React, { useState, useEffect, useCallback } from 'react';
+  import React, { useState, useEffect, useCallback ,useRef } from 'react';
   import { useLocation } from 'react-router-dom';
   import '../assets/css/Chat.css';
   import fotoDefault from '../assets/img/defaultProfile.jpg';
@@ -11,12 +11,26 @@
     const [user_id, setUserID] = useState('');
     const [recipientId, setRecipientId] = useState('');
     const [userData, setUserData] = useState(null);
-
+    const logued_Username = userData ? `${userData.first_name} ${userData.last_name}` : '';
     const [selectedConversationId, setSelectedConversationId] = useState(null);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const professionalId = searchParams.get('professionalId');
+
+    const messageListRef = useRef(null);
+    useEffect(() => {
+      if (selectedConversationId) {
+        loadMessages(selectedConversationId);
+      }
+    }, [selectedConversationId]);
+
+    useEffect(() => {
+      // Desplazar al final cuando se cargan nuevos mensajes
+      if (messageListRef.current) {
+        messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+      }
+    }, [messages]);
 
     useEffect(() => {
       const userToken = localStorage.getItem('usuario');
@@ -37,7 +51,7 @@
         console.error('user_id no encontrado en el localStorage ni en la URL');
       }
     }, [professionalId]);
-
+    console.log(conversations)
     const loadMessages = useCallback((conversationId) => {
       fetch(`http://149.50.130.111:8080/messages/?conversation_id=${conversationId}`)
         .then((response) => response.json())
@@ -86,13 +100,25 @@
         return;
       }
     
+      const sender = logued_Username;
+      let receiver = '';
+    
+      // Verifica si el usuario logueado es el destinatario
+      if (logued_Username === selectedConversation.RecipientName) {
+        receiver = selectedConversation.SenderName; // Establece el remitente como destinatario
+      } else {
+        receiver = selectedConversation.RecipientName; // Establece el destinatario como destinatario
+      }
+    
       const message = {
         content: inputMessage,
         sender_id: user_id,
         recipient_id: recipientId,
+        sender_name: sender,
+        recipient_name: receiver
       };
     
-      fetch(`http://149.50.130.111:8080/messages?conversation_id=${selectedConversationId}`, {
+      fetch(`http://149.50.130.111:8080/messages/?conversation_id=${selectedConversationId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,6 +135,8 @@
           console.error('Error al enviar el mensaje:', error);
         });
     };
+    
+    
 
     const getMessageSenderName = (message) => {
       if (!selectedConversation) {
@@ -136,7 +164,9 @@
               >
                 <img src={fotoDefault} alt="User Avatar" />
                 <div className="conversation-info">
-                  <p>{conversation.RecipientName}</p>
+                  
+                <p>{(logued_Username == conversation.SenderName) ? conversation.RecipientName:conversation.SenderName }</p>
+                  
                   <p>{conversation.last_message}</p>
                 </div>
               </div>
@@ -146,7 +176,8 @@
         <div className="chat-container">
           {selectedConversationId ? (
             <>
-              <div className="message-list">
+            <div ref={messageListRef} className="message-list">
+            <div className="message-list">
                 {messages && messages.length === 0 ? (
                   <div className="no-messages">No hay mensajes en esta conversación</div>
                 ) : (
@@ -156,12 +187,14 @@
                       className={`message ${message.sender_id === user_id ? 'user-message' : 'other-message'}`}
                     >
                       <p>
-                        {getMessageSenderName(message)}: {message.content}
+                        {getMessageSenderName(message)} {message.content}
                       </p>
                     </div>
                   ))
                 )}
               </div>
+            </div>
+
               <div className="message-input">
                 <input
                   type="text"
