@@ -15,6 +15,20 @@ const ListaAsesorias = () => {
   const [selectedEspecialistas, setSelectedEspecialistas] = useState([]);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [activeAsesoriaId, setActiveAsesoriaId] = useState(null);
+  const [projectTypes, setProjectTypes] = useState([]); // Estado para almacenar tipos de proyecto
+
+  useEffect(() => {
+    const fetchProjectTypes = async () => {
+      try {
+        const response = await axios.get('http://149.50.130.111:8002/api/project-types/');
+        setProjectTypes(response.data);
+      } catch (error) {
+        console.error('Error fetching project types:', error);
+      }
+    };
+
+    fetchProjectTypes();
+  }, []);
 
   const handleTerminateAsesoria = (asesoriaId) => {
     setActiveAsesoriaId(asesoriaId);
@@ -148,12 +162,22 @@ const ListaAsesorias = () => {
   return (
     <>
     <div className="container-fluid">
-      <h2>Asesorías activas <Button onClick={() => setShowAgregaInfoModal(true)}>Agregar información</Button></h2> 
+    <div className="container-fluid">
+      {asesorias.length > 0 ? (
+        <h2>Asesorías activas <Button onClick={() => setShowAgregaInfoModal(true)}>Agregar información</Button></h2>
+      ) : (
+        <h2>Asesorías activas</h2>
+      )}
+      {/* Resto del código... */}
+    </div>
+    {/* Modales y otros elementos... */}
       <Row>
         {proyectos.length > 0 &&
           asesorias.map(asesoria => {
             const proyectoRelacionado = proyectos.find(proyecto => proyecto.id === asesoria.project);
             const fotoProyecto = proyectoRelacionado.photos.length > 0 ? proyectoRelacionado.photos[0].photo : null;
+            const tipoProyecto = projectTypes.find(type => type.id === proyectoRelacionado.type);
+
 
             return (
               <Col key={asesoria.id} md={8}>
@@ -164,8 +188,7 @@ const ListaAsesorias = () => {
                         <Card.Title>{proyectoRelacionado.name}</Card.Title>
                         <Card.Text>Descripción : {proyectoRelacionado.description}</Card.Text>
                         <Card.Text>Metros cuadrados: {proyectoRelacionado.mt2}</Card.Text>
-                        <Card.Text>Tipo: {proyectoRelacionado.type}</Card.Text>
-                        <Card.Text>Propietario: {proyectoRelacionado.owner}</Card.Text>
+                        <Card.Text>Tipo: {tipoProyecto ? tipoProyecto.name : 'Desconocido'}</Card.Text>
                         <Button variant="danger" onClick={() => handleTerminateAsesoria(asesoria.id)}>
                           Terminar asesoría
                         </Button>
@@ -175,7 +198,7 @@ const ListaAsesorias = () => {
                           <img
                             src={fotoProyecto}
                             alt={imgNoDisponible}
-                            style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+                            style={{ width: '100%', height: '100%', borderRadius: '5%' }}
                             onError={(e) => {
                               e.target.src = imgNoDisponible;
                             }}
@@ -202,6 +225,8 @@ const ListaAsesorias = () => {
         {proyectos.length > 0 && asesoriasInactivas.length > 0 &&
           asesoriasInactivas.map(asesoria => {
             const proyectoRelacionado = proyectos.find(proyecto => proyecto.id === asesoria.project);
+            const tipoProyecto = projectTypes.find(type => type.id === proyectoRelacionado.type);
+
 
             if (proyectoRelacionado) {
               return (
@@ -211,7 +236,7 @@ const ListaAsesorias = () => {
                       <Card.Title>{proyectoRelacionado.name}</Card.Title>
                       <Card.Text>Description: {proyectoRelacionado.description}</Card.Text>
                       <Card.Text>Metros cuadrados: {proyectoRelacionado.mt2}</Card.Text>
-                      <Card.Text>Tipo: {proyectoRelacionado.type}</Card.Text>
+                      <Card.Text>Tipo: {tipoProyecto ? tipoProyecto.name : 'Desconocido'}</Card.Text>
                       {/* Mostrar fotos relacionadas con el proyecto si están disponibles */}
                     </Card.Body>
                   </Card>
@@ -238,6 +263,8 @@ const ListaAsesorias = () => {
           asesorias.map(asesoria => {
             const proyectoRelacionado = proyectos.find(proyecto => proyecto.id === asesoria.project);
             const fotoProyecto = proyectoRelacionado.photos.length > 0 ? proyectoRelacionado.photos[0].photo : null;
+            const tipoProyecto = projectTypes.find(type => type.id === proyectoRelacionado.type);
+
 
             return (
               <Col key={asesoria.id} md={12}>
@@ -248,15 +275,14 @@ const ListaAsesorias = () => {
                         <Card.Title>{proyectoRelacionado.name}</Card.Title>
                         <Card.Text>Descripción : {proyectoRelacionado.description}</Card.Text>
                         <Card.Text>Metros cuadrados: {proyectoRelacionado.mt2}</Card.Text>
-                        <Card.Text>Tipo: {proyectoRelacionado.type}</Card.Text>
-                        <Card.Text>Propietario: {proyectoRelacionado.owner}</Card.Text>
+                        <Card.Text>Tipo: {tipoProyecto ? tipoProyecto.name : 'Desconocido'}</Card.Text>
                       </Col>
                       <Col md={3} className="text-center">
                         {fotoProyecto ? (
                           <img
                             src={fotoProyecto}
                             alt={imgNoDisponible}
-                            style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+                            style={{ width: '100%', height: '100%', borderRadius: '5%' }}
                             onError={(e) => {
                               e.target.src = imgNoDisponible;
                             }}
