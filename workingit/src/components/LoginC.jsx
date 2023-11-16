@@ -9,7 +9,6 @@ import HCaptcha from '@hcaptcha/react-hcaptcha'; // Importa el componente de hCa
 const homePageURL = "/";
 
 const LoginC = () => {
-  
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -33,6 +32,13 @@ const LoginC = () => {
   };
 
   const manejadorBoton = () => {
+    // Verificar si se ha completado la verificación de captcha
+    if (!captchaToken) {
+      setErrorMsg('Por favor, completa la verificación de captcha.');
+      setError(true);
+      return;
+    }
+
     let url = ApiLogin;
     const data = {
       ...form,
@@ -72,13 +78,12 @@ const LoginC = () => {
 
             {/* Renderiza el componente de hCaptcha */}
             <div className='captcha'>
-            <HCaptcha
-              sitekey="48bd55e9-7125-43f7-98d4-cf99a511712d" // Utiliza tu clave de sitio de hCaptcha
-              onVerify={handleVerifyCaptcha}
-            />
+              <HCaptcha
+                sitekey="48bd55e9-7125-43f7-98d4-cf99a511712d" // Utiliza tu clave de sitio de hCaptcha
+                onVerify={handleVerifyCaptcha}
+              />
             </div>
 
-            
             <button type="button" className="btn btn-primary w-100" onClick={manejadorBoton}>
               Ingresar
             </button>
@@ -91,7 +96,7 @@ const LoginC = () => {
         </div>
       </div>
       <hr className="mt-4 mb-4" />
-      <p className="psesion">¿Aún no tienes cuenta? <a href="#">Regístrate</a></p>
+      <p className="psesion">¿Aún no tienes cuenta? <a href="RegistroInicio/">Regístrate</a></p>
     </div>
   );
 };
