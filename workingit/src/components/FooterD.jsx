@@ -34,8 +34,8 @@ const Buscador2 = () => {
           <div className="d-flex pt-2">
         <a className="btn btn-outline-light btn-social" href="https://www.facebook.com/profile.php?id=100089893233058&mibextid=LQQJ4d"><FaFacebookF /></a>
         <a className="btn btn-outline-light btn-social" href="#"><FaYoutube /></a>
-        <a className="btn btn-outline-light btn-social" href="#"><FaInstagram /></a>
-        <a className="btn btn-outline-light btn-social" href="#"><FaLinkedinIn /></a>
+        <a className="btn btn-outline-light btn-social" href="https://www.facebook.com/profile.php?id=61553605794425&locale=es_LA/"><FaInstagram /></a>
+        <a className="btn btn-outline-light btn-social" href="https://www.linkedin.com/in/workingit-connecting-63636929b/"><FaLinkedinIn /></a>
           </div>
         </div>
       </div>
