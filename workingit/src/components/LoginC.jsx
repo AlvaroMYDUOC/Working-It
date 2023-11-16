@@ -4,6 +4,7 @@ import cliente2 from '../assets/img/cliente2.jpg';
 import '../assets/css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { ApiLogin } from '../services/apirest';
+import HCaptcha from '@hcaptcha/react-hcaptcha'; // Importa el componente de hCaptcha
 
 const homePageURL = "/";
 
@@ -18,34 +19,33 @@ const LoginC = () => {
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const manejadorChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value
     });
-    //Esto es solo una forma de visualizar en consola los campos a los que estas rellenando - Activar/Desactivar los devs
-    //console.log(form);
   }
 
+  const handleVerifyCaptcha = (token) => {
+    setCaptchaToken(token);
+  };
+
   const manejadorBoton = () => {
-    //Almacenamiento del Endpoint 
-    let url = ApiLogin
-    axios.post(url, form)
+    let url = ApiLogin;
+    const data = {
+      ...form,
+      captchaToken: captchaToken // Añade el token del captcha al objeto de datos que se enviará al servidor
+    };
+
+    axios.post(url, data)
       .then((response) => {
         if (response.data.user && response.data.access_token) {
-          //Pasar de variable el Token traido por la endpoint
           const accessToken = response.data.access_token;
-
-          //Almacenamiento del local storage
           localStorage.setItem('token', accessToken);
           localStorage.setItem('usuario', JSON.stringify(response.data.user));
-
-          //Configura axios para incluir el token en las cabeceras de las solicitudes
           axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-          //Redirige al usuario a la pagina de inicio
           navigate(homePageURL);
         }
       })
@@ -53,7 +53,6 @@ const LoginC = () => {
         setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
       });
   };
-
 
   return (
     <div className="container">
@@ -70,6 +69,16 @@ const LoginC = () => {
               <input type="password" className="form-control" id="password" name="password" value={form.password} onChange={manejadorChange} />
             </div>
             {error && <div className="alert alert-danger">{error}</div>}
+
+            {/* Renderiza el componente de hCaptcha */}
+            <div className='captcha'>
+            <HCaptcha
+              sitekey="48bd55e9-7125-43f7-98d4-cf99a511712d" // Utiliza tu clave de sitio de hCaptcha
+              onVerify={handleVerifyCaptcha}
+            />
+            </div>
+
+            
             <button type="button" className="btn btn-primary w-100" onClick={manejadorBoton}>
               Ingresar
             </button>

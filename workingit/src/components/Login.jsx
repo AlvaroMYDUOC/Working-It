@@ -105,7 +105,7 @@ function Login() {
               <a href="!#">He olvidado mi contraseña</a>
             </div>
             <MDBBtn className="mb-4 w-100" onClick={manejadorBoton}>Ingresar</MDBBtn>
-            <p className="text-center">¿Aún no tienes cuenta? </p>
+            <p className="text-center">¿Aún no tienes casdadsuenta? </p>
             <p className='text-center'><a href="/RegistroInicio">Registrate</a></p>
           </MDBTabsPane>
         </MDBTabsContent>

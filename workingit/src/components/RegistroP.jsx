@@ -6,7 +6,13 @@ import { ApiRegistro } from '../services/apirest';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap';
 
+import HCaptcha from '@hcaptcha/react-hcaptcha'; // Importa el componente de hCaptcha
 const RegistroP = () => {
+
+  const [captchaToken, setCaptchaToken] = useState('');
+  const handleVerifyCaptcha = (token) => {
+    setCaptchaToken(token);
+  };
   //Seccion de instrucciones
   //////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [showInstructionsCiudad, setShowInstructionsCiudad] = useState(false);
@@ -617,6 +623,12 @@ const RegistroP = () => {
               {errorMsg}
             </p>
           )}
+          <div className='captcha'>
+          <HCaptcha
+              sitekey="48bd55e9-7125-43f7-98d4-cf99a511712d" // Utiliza tu clave de sitio de hCaptcha
+              onVerify={handleVerifyCaptcha}
+            />
+          </div>
           <button type="submit" className="btn btn-primary" >Registrarme</button>
         </form>
         {/*Modal para la verificacón del usuario*/}

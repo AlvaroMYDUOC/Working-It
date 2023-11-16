@@ -5,13 +5,21 @@ import '../assets/css/RegistroC.css';
 import { ApiRegistro } from '../services/apirest';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap';
+import HCaptcha from '@hcaptcha/react-hcaptcha'; // Importa el componente de hCaptcha
 
 
 
 const RegistroC = () => {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const [captchaToken, setCaptchaToken] = useState('');
     const [showInstructionsCiudad, setShowInstructionsCiudad] = useState(false);
 
+
+    const handleVerifyCaptcha = (token) => {
+      setCaptchaToken(token);
+    };
+
+    
     const handleCiudadInputClick = () => {
       console.log('Clic en el campo de Ciudad')
       setShowInstructionsCiudad(true);
@@ -562,6 +570,12 @@ const RegistroC = () => {
                     {errorMsg}
                   </p>
                 )}
+            </div>
+            <div className='captcha'>
+            <HCaptcha
+              sitekey="48bd55e9-7125-43f7-98d4-cf99a511712d" // Utiliza tu clave de sitio de hCaptcha
+              onVerify={handleVerifyCaptcha}
+            />
             </div>
             <button type="submit" className="btn btn-primary" >Registrarme</button>
           </form>

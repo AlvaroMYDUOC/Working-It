@@ -43,3 +43,9 @@
     margin-bottom: 20px;
   }
   
+  .captcha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Ajusta la altura según sea necesario */
+  }
