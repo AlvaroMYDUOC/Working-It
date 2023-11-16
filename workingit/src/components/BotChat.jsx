@@ -19,7 +19,7 @@ const ChatBot = () => {
             <div className="chat-messages">
               {/* Aquí puedes mostrar los mensajes del chatbot */}
               {/* Por ejemplo: */}
-              <div className="message-user">Manuel dame bono 18!!</div>
+              <div className="message-user">Bienvenidos a working It</div>
             </div>
             <div className="message-input">
               <input
