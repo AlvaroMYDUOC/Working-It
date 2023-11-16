@@ -34,8 +34,7 @@ const LoginC = () => {
   const manejadorBoton = () => {
     // Verificar si se ha completado la verificación de captcha
     if (!captchaToken) {
-      setErrorMsg('Por favor, completa la verificación de captcha.');
-      setError(true);
+      setError('Por favor, aceptar el Captcha antes de avanzar');
       return;
     }
 

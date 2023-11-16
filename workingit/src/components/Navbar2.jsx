@@ -110,6 +110,8 @@ function Navbar2() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
+                  {/*Dropdown comentado hasta que le agregemos lógica*/}
+                  {/*
                   <NavDropdown
                     title="Categorías"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -120,8 +122,9 @@ function Navbar2() {
                       </NavDropdown.Item>
                     ))}
                   </NavDropdown>
+                  */}
 
-                  {/* Botón de notificaciones con Popover */}
+                  {/* Esta parte del codigo estará conectada hasta que le agregemos lógica
                   <OverlayTrigger
                     show={showNotificationsPopover}
                     trigger="click"
@@ -130,8 +133,6 @@ function Navbar2() {
                       <Popover id="popover-notifications" style={{ zIndex: '1001' }}>
                         <Popover.Header as="h3">Notificaciones</Popover.Header>
                         <Popover.Body>
-                          {/* Contenido de las notificaciones */}
-                          {/* Puedes personalizar el contenido del popover aquí */}
                         </Popover.Body>
                       </Popover>
                     }
@@ -143,8 +144,8 @@ function Navbar2() {
                     >
                       <IoNotificationsSharp />
                     </Nav.Link>
-                  </OverlayTrigger>
-
+                  </OverlayTrigger> */}
+                  
                   {accessTokenExists ? (
                     usuario.is_professional ? (
                       <>
