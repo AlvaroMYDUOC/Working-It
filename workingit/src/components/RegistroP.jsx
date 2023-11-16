@@ -370,6 +370,14 @@ const RegistroP = () => {
     setErrorMsg("Debes aceptar los terminos y condiciones de servicios antes de poder registrarte");
     return;
   }
+
+  if (!captchaToken) {
+    // Muestra un mensaje de error específico para la falta de verificación de captcha
+    setErrorMsg('Por favor, completa la verificación de captcha.');
+    setError(true);
+    return;
+  }
+  form.captchaToken = captchaToken;
   //Funcion que enviara y avisara si la request es correcta
   let url = ApiRegistro;
   // console.log("Datos a enviar: ", form); //Necesito visualizar los datos antes de enviarlos
