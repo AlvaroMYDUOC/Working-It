@@ -50,6 +50,9 @@ const ListadoProfesionistas = () => {
   }, []);
 
   const handleBuscar = () => {
+    // Vuelve a la primera página al hacer la búsqueda
+    setPaginaActual(1);
+  
     if (nombreProyecto.trim() === '') {
       axios.get('http://149.50.130.111:8001/api/profiles/')
         .then(response => {
@@ -61,10 +64,10 @@ const ListadoProfesionistas = () => {
     } else {
       const palabrasClave = nombreProyecto.toLowerCase().split(' ');
       const profesionalesFiltrados = profesionales.filter(profesional =>
-      palabrasClave.every(palabra =>
-        profesional.first_name.toLowerCase().includes(palabra) ||
-        profesional.last_name.toLowerCase().includes(palabra)
-      )
+        palabrasClave.every(palabra =>
+          profesional.first_name.toLowerCase().includes(palabra) ||
+          profesional.last_name.toLowerCase().includes(palabra)
+        )
       );
       setProfesionales(profesionalesFiltrados);
     }
@@ -105,18 +108,29 @@ const ListadoProfesionistas = () => {
     <div className="directorio-proyectos">
       <h2 className="text-center">Directorio de profesionales</h2>
        {/* Barra de búsqueda y botón */}
-       <Container className="d-flex justify-content-center align-items-center">
-        <input
-          type="text"
-          placeholder="Buscar proyectos por nombre"
-          value={nombreProyecto}
-          onChange={(e) => setNombreProyecto(e.target.value)}
-          style={{ padding: '5px', margin: '8px' }}
-        />
-        <Button variant="primary" onClick={handleBuscar}>
-          Buscar
-        </Button>
-      </Container>
+       <Container fluid>
+          <Row className="justify-content-center">
+            <Col xs={12} sm={12} md={6} lg={4} xl={3}>
+              <input
+                type="text"
+                placeholder="Buscar proyectos por nombre"
+                value={nombreProyecto}
+                onChange={(e) => setNombreProyecto(e.target.value)}
+                style={{
+                  padding: '5px',
+                  margin: '8px',
+                  width: '100%',
+                  border: '1px solid #ced4da',
+                  borderRadius: '4px', // Opcional: Añadir esquinas redondeadas
+                }}                />
+            </Col>
+            <Col xs={12} sm={12} md={6} lg={4} xl={3} className="d-flex align-items-center">
+              <Button variant="primary" onClick={handleBuscar}>
+                Buscar
+              </Button>
+            </Col>
+          </Row>
+        </Container>
         <Container fluid className="p-0">
         <Row>
           <Col md={1}></Col>

@@ -37,59 +37,83 @@ const Example = () => {
 
 
   const handlePatch = async () => {
-    // Crear una instancia de FormData para enviar el formulario con archivos
     const formDataToSend = new FormData();
-
-    // Comprobar si el campo first_name ha cambiado
-    if (formData.first_name !== null) {
+  
+    // Función para verificar si los campos first_name y last_name han cambiado
+    const isNameFieldModified = (field) => {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      return formData[field] !== null && formData[field] !== usuario[field];
+    };
+  
+    // Verificar y agregar campos modificados a formDataToSend
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    if (isNameFieldModified('first_name')) {
       formDataToSend.append('first_name', formData.first_name);
+    } else {
+      formDataToSend.append('first_name', usuario.first_name);
     }
-
-     // Comprobar si el campo last_name ha cambiado
-     if (formData.last_name !== null) {
+  
+    if (isNameFieldModified('last_name')) {
       formDataToSend.append('last_name', formData.last_name);
+    } else {
+      formDataToSend.append('last_name', usuario.last_name);
     }
-    
-    // Comprobar si el campo about_me ha cambiado
+  
+    // Agregar otros campos modificados
     if (formData.about_me !== null) {
       formDataToSend.append('about_me', formData.about_me);
     }
-
+  
     if (formData.professional_photo !== null) {
       formDataToSend.append('professional_photo', formData.professional_photo);
     }
-
+  
+    // Mostrar la información que se enviará en la consola
+    for (let pair of formDataToSend.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+  
     try {
-      //Obtener Professional-id del localstorage
-      const usuario = JSON.parse(localStorage.getItem('usuario'));
       const professional_id = usuario ? usuario.professional_id : null;
-      const token = localStorage.getItem('token')
-
+      const token = localStorage.getItem('token');
+  
       if (professional_id && token) {
-        const response = await axios.patch(`http://149.50.130.111:8001/api/profiles/${professional_id}/edit/`, formDataToSend, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-
+        const response = await axios.patch(
+          `http://149.50.130.111:8001/api/profiles/${professional_id}/edit/`,
+          formDataToSend,
+          {
+            headers: {
+              Authorization: 'Bearer ' + token,
+            },
+          }
+        );
+  
         if (response.status === 200) {
-          console.log('Solicitud PATCH  exitosa');
-          //Recargar la pagina despues de unos segundos
-          setTimeout(() =>{
+          console.log('Solicitud PATCH exitosa');
+          alert('¡Los cambios se guardaron exitosamente!');
+          setTimeout(() => {
             window.location.reload();
           }, 500);
         } else {
-          console.error('Error al realizar la solicitud POST');
+          console.error('Error al realizar la solicitud PATCH');
+          alert('Hubo un error al guardar los cambios. Por favor, inténtalo de nuevo.');
         }
       } else {
         console.error('No se encontró professional_id en el localStorage');
       }
     } catch (error) {
-      console.error('Error al realizar la solicitud POST:', error);
+      console.error('Error al realizar la solicitud PATCH:', error);
+      alert('Hubo un error al guardar los cambios. Por favor, inténtalo de nuevo.');
     }
-
+  
     handleClose();
   };
+  
+  
+  
+  
+  
+  
 
   // Realizar una solicitud GET para obtener los datos iniciales al abrir el modal
   useEffect(() => {

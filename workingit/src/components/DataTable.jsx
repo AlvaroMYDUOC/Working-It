@@ -514,7 +514,6 @@ const DataTableComponent = () => {
             <Row>
               <Col sm={6}>
                 <h3>{selectedProjectDetails.name}</h3>
-                <p>ID: {selectedProjectDetails.id}</p>
                 <p>Descripción: {selectedProjectDetails.description}</p>
                 <p>MT2: {selectedProjectDetails.mt2}</p>
                 {projectTypes.length > 0 && selectedProjectDetails.type && (
@@ -529,7 +528,11 @@ const DataTableComponent = () => {
                 {selectedProjectDetails.photos && selectedProjectDetails.photos.length > 0 ? (
                   selectedProjectDetails.photos.map((photo) => (
                     <Col key={photo.id} sm={6}>
-                      <img src={photo.photo} alt={fotoDefault} onError={(e) => {e.target.src = fotoDefault;}} style={{ maxWidth: '100%' }} />
+                      <img src={photo.photo} alt={fotoDefault} onError={(e) => {e.target.src = fotoDefault;}} style={{
+                                width: '300px',
+                                height: 'auto',
+                                borderRadius: '8px', // Ajusta el valor para redondear más o menos las esquinas
+                              }}/>
                     </Col>
                   ))
                 ) : (
@@ -552,7 +555,6 @@ const DataTableComponent = () => {
 
                 return (
                   <div key={info.id}>
-                    <p>Id de asesoria: {info.id}</p>
                     <p>Descripción: {info.description}</p>
                     <p>Nombre profesional asesor: {nombreAsesor}</p>
                     <p>Tipo de profesional sugerido para el trabajo : {info.types_of_professionals.join(', ')}</p>

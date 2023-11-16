@@ -20,6 +20,7 @@ const CrearProyectoModal = () => {
   const [token, setToken] = useState('');
   const [errors, setErrors] = useState({}); // Para almacenar los errores de validación
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [tipoProyectoSeleccionado, setTipoproyectoSeleccionado] = useState("");
 
   
 
@@ -42,21 +43,33 @@ const CrearProyectoModal = () => {
 
   const handleInputChange = event => {
     const { name, value, files } = event.target;
-
+  
     // Muestra en la consola lo que el usuario está ingresando
     console.log(`Campo "${name}": ${value}`);
-
-    // Actualiza el estado con el nuevo valor
-    setProjectData({
-      ...projectData,
-      [name]: value,
-    });
-
-    if (files) {
+  
+    // Actualiza el estado solo si el cambio es en el campo 'type'
+    if (name === 'type') {
+      const selectedType = projectTypes.find(type => type.id === parseInt(value));
+      // Verifica si se encontró el tipo de proyecto seleccionado
+      if (selectedType) {
+        setProjectData({
+          ...projectData,
+          [name]: selectedType.id, // Actualiza con el ID del tipo seleccionado
+        });
+      }
+    } else {
+      // Actualiza el estado para otros campos distintos de 'type'
       setProjectData({
         ...projectData,
-        [name]: files[0],
+        [name]: value,
       });
+  
+      if (files) {
+        setProjectData({
+          ...projectData,
+          [name]: files[0],
+        });
+      }
     }
   };
 
@@ -153,8 +166,9 @@ const CrearProyectoModal = () => {
                 name="type" 
                 id="type"
                 onChange={handleInputChange}
+                value={projectData.type} // Asegúrate de que projectData.type sea el ID del tipo seleccionado
                 >
-                  <option value="" disabled>
+                  <option value="Selecciona un tipo de proyecto" disabled>
                     Seleccione un tipo de proyecto
                   </option>
                   {/* Mapea las opciones de tipos de proyecto desde el estado */}
