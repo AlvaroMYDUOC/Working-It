@@ -347,7 +347,7 @@ const DataTableComponent = () => {
     {
       name: '',
       cell: row => (
-        <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#cc1919', borderColor: 'black', height: '95%', padding: '8px'}} onClick={() => handleDeleteProject(row.id)}>Eliminar Proyecto</Button>
+        <Button style={{marginRight: '8px', padding: '6px 12px', fontSize: '14px', backgroundColor: '#cc1919', borderColor: 'black', height: '95%', padding: '8px'}} onClick={() => handleDeleteProject(row.id)}>Terminar proyecto</Button>
       ),
       ignoreRowClick: true,
       allowOverflow: true,
