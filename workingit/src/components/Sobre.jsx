@@ -27,13 +27,13 @@ const AboutSection = () => {
                 Queremos lograr la conexión entre cliente y profesional, de aqui nace Working It. 
               </p>
               <ul>
-                <li><i className="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat .</li>
-                <li><i className="bi bi-check2-all"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                <li><i className="bi bi-check2-all"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                <li><i className="bi bi-check2-all"></i> Lograr una conexión entre clientes y profesional.</li>
+                <li><i className="bi bi-check2-all"></i> Obtener confianza al contratar un profesional.</li>
+                <li><i className="bi bi-check2-all"></i> Mejorar la comunicación entre cliente y profesional. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
               </ul>
               <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
+                Con esto buscamo resolver la problematica que hoy nos afecta al momento de conectar.
+                Comienza a conectar ahora, busca a tu profesional.
               </p>
 
             </div>
