@@ -463,6 +463,16 @@ const RegistroP = () => {
       <div className="col-md-6">
         <h2>Registro de Profesional</h2>
         <form onSubmit={manejadorBoton}>
+        <div>
+            <label htmlFor="rut">RUN</label>
+            <input
+              className='form-control'
+              type="text"
+              placeholder='Ingrese su RUN aquí sin puntos ni comas'
+              name="run" // Asegúrate de tener el atributo name con el mismo valor que estás usando en la función manejadorChange
+              onChange={manejadorChange}
+            />
+          </div>
         <div className="mb-3">
             <label htmlFor="nombres" className="form-label">Nombre social</label>
             <input type="text"

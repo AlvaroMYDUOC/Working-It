@@ -289,13 +289,20 @@ const RegistroC = () => {
 
   //Funcion para ver si los campos estan llenando la info correctamente (hay que matchear la id)
   const manejadorChange = (e) => {
-    if (e.target.name === "aceptaTerminos"){
+    if (e.target.name === "aceptaTerminos") {
       setAceptaTerminos(e.target.checked);
     } else {
-      setForm({
-        ...form,
-        [e.target.name]: e.target.value
-      });
+      if (e.target.name === "rut") {
+        setForm({
+          ...form,
+          run: e.target.value // Asegúrate de usar el nombre que espera el servidor para el campo RUN
+        });
+      } else {
+        setForm({
+          ...form,
+          [e.target.name]: e.target.value
+        });
+      }
     }
     console.log(form);
   };
@@ -426,6 +433,16 @@ const RegistroC = () => {
         <div className="col-md-6">
           <h2>Registro de Cliente</h2>
           <form onSubmit={manejadorBoton}>
+          <div>
+            <label htmlFor="rut">RUN</label>
+            <input
+              className='form-control'
+              type="text"
+              placeholder='Ingrese su RUN aquí sin puntos ni comas'
+              name="run" // Asegúrate de tener el atributo name con el mismo valor que estás usando en la función manejadorChange
+              onChange={manejadorChange}
+            />
+          </div>
           <div className="mb-3">
               <label htmlFor="apellidos" className="form-label">Nombre Social</label>
               <input type="text" 
