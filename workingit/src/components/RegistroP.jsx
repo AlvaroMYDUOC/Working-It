@@ -576,17 +576,26 @@ const RegistroP = () => {
               )}
             {errorPasswordMatch && <p className="error-message">{errorPasswordMatch}</p>} {/* Mostrar mensaje de error si las contraseñas no coinciden */}
           </div>
+          {/*Dropdown para escoger ciudad*/}
           <div className="mb-3">
               <label htmlFor="city" className="form-label">Ciudad</label>
-              <input type="text" 
-              className="form-control"
-              id="city" 
-              name="city" 
-              onChange={manejadorChange} 
-              onClick={handleCiudadInputClick}/>
+              <select
+                className="form-select"
+                id="city"
+                name="city"
+                onChange={(e) => {
+                  manejadorChange(e);
+                  handleCiudadInputClick();
+                }}
+                onClick={handleCiudadInputClick}
+              >
+                <option value="" disabled>Seleccione su ciudad</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Viña del Mar">Viña del Mar</option>
+              </select>
               {showInstructionsCiudad && (
                 <div className="ciudad-rules">
-                  <p>Ingresa el nombre de la ciudad donde resides</p>
+                  <p>Selecciona el nombre de la ciudad donde resides</p>
                 </div>
               )}
             </div>
