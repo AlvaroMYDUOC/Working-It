@@ -23,6 +23,7 @@ import DirectorioProfesionistas from './Pages/DirectorioProfesionistas';
 import AsesoriasProfesional from './Pages/AsesoriasProfesional';
 import Sobre from './components/Sobre.jsx';
 import Info from './components/Info.jsx';
+import Contenido from './components/Contenido/Contenido.js';
 
 function App() {
 
@@ -46,6 +47,9 @@ function App() {
                 <Route  path="/Sobre" element={<Sobre/>} />
                 <Route  path="/Info" element={<Info/>} />
                 <Route  path="/Carrusel" element={<Carrusel/>} />
+
+                <Route  path="/ChatbotPro" element={<Contenido/>} />
+
 
             </Routes>
         </Router>

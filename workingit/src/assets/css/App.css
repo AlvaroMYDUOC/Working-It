@@ -43,3 +43,105 @@
         url('../fonts/Chewy-Regular.ttf')
   }
   
+  .chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+  }
+  .popup {
+    display: none;
+    position: absolute;
+    bottom: 100px;
+    right: 20px;
+    width: 400px;
+    height: 500px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .chatbot.open .popup {
+    display: block;
+  }
+  
+  /* Mensajes del chat */
+  .chat-container {
+    padding: 10px;
+    height: 80%;
+    overflow-y: auto;
+  }
+  
+  .message {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .user {
+    background-color: #FF5722;
+    color: white;
+    align-self: flex-end;
+  }
+  
+  .bot {
+    background-color: #eee;
+    color: #333;
+    align-self: flex-start;
+  }
+  
+  .message-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .message-input input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 10px;
+  }
+  
+  .message-input button {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  /* Chat circle */
+  .circle {
+    width: 50px;
+    height: 50px;
+    background-color: #eb3449;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+  }
+  
+  /* Resto del CSS permanece igual */
+  
+  /* Agrega esto a tu CSS */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px 10px;
+  }

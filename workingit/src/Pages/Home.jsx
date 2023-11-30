@@ -6,13 +6,14 @@ import CarruselPerfil from '../components/CarruselPerfil'
 import { Card } from 'react-bootstrap'
 import AboutSection from '../components/Sobre'
 import Info from '../components/Info'
+import Contenido from '../components/Contenido/Contenido'
 
 const Home = () => {
   return (
     <>
       <Navbar2 />
       <Info />
-      <ChatBot />
+      <Contenido />
       <div className='WholePageContainer'>
       <div style={{padding: '80px'}}>
       <h1 style={{textAlign: 'center'}}>Algunos de los proyectos llevados a cabo</h1>
