@@ -438,7 +438,7 @@ const RegistroC = () => {
             <input
               className='form-control'
               type="text"
-              placeholder='Ingrese su RUN aquí sin puntos ni comas'
+              placeholder='Ingrese su RUN aquí sin puntos ni guion'
               name="run" // Asegúrate de tener el atributo name con el mismo valor que estás usando en la función manejadorChange
               onChange={manejadorChange}
             />
