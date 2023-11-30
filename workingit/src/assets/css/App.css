@@ -145,3 +145,18 @@
     cursor: pointer;
     padding: 5px 10px;
   }
+
+  .chatbot .popup .profesionales-list a {
+    color: white;
+    text-decoration: none; /* Opcional: quitar subrayado */
+}
+
+/* Estilo para el texto del nombre dentro de la lista de profesionales disponibles */
+.chatbot .popup .profesionales-list li {
+    color: white;
+}
+
+/* Estilo específico para el nombre del profesional dentro de la lista */
+.chatbot .popup .profesionales-list li a {
+    color: white;
+}

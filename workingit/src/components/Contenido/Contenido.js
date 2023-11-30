@@ -25,16 +25,17 @@ export default class Contenido extends Component {
     handleClick = () => {
         this.setState((prevState) => ({
             chatOpen: !prevState.chatOpen,
-        }));
+        }), () => {
+            console.log('Chat Open:', this.state.chatOpen);
+        });
     };
 
     handleEnd = ({ renderedSteps, values }) => {
-        const lastStep = renderedSteps[renderedSteps.length - 1];
+        console.log('Handle End - Rendered Steps:', renderedSteps);
+        console.log('Handle End - Values:', values);
 
-        // Verifica si la última pregunta fue respondida con 'No'
-        if (lastStep && lastStep.id === 'respuestaVuelta' && values['respuestaVuelta'] === 'n') {
-            this.setState({ chatOpen: false });
-        }
+        // Elimina la validación de 'No' y cierra el chat directamente
+        this.setState({ chatOpen: false });
     };
 
     render() {

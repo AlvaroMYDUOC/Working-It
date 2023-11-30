@@ -39,7 +39,7 @@ class ProfesionalesDisponibles extends Component {
         return (
             <div>
                 <h2>Profesionales Disponibles:</h2>
-                <ul>
+                <ul className="profesionales-list">
                     {profesionales.map((profesional) => (
                         <li key={profesional.id}>
                             <a href={`http://149.50.130.111:8000/especialistas/${profesional.id}`} target="_blank">
